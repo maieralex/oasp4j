@@ -2,8 +2,10 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl.usecase;
 
 import java.util.Objects;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 
+import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +24,7 @@ public class UcManageRecipeImpl extends AbstractRecipeUc implements UcManageReci
   private static final Logger LOG = LoggerFactory.getLogger(UcManageRecipeImpl.class);
 
   @Override
+  @RolesAllowed(PermissionConstants.DELETE_RECIPE)
   public boolean deleteRecipe(Long recipeId) {
 
     RecipeEntity recipe = getRecipeDao().find(recipeId);
@@ -31,6 +34,7 @@ public class UcManageRecipeImpl extends AbstractRecipeUc implements UcManageReci
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.SAVE_RECIPE)
   public RecipeEto saveRecipe(RecipeEto recipe) {
 
     Objects.requireNonNull(recipe, "recipe");

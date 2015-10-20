@@ -1,7 +1,9 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl.usecase;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 
+import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +24,7 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   private static final Logger LOG = LoggerFactory.getLogger(UcFindRecipeImpl.class);
 
   @Override
+  @RolesAllowed(PermissionConstants.FIND_RECIPE)
   public RecipeEto findRecipe(Long id) {
 
     LOG.debug("Get Recipe with id {} from database.", id);
@@ -29,6 +32,7 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.FIND_RECIPE)
   public PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria) {
 
     criteria.limitMaximumPageSize(MAXIMUM_HIT_LIMIT);
