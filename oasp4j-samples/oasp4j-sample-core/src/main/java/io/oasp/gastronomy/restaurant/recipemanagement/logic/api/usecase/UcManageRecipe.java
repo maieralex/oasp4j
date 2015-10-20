@@ -8,19 +8,19 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 public interface UcManageRecipe {
 
   /**
-   * Deletes a recipe from the database by its id 'recipeId'.
-   *
-   * @param recipeId Id of the recipe to delete
-   * @return boolean <code>true</code> if the recipe can be deleted, <code>false</code> otherwise
-   */
-  boolean deleteRecipe(Long recipeId);
+	 * Deletes a recipe from the database by its id 'recipeId'.
+	 *
+	 * @param recipeId Id of the recipe to delete
+	 * @return boolean <code>true</code> if the recipe can be deleted, <code>false</code> otherwise
+	 */
+	void deleteRecipe(Long recipeId);
 
   /**
-   * Saves a recipe and store it in the database.
-   *
-   * @param recipe the {@link RecipeEto} to create.
-   * @return the new {@link RecipeEto} that has been saved with ID and version.
-   */
-  RecipeEto saveRecipe(RecipeEto recipe);
+	 * Saves a recipe and store it in the database.
+	 *
+	 * @param recipe the {@link RecipeEto} to create.
+	 * @return the new {@link RecipeEto} that has been saved with ID and version.
+	 */
+	RecipeEto saveRecipe(RecipeEto recipe);
 
 }

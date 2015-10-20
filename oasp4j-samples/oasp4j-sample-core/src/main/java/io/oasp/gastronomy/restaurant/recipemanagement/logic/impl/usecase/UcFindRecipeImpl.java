@@ -3,10 +3,10 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl.usecase;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 
-import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
@@ -20,7 +20,9 @@ import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 @Named
 public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
 
-  /** Logger instance. */
+  /**
+   * Logger instance.
+   */
   private static final Logger LOG = LoggerFactory.getLogger(UcFindRecipeImpl.class);
 
   @Override
