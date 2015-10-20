@@ -66,12 +66,14 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.DELETE_RECIPE)
   public void deleteRecipe(Long recipeId) {
 
     getRecipeDao().delete(recipeId);
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.SAVE_RECIPE)
   public RecipeEto saveRecipe(RecipeEto recipe) {
 
     Objects.requireNonNull(recipe, "recipe");
