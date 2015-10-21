@@ -11,10 +11,6 @@
       <permission id="FindTable"/>
       <!-- staffmanagement -->
       <permission id="FindStaffMember"/>
-      <!-- recipemanagement -->
-      <permission id="DeleteRecipe" />
-      <permission id="SaveRecipe" />
-      <permission id="FindRecipe" />
       <!-- END ARCHETYPE SKIP -->
     </permissions>
   </group>
@@ -27,10 +23,6 @@
     <permissions>
       <!-- tablemanagement -->
       <permission id="SaveTable"/>
-      <!-- recipemanagement -->
-      <permission id="DeleteRecipe" />
-      <permission id="SaveRecipe" />
-      <permission id="FindRecipe" />
     </permissions>
   </group>
   <group id="Barkeeper" type="role">
@@ -59,10 +51,6 @@
       <permission id="FindOrder"/>
       <permission id="SaveOrderPosition"/>
       <permission id="FindOrderPosition"/>
-      <!-- recipemanagement -->
-      <permission id="DeleteRecipe" />
-      <permission id="SaveRecipe" />
-      <permission id="FindRecipe" />
     </permissions>
   </group>
   <group id="Chief" type="role">
@@ -83,10 +71,6 @@
       <permission id="DeleteOrderPosition"/>
       <!-- tablemanagement -->
       <permission id="DeleteTable"/>
-      <!-- recipemanagement -->
-      <permission id="DeleteRecipe" />
-      <permission id="SaveRecipe" />
-      <permission id="FindRecipe" />
     </permissions>
   </group>
   <!-- END ARCHETYPE SKIP -->
