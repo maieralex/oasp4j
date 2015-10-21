@@ -82,10 +82,13 @@ public abstract class PermissionConstants {
   /** {@link io.oasp.module.security.common.api.accesscontrol.AccessControlPermission} to remove table. */
   public static final String DELETE_TABLE = "DeleteTable";
 
+  /** {@link io.oasp.module.security.common.api.accesscontrol.AccessControlPermission} to remove recipe. */
   public static final String DELETE_RECIPE = "DeleteRecipe";
 
+  /** {@link io.oasp.module.security.common.api.accesscontrol.AccessControlPermission} to save recipe. */
   public static final String SAVE_RECIPE = "SaveRecipe";
 
+  /** {@link io.oasp.module.security.common.api.accesscontrol.AccessControlPermission} to retrieve recipe. */
   public static final String FIND_RECIPE = "FindRecipe";
   // END ARCHETYPE SKIP
 }

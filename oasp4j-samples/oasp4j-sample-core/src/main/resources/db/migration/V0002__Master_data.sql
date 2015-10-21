@@ -46,4 +46,8 @@ INSERT INTO STAFFMEMBER (id, login, role, firstname, lastname, modificationCount
 INSERT INTO STAFFMEMBER (id, login, role, firstname, lastname, modificationCounter) VALUES (2, 'waiter', 1, 'Willy', 'Waiter', 0);
 INSERT INTO STAFFMEMBER (id, login, role, firstname, lastname, modificationCounter) VALUES (3, 'barkeeper', 2, 'Bianca', 'Barkeeper', 0);
 
-INSERT INTO RECIPE (id, name, description, price) VALUES (0, 'WienerSchnitzel', 'Schnitzel Wiener Art', 7.99);
+INSERT INTO RECIPE (id, modificationCounter, name, description, price) VALUES (0, 0, 'WienerSchnitzel', 'Schnitzel Wiener Art', 7.99);
+INSERT INTO RECIPE (id, modificationCounter, name, description, price) VALUES (1, 0, 'Spaghetti', 'Pasta nach Bolognese Art', 8.99);
+INSERT INTO RECIPE (id, modificationCounter, name, description, price) VALUES (2, 0, 'Kaiserschmarn', 'Leckere Delikatesse', 7.99);
+INSERT INTO RECIPE (id, modificationCounter, name, description, price) VALUES (3, 0, 'Sauerbraten', 'Sauerbraten nach rheinischer Art', 10.99);
+INSERT INTO RECIPE (id, modificationCounter, name, description, price) VALUES (4, 0, 'Asiapfanne', 'Reste aus dem Wok', 4.99);
