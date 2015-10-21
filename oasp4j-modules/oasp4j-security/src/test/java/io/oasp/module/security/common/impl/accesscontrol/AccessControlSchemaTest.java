@@ -1,10 +1,9 @@
 package io.oasp.module.security.common.impl.accesscontrol;
 
-import io.oasp.module.security.common.api.accesscontrol.AccessControl;
-import io.oasp.module.security.common.api.accesscontrol.AccessControlGroup;
-import io.oasp.module.security.common.api.accesscontrol.AccessControlPermission;
-import io.oasp.module.security.common.api.accesscontrol.AccessControlProvider;
-import io.oasp.module.security.common.api.accesscontrol.AccessControlSchema;
+import io.oasp.module.security.common.api.accesscontrol.*;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,11 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  * This is the test-case for {@link AccessControlSchema} and {@link AccessControlSchemaXmlMapper}.
@@ -125,6 +121,8 @@ public class AccessControlSchemaTest extends Assert {
    */
   @Test
   public void testProviderIllegal() {
+    Locale defLocale = Locale.getDefault();
+    Locale.setDefault(new Locale("en", "EN"));
 
     try {
       createProvider(SCHEMA_XML_ILLEGAL);
@@ -135,6 +133,8 @@ public class AccessControlSchemaTest extends Assert {
       String causeMessage = e.getCause().getMessage();
       assertTrue(causeMessage, causeMessage.contains("Undefined ID \"Waiter\""));
     }
+
+    Locale.setDefault(defLocale);
   }
 
   /**
