@@ -24,7 +24,7 @@ import io.oasp.module.jpa.common.api.to.PaginatedListTo;
  * The service class for REST calls in order to execute the methods in {@link Recipemanagement}.
  *
  */
-@Path("/Recipemanagement/v1")
+@Path("/recipemanagement/v1")
 @Named("RecipemanagementRestService")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
