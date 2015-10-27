@@ -35,10 +35,6 @@
       <permission id="FindBill"/>
       <permission id="DeleteBill"/>
       <permission id="DeleteOrder"/>
-      <!-- recipemanagement -->
-      <permission id="DeleteRecipe" />
-      <permission id="SaveRecipe" />
-      <permission id="FindRecipe" />
     </permissions>
   </group>
   <group id="Cook" type="role">
@@ -51,6 +47,10 @@
       <permission id="FindOrder"/>
       <permission id="SaveOrderPosition"/>
       <permission id="FindOrderPosition"/>
+      <!-- recipemanagement -->
+      <permission id="DeleteRecipe" />
+      <permission id="SaveRecipe" />
+      <permission id="FindRecipe" />
     </permissions>
   </group>
   <group id="Chief" type="role">
