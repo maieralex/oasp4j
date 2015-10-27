@@ -110,8 +110,8 @@ public class RecipemanagementRestServiceImpl {
    * @param searchCriteriaTo the pagination and search criteria to be used for finding recipes.
    * @return the {@link PaginatedListTo list} of matching {@link RecipeEto}s.
    */
-  @Path("/recipe/search")
   @POST
+  @Path("/recipe/search")
   public PaginatedListTo<RecipeEto> findRecipesByPost(RecipeSearchCriteriaTo searchCriteriaTo) {
 
     return this.recipemanagement.findRecipeEtos(searchCriteriaTo);

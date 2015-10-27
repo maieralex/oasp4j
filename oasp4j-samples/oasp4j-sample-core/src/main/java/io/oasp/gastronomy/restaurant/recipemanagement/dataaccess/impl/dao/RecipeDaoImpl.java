@@ -13,6 +13,8 @@ import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.RecipeD
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
+import java.sql.Blob;
+
 /**
  * This is the implementation of {@link RecipeDao}.
  */
@@ -53,6 +55,11 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
     Money price = criteria.getPrice();
     if (price != null) {
       query.where(Alias.$(recipe.getPrice()).eq(price));
+    }
+
+    Blob image = criteria.getImage();
+    if (image != null) {
+      query.where(Alias.$(recipe.getImage()).eq(image));
     }
 
     return findPaginated(criteria, query, alias);

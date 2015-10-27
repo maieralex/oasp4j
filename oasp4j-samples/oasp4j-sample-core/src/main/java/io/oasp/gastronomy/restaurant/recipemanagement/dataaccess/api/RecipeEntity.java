@@ -7,6 +7,8 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.api.ApplicationPersistenceEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
+import java.sql.Blob;
+
 /**
  * The {@link ApplicationPersistenceEntity persistent entity} for a recipe.
  *
@@ -21,6 +23,8 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   private String description;
 
   private Money price;
+
+  private Blob image;
 
   private static final long serialVersionUID = 1L;
 
@@ -88,6 +92,26 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   public void setDescription(String description) {
 
     this.description = description;
+  }
+
+  /**
+   * Returns the Image of this recipe.
+   *
+   * @return image the Image for the recipe.
+   */
+  public Blob getImage() {
+
+    return this.image;
+  }
+
+  /**
+   * Sets the Image for this recipe.
+   *
+   * @param image the new image for the recipe.
+   */
+  public void setImage(Blob image) {
+
+    this.image = image;
   }
 
 }

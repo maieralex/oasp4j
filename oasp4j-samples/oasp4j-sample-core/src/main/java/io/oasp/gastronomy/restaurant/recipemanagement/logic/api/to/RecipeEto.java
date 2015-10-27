@@ -4,6 +4,8 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
+import java.sql.Blob;
+
 /**
  * Entity transport object of Recipe
  */
@@ -16,6 +18,8 @@ public class RecipeEto extends AbstractEto implements Recipe {
   private String description;
 
   private Money price;
+
+  private Blob image;
 
   /**
    * {@inheritDoc}
@@ -69,6 +73,25 @@ public class RecipeEto extends AbstractEto implements Recipe {
   public void setPrice(Money price) {
 
     this.price = price;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Blob getImage() {
+
+    return this.image;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setImage(Blob image) {
+
+    this.image = image;
+
   }
 
   @Override
