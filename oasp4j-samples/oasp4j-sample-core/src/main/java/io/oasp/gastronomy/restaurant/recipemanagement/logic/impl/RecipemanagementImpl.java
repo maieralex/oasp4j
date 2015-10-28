@@ -1,27 +1,22 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl;
 
-import java.util.Objects;
-
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import io.oasp.gastronomy.restaurant.general.dataaccess.api.dao.BinaryObjectDao;
-import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeCto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
+import io.oasp.gastronomy.restaurant.general.logic.api.UseCase;
+import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.general.logic.base.AbstractComponentFacade;
-import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeEntity;
-import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.RecipeDao;
+import io.oasp.gastronomy.restaurant.general.logic.base.UcManageBinaryObject;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeCto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindRecipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcManageRecipe;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
+
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.sql.Blob;
 
 /**
  * Implementation class for {@link Recipemanagement}.
@@ -32,18 +27,11 @@ import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 @Named
 public class RecipemanagementImpl extends AbstractComponentFacade implements Recipemanagement {
 
-  private static final Logger LOG = LoggerFactory.getLogger(RecipemanagementImpl.class);
-
-  /**
-   * @see #setRecipeDao(RecipeDao)
-   */
-  private RecipeDao recipeDao;
-
-  private BinaryObjectDao blobDao;
-
   private UcFindRecipe ucFindRecipe;
 
   private UcManageRecipe ucManageRecipe;
+
+  private UcManageBinaryObject ucManageBinaryObject;
 
   /**
    * The constructor.
@@ -51,6 +39,41 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   public RecipemanagementImpl() {
 
     super();
+  }
+
+  /**
+   * Sets the field 'ucFindRecipe'.
+   *
+   * @param ucFindRecipe New value for ucFindRecipe
+   */
+  @Inject
+  @UseCase
+  public void setUcFindRecipe(UcFindRecipe ucFindRecipe) {
+
+    this.ucFindRecipe = ucFindRecipe;
+  }
+
+  /**
+   * Sets the field 'ucManageRecipe'.
+   *
+   * @param ucManageRecipe New value for ucManageRecipe
+   */
+  @Inject
+  @UseCase
+  public void setUcManageRecipe(UcManageRecipe ucManageRecipe) {
+
+    this.ucManageRecipe = ucManageRecipe;
+  }
+
+  /**
+   * Sets the field 'ucManageBinaryObject'.
+   *
+   * @param ucManageBinaryObject New value for recipeDao
+   */
+  @Inject
+  @UseCase
+  public void setUcManageBinaryObject(UcManageBinaryObject ucManageBinaryObject) {
+    this.ucManageBinaryObject = ucManageBinaryObject;
   }
 
   @Override
@@ -66,16 +89,6 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
-  public RecipeCto findRecipeCto(Long id) {
-    return ucFindRecipe.findRecipeCto(id);
-  }
-
-  @Override
-  public PaginatedListTo<RecipeCto> findRecipeCtos(RecipeSearchCriteriaTo criteria) {
-    return ucFindRecipe.findRecipeCtos(criteria);
-  }
-
-  @Override
   @RolesAllowed(PermissionConstants.DELETE_RECIPE)
   public void deleteRecipe(Long recipeId) {
     ucManageRecipe.deleteRecipe(recipeId);
@@ -87,49 +100,28 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
     return ucManageRecipe.saveRecipe(recipe);
   }
 
-  /**
-   * Sets the field 'ucFindRecipe'.
-   *
-   * @param ucFindRecipe New value for ucFindRecipe
-   */
-  @Inject
-  public void setUcFindRecipe(UcFindRecipe ucFindRecipe) {
-
-    this.ucFindRecipe = ucFindRecipe;
+  @Override
+  public RecipeEto updateRecipePicture(Long recipeId, Blob blob, BinaryObjectEto binaryObjectEto) {
+    return ucManageRecipe.updateRecipePicture(recipeId, blob, binaryObjectEto);
   }
 
-  /**
-   * Sets the field 'ucManageRecipe'.
-   *
-   * @param ucManageRecipe New value for ucManageRecipe
-   */
-  @Inject
-  public void setUcManageRecipe(UcManageRecipe ucManageRecipe) {
-
-    this.ucManageRecipe = ucManageRecipe;
+  @Override
+  public BinaryObjectEto saveBinaryObject(Blob data, BinaryObjectEto binaryObjectEto) {
+    return ucManageBinaryObject.saveBinaryObject(data, binaryObjectEto);
   }
 
-  /**
-   * @return recipeDao
-   */
-  public RecipeDao getRecipeDao() {
-
-    return this.recipeDao;
+  @Override
+  public void deleteBinaryObject(Long binaryObjectId) {
+    ucManageBinaryObject.deleteBinaryObject(binaryObjectId);
   }
 
-  /**
-   * Sets the field 'recipeDao'.
-   *
-   * @param recipeDao New value for recipeDao
-   */
-  @Inject
-  public void setRecipeDao(RecipeDao recipeDao) {
-
-    this.recipeDao = recipeDao;
+  @Override
+  public BinaryObjectEto findBinaryObject(Long binaryObjectId) {
+    return ucManageBinaryObject.findBinaryObject(binaryObjectId);
   }
 
-  public BinaryObjectDao getBlobDao() {
-    return this.blobDao;
+  @Override
+  public Blob getBinaryObjectBlob(Long binaryObjectId) {
+    return ucManageBinaryObject.getBinaryObjectBlob(binaryObjectId);
   }
-
 }

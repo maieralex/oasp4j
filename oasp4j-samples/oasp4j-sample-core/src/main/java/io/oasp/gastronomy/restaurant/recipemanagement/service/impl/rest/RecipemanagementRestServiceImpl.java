@@ -1,7 +1,20 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.service.impl.rest;
 
+import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.module.jpa.common.api.to.PaginatedListTo;
+import org.apache.cxf.helpers.IOUtils;
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
+import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -12,13 +25,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.springframework.transaction.annotation.Transactional;
-
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
-import io.oasp.module.jpa.common.api.to.PaginatedListTo;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The service class for REST calls in order to execute the methods in {@link Recipemanagement}.
@@ -115,6 +128,55 @@ public class RecipemanagementRestServiceImpl {
   public PaginatedListTo<RecipeEto> findRecipesByPost(RecipeSearchCriteriaTo searchCriteriaTo) {
 
     return this.recipemanagement.findRecipeEtos(searchCriteriaTo);
+  }
+
+  /**
+   * Update or save a picture for an existing recipe.
+   *
+   * @param recipeId Recipe id to add picture to
+   * @param binaryObjectEto Metadata of the passed picture
+   * @param picture Picture
+   * @throws SerialException
+   * @throws SQLException
+   * @throws IOException
+   */
+  @Consumes("multipart/mixed")
+  @POST
+  @Path("/recipe/{id}/picture")
+  public void updateRecipePicture(@PathParam("id") Long recipeId,
+                                   @Multipart(value = "binaryObjectEto", type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
+                                   @Multipart(value = "blob", type = MediaType.APPLICATION_OCTET_STREAM) InputStream picture)
+    throws SerialException, SQLException, IOException {
+
+    Blob blob = new SerialBlob(IOUtils.readBytesFromStream(picture));
+    this.recipemanagement.updateRecipePicture(recipeId, blob, binaryObjectEto);
+  }
+
+  /**
+   * Returns metadata of the requested picture and the picture inside {@link MultipartBody}.
+   *
+   * @param recipeId Recipe id of the recipe to load picture of
+   * @return {@link MultipartBody}
+   * @throws SQLException
+   * @throws IOException
+   */
+  @Produces("multipart/mixed")
+  @GET
+  @Path("/recipe/{id}/picture")
+  public MultipartBody getRecipePicture(@PathParam("id") long recipeId) throws SQLException, IOException {
+    RecipeEto recipeEto = this.recipemanagement.findRecipe(recipeId);
+
+    BinaryObjectEto binaryObjectEto = this.recipemanagement.findBinaryObject(recipeEto.getImageId());
+    Blob binaryObjectBlob = this.recipemanagement.getBinaryObjectBlob(recipeEto.getImageId());
+    // REVIEW arturk88 (hohwille) we need to find another way to stream the blob without loading into heap.
+    // https://github.com/oasp/oasp4j-sample/pull/45
+    byte[] data = IOUtils.readBytesFromStream(binaryObjectBlob.getBinaryStream());
+
+    List<Attachment> atts = new LinkedList<>();
+    atts.add(new Attachment("binaryObjectEto", MediaType.APPLICATION_JSON, binaryObjectEto));
+    atts.add(new Attachment("blob", MediaType.APPLICATION_OCTET_STREAM, new ByteArrayInputStream(data)));
+
+    return new MultipartBody(atts, true);
   }
 
 }

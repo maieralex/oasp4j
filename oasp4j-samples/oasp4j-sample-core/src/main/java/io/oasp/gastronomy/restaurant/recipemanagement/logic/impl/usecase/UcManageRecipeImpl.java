@@ -1,23 +1,25 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl.usecase;
 
-import java.util.Objects;
-
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Named;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
+import io.oasp.gastronomy.restaurant.general.logic.api.UseCase;
+import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcManageRecipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.base.usecase.AbstractRecipeUc;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Named;
+import java.sql.Blob;
+import java.util.Objects;
 
 /**
  * Use case implementation for modifying and deleting Recipes
  */
 @Named
+@UseCase
 public class UcManageRecipeImpl extends AbstractRecipeUc implements UcManageRecipe {
 
   /**
@@ -47,6 +49,17 @@ public class UcManageRecipeImpl extends AbstractRecipeUc implements UcManageReci
     getRecipeDao().save(recipeEntity);
     LOG.debug("Recipe with id '{}' has been created.", recipeEntity.getId());
     return getBeanMapper().map(recipeEntity, RecipeEto.class);
+  }
+
+  @Override
+  @RolesAllowed(PermissionConstants.SAVE_RECIPE)
+  public RecipeEto updateRecipePicture(Long recipeId, Blob blob, BinaryObjectEto binaryObjectEto) {
+    RecipeEntity recipeEntity = getRecipeDao().findOne(recipeId);
+    binaryObjectEto = getUcManageBinaryObject().saveBinaryObject(blob, binaryObjectEto);
+    recipeEntity.setImageId(binaryObjectEto.getId());
+    RecipeEntity save = getRecipeDao().save(recipeEntity);
+
+    return getBeanMapper().map(save, RecipeEto.class);
   }
 
 }

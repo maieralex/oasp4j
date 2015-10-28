@@ -1,7 +1,5 @@
 package io.oasp.gastronomy.restaurant.general.common.api;
 
-import java.sql.Blob;
-
 /**
  * This is the interface for a {@link BinaryObject} of the restaurant.
  *
@@ -32,9 +30,5 @@ public interface BinaryObject extends ApplicationEntity {
    * @param size the size in bytes
    */
   void setSize(long size);
-
-  Blob getData();
-
-  void setData(Blob data);
 
 }

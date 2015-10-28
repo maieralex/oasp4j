@@ -3,8 +3,6 @@ package io.oasp.gastronomy.restaurant.general.logic.api.to;
 import io.oasp.gastronomy.restaurant.general.common.api.BinaryObject;
 import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
 
-import java.sql.Blob;
-
 /**
  * The {@link io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto ETO} for a {@link BinaryObject}.
  *
@@ -15,8 +13,6 @@ public class BinaryObjectEto extends AbstractEto implements BinaryObject {
   private static final long serialVersionUID = 1L;
 
   private String mimeType;
-
-  private Blob data;
 
   private long size;
 
@@ -52,17 +48,5 @@ public class BinaryObjectEto extends AbstractEto implements BinaryObject {
 
     this.size = size;
   }
-
-  @Override
-  public Blob getData() {
-    return this.data;
-  }
-
-  @Override
-  public void setData(Blob data) {
-
-    this.data = data;
-  }
-
 
 }

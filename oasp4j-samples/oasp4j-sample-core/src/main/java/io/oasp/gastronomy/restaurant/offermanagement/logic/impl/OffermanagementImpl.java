@@ -1,6 +1,7 @@
 package io.oasp.gastronomy.restaurant.offermanagement.logic.impl;
 
 import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
+import io.oasp.gastronomy.restaurant.general.logic.api.UseCase;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.general.logic.base.AbstractComponentFacade;
 import io.oasp.gastronomy.restaurant.general.logic.base.UcManageBinaryObject;
@@ -422,6 +423,7 @@ public class OffermanagementImpl extends AbstractComponentFacade implements Offe
    * @param ucManageBinaryObject the ucManageBinaryObject to set
    */
   @Inject
+  @UseCase
   public void setUcManageBinaryObject(UcManageBinaryObject ucManageBinaryObject) {
 
     this.ucManageBinaryObject = ucManageBinaryObject;
