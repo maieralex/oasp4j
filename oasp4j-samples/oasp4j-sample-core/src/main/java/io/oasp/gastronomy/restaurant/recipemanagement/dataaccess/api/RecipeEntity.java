@@ -26,7 +26,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   private Money price;
 
-  private BinaryObjectEntity image;
+  private Long imageId;
 
   private static final long serialVersionUID = 1L;
 
@@ -76,21 +76,15 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   @Override
   public Long getImageId() {
-    if(this.image == null) return null;
-    return this.image.getId();
+
+    return this.imageId;
   }
 
   @Override
   public void setImageId(Long imageId) {
 
-    if(imageId == null) this.image = null;
-    else {
-      BinaryObjectEntity blob = new BinaryObjectEntity();
-      blob.setId(imageId);
-      this.image = blob;
+      this.imageId = imageId;
     }
-
-  }
 
   /**
    * Returns the Description of this recipe.
@@ -119,9 +113,9 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    *
    * @return image the Image for the recipe.
    */
-  public BinaryObjectEntity getImage() {
+  public Long getImage() {
 
-    return this.image;
+    return this.imageId;
   }
 
   /**
@@ -129,9 +123,9 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    *
    * @param image the new image for the recipe.
    */
-  public void setImage(BinaryObjectEntity image) {
+  public void setImage(Long image) {
 
-    this.image = image;
+    this.imageId = image;
   }
 
 }
