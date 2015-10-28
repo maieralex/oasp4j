@@ -1,5 +1,6 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 
+import io.oasp.gastronomy.restaurant.general.common.api.BinaryObject;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.module.jpa.common.api.to.SearchCriteriaTo;
 
@@ -20,7 +21,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private Money price;
 
-  private Blob image;
+  private Long imageId;
 
   /**
    * The constructor.
@@ -60,14 +61,14 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
     this.price = price;
   }
 
-  public Blob getImage() {
+  public Long getImageId() {
 
-    return this.image;
+    return this.imageId;
   }
 
-  public void setImage(Blob image) {
+  public void setImageId(Long imageId) {
 
-    this.image = image;
+    this.imageId = imageId;
   }
 
 }

@@ -3,6 +3,7 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl;
 import io.oasp.gastronomy.restaurant.general.common.AbstractSpringIntegrationTest;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeCto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
@@ -70,5 +71,19 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(newRecipe.getName(), insertedRecipe.getName());
     assertEquals(newRecipe.getDescription(), insertedRecipe.getDescription());
     assertEquals(newRecipe.getPrice(), insertedRecipe.getPrice());
+  }
+
+  @Test
+  public void testRecipeEtoWithImage() throws Exception {
+
+    RecipeEto recipe = this.recipeManagement.findRecipe(4L);
+    assertEquals(new Long(10), recipe.getImageId());
+  }
+
+  @Test
+  public void testRecipeWithImage() throws Exception {
+
+    RecipeCto recipe = this.recipeManagement.findRecipeCto(4L);
+    recipe.getImage();
   }
 }

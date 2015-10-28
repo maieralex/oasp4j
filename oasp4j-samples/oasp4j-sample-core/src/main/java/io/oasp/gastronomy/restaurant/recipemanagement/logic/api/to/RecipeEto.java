@@ -1,5 +1,6 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 
+import io.oasp.gastronomy.restaurant.general.common.api.BinaryObject;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
@@ -19,7 +20,7 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private Money price;
 
-  private Blob image;
+  private Long imageId;
 
   /**
    * {@inheritDoc}
@@ -79,18 +80,18 @@ public class RecipeEto extends AbstractEto implements Recipe {
    * {@inheritDoc}
    */
   @Override
-  public Blob getImage() {
+  public Long getImageId() {
 
-    return this.image;
+    return this.imageId;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void setImage(Blob image) {
+  public void setImageId(Long imageId) {
 
-    this.image = image;
+    this.imageId = imageId;
 
   }
 

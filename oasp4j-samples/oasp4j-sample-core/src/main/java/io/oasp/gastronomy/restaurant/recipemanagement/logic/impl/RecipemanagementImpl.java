@@ -6,6 +6,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import io.oasp.gastronomy.restaurant.general.dataaccess.api.dao.BinaryObjectDao;
+import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeCto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +39,8 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
    */
   private RecipeDao recipeDao;
 
+  private BinaryObjectDao blobDao;
+
   private UcFindRecipe ucFindRecipe;
 
   private UcManageRecipe ucManageRecipe;
@@ -51,39 +56,35 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   @Override
   @RolesAllowed(PermissionConstants.FIND_RECIPE)
   public RecipeEto findRecipe(Long id) {
-
-    LOG.debug("Get RecipeEto with id '{}' from database.", id);
-    return getBeanMapper().map(getRecipeDao().findOne(id), RecipeEto.class);
+    return ucFindRecipe.findRecipe(id);
   }
 
   @Override
   @RolesAllowed(PermissionConstants.FIND_RECIPE)
   public PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria) {
+    return ucFindRecipe.findRecipeEtos(criteria);
+  }
 
-    criteria.limitMaximumPageSize(MAXIMUM_HIT_LIMIT);
-    PaginatedListTo<RecipeEntity> recipes = getRecipeDao().findRecipes(criteria);
-    return mapPaginatedEntityList(recipes, RecipeEto.class);
+  @Override
+  public RecipeCto findRecipeCto(Long id) {
+    return ucFindRecipe.findRecipeCto(id);
+  }
+
+  @Override
+  public PaginatedListTo<RecipeCto> findRecipeCtos(RecipeSearchCriteriaTo criteria) {
+    return ucFindRecipe.findRecipeCtos(criteria);
   }
 
   @Override
   @RolesAllowed(PermissionConstants.DELETE_RECIPE)
   public void deleteRecipe(Long recipeId) {
-
-    getRecipeDao().delete(recipeId);
+    ucManageRecipe.deleteRecipe(recipeId);
   }
 
   @Override
   @RolesAllowed(PermissionConstants.SAVE_RECIPE)
   public RecipeEto saveRecipe(RecipeEto recipe) {
-
-    Objects.requireNonNull(recipe, "recipe");
-
-    if ((recipe.getName() == null) && (recipe.getDescription() == null) && (recipe.getPrice() == null)) {
-      throw new IllegalArgumentException("The recipe cannot be empty");
-    } else {
-      RecipeEntity persistedRecipe = getRecipeDao().save(getBeanMapper().map(recipe, RecipeEntity.class));
-      return getBeanMapper().map(persistedRecipe, RecipeEto.class);
-    }
+    return ucManageRecipe.saveRecipe(recipe);
   }
 
   /**
@@ -125,6 +126,10 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   public void setRecipeDao(RecipeDao recipeDao) {
 
     this.recipeDao = recipeDao;
+  }
+
+  public BinaryObjectDao getBlobDao() {
+    return this.blobDao;
   }
 
 }

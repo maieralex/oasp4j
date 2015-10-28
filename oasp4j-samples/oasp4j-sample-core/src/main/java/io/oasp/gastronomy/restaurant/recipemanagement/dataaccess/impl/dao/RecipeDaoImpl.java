@@ -6,6 +6,7 @@ import com.mysema.query.alias.Alias;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.path.EntityPathBase;
 
+import io.oasp.gastronomy.restaurant.general.common.api.BinaryObject;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.base.dao.ApplicationDaoImpl;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeEntity;
@@ -57,9 +58,9 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
       query.where(Alias.$(recipe.getPrice()).eq(price));
     }
 
-    Blob image = criteria.getImage();
-    if (image != null) {
-      query.where(Alias.$(recipe.getImage()).eq(image));
+    Long imageId = criteria.getImageId();
+    if (imageId != null) {
+      query.where(Alias.$(recipe.getImageId()).eq(imageId));
     }
 
     return findPaginated(criteria, query, alias);

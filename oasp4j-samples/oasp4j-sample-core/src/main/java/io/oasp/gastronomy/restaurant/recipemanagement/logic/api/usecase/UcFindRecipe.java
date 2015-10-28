@@ -2,6 +2,7 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase;
 
 import java.util.List;
 
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeCto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
@@ -23,5 +24,9 @@ public interface UcFindRecipe {
 	 * @return the {@link List} of matching {@link RecipeEto}s.
 	 */
 	PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria);
+
+  RecipeCto findRecipeCto(Long id);
+
+  PaginatedListTo<RecipeCto> findRecipeCtos(RecipeSearchCriteriaTo criteria);
 
 }

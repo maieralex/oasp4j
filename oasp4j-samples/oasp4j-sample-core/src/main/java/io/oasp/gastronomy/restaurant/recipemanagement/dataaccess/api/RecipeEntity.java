@@ -3,8 +3,10 @@ package io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import io.oasp.gastronomy.restaurant.general.common.api.BinaryObject;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.api.ApplicationPersistenceEntity;
+import io.oasp.gastronomy.restaurant.general.dataaccess.api.BinaryObjectEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
 import java.sql.Blob;
@@ -24,7 +26,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   private Money price;
 
-  private Blob image;
+  private BinaryObjectEntity image;
 
   private static final long serialVersionUID = 1L;
 
@@ -72,6 +74,24 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
     this.price = price;
   }
 
+  @Override
+  public Long getImageId() {
+    if(this.image == null) return null;
+    return this.image.getId();
+  }
+
+  @Override
+  public void setImageId(Long imageId) {
+
+    if(imageId == null) this.image = null;
+    else {
+      BinaryObjectEntity blob = new BinaryObjectEntity();
+      blob.setId(imageId);
+      this.image = blob;
+    }
+
+  }
+
   /**
    * Returns the Description of this recipe.
    *
@@ -99,7 +119,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    *
    * @return image the Image for the recipe.
    */
-  public Blob getImage() {
+  public BinaryObjectEntity getImage() {
 
     return this.image;
   }
@@ -109,7 +129,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    *
    * @param image the new image for the recipe.
    */
-  public void setImage(Blob image) {
+  public void setImage(BinaryObjectEntity image) {
 
     this.image = image;
   }

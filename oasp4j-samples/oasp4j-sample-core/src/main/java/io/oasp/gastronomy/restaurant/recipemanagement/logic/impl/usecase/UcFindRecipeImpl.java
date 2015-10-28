@@ -3,6 +3,9 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl.usecase;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 
+import io.oasp.gastronomy.restaurant.general.dataaccess.api.dao.BinaryObjectDao;
+import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeCto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +43,32 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
     criteria.limitMaximumPageSize(MAXIMUM_HIT_LIMIT);
     PaginatedListTo<RecipeEntity> recipes = getRecipeDao().findRecipes(criteria);
     return mapPaginatedEntityList(recipes, RecipeEto.class);
+  }
+
+  public RecipeCto findRecipeCto(Long id) {
+
+    RecipeCto result = new RecipeCto();
+
+    RecipeEto recipe = findRecipe(id);
+
+    if(recipe == null) return null;
+
+    result.setRecipe(recipe);
+
+    if(recipe.getImageId() != null)
+      result.setImage(findImage(recipe.getImageId()));
+
+    return result;
+  }
+
+  @Override
+  public PaginatedListTo<RecipeCto> findRecipeCtos(RecipeSearchCriteriaTo criteria) {
+    return null;
+  }
+
+  private BinaryObjectEto findImage(Long imageId) {
+
+    return getBeanMapper().map(getBlobDao().findOne(imageId), BinaryObjectEto.class);
   }
 
 }

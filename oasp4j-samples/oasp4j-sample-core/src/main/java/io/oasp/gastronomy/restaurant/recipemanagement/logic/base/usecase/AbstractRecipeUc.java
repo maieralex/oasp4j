@@ -2,6 +2,7 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.base.usecase;
 
 import javax.inject.Inject;
 
+import io.oasp.gastronomy.restaurant.general.dataaccess.api.dao.BinaryObjectDao;
 import io.oasp.gastronomy.restaurant.general.logic.base.AbstractUc;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.RecipeDao;
 
@@ -14,6 +15,11 @@ public class AbstractRecipeUc extends AbstractUc {
    * @see #getRecipeDao()
    */
   private RecipeDao recipeDao;
+
+  /**
+   * @see #getBinaryObjectDao()
+   */
+  private BinaryObjectDao blobDao;
 
   /**
    * Returns the field 'recipeDao'.
@@ -34,6 +40,16 @@ public class AbstractRecipeUc extends AbstractUc {
   public void setRecipeDao(RecipeDao recipeDao) {
 
     this.recipeDao = recipeDao;
+  }
+
+  public BinaryObjectDao getBlobDao() {
+
+    return this.blobDao;
+  }
+
+  @Inject
+  public void setBlobDao(BinaryObjectDao blobDao) {
+    this.blobDao = blobDao;
   }
 
 }
