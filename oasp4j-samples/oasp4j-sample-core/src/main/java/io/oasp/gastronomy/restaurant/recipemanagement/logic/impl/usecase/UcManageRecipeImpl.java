@@ -52,7 +52,7 @@ public class UcManageRecipeImpl extends AbstractRecipeUc implements UcManageReci
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.SAVE_RECIPE)
+  @RolesAllowed(PermissionConstants.SAVE_RECIPE_PICTURE)
   public RecipeEto updateRecipePicture(Long recipeId, Blob blob, BinaryObjectEto binaryObjectEto) {
     RecipeEntity recipeEntity = getRecipeDao().findOne(recipeId);
     binaryObjectEto = getUcManageBinaryObject().saveBinaryObject(blob, binaryObjectEto);

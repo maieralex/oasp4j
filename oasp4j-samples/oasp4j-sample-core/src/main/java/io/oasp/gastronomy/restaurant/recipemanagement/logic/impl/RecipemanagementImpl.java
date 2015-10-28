@@ -101,26 +101,31 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.SAVE_RECIPE_PICTURE)
   public RecipeEto updateRecipePicture(Long recipeId, Blob blob, BinaryObjectEto binaryObjectEto) {
     return ucManageRecipe.updateRecipePicture(recipeId, blob, binaryObjectEto);
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.SAVE_RECIPE_PICTURE)
   public BinaryObjectEto saveBinaryObject(Blob data, BinaryObjectEto binaryObjectEto) {
     return ucManageBinaryObject.saveBinaryObject(data, binaryObjectEto);
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.DELETE_RECIPE_PICTURE)
   public void deleteBinaryObject(Long binaryObjectId) {
     ucManageBinaryObject.deleteBinaryObject(binaryObjectId);
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.FIND_RECIPE_PICTURE)
   public BinaryObjectEto findBinaryObject(Long binaryObjectId) {
     return ucManageBinaryObject.findBinaryObject(binaryObjectId);
   }
 
   @Override
+  @RolesAllowed(PermissionConstants.FIND_RECIPE_PICTURE)
   public Blob getBinaryObjectBlob(Long binaryObjectId) {
     return ucManageBinaryObject.getBinaryObjectBlob(binaryObjectId);
   }

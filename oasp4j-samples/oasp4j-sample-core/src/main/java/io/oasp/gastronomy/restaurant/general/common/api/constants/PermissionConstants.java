@@ -90,5 +90,14 @@ public abstract class PermissionConstants {
 
   /** {@link io.oasp.module.security.common.api.accesscontrol.AccessControlPermission} to retrieve recipe. */
   public static final String FIND_RECIPE = "FindRecipe";
+
+  /** {@link io.oasp.module.security.common.api.accesscontrol.AccessControlPermission} to retrieve product picture. */
+  public static final String FIND_RECIPE_PICTURE = "FindRecipePicture";
+
+  /** {@link io.oasp.module.security.common.api.accesscontrol.AccessControlPermission} to save product picture. */
+  public static final String SAVE_RECIPE_PICTURE = "SaveRecipePicture";
+
+  /** {@link io.oasp.module.security.common.api.accesscontrol.AccessControlPermission} to remove product picture. */
+  public static final String DELETE_RECIPE_PICTURE = "DeleteRecipePicture";
   // END ARCHETYPE SKIP
 }
