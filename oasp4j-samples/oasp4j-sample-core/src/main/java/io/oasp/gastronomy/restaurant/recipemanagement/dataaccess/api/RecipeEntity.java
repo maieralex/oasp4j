@@ -108,24 +108,4 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
     this.description = description;
   }
 
-  /**
-   * Returns the Image of this recipe.
-   *
-   * @return image the Image for the recipe.
-   */
-  public Long getImage() {
-
-    return this.imageId;
-  }
-
-  /**
-   * Sets the Image for this recipe.
-   *
-   * @param image the new image for the recipe.
-   */
-  public void setImage(Long image) {
-
-    this.imageId = image;
-  }
-
 }
