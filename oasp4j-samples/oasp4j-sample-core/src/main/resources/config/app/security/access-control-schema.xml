@@ -51,6 +51,7 @@
       <permission id="DeleteRecipe" />
       <permission id="SaveRecipe" />
       <permission id="FindRecipe" />
+      <permission id="FindRecipePicture" />
     </permissions>
   </group>
   <group id="Chief" type="role">
