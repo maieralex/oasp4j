@@ -179,4 +179,16 @@ public class RecipemanagementRestServiceImpl {
     return new MultipartBody(atts, true);
   }
 
+  @GET
+  @Path("/recipe/{id}/pictureBytes")
+  public byte[] getRecipePictureBytes(@PathParam("id") long recipeId) throws SQLException, IOException {
+    RecipeEto recipeEto = this.recipemanagement.findRecipe(recipeId);
+
+    BinaryObjectEto binaryObjectEto = this.recipemanagement.findBinaryObject(recipeEto.getImageId());
+    Blob binaryObjectBlob = this.recipemanagement.getBinaryObjectBlob(recipeEto.getImageId());
+    // REVIEW arturk88 (hohwille) we need to find another way to stream the blob without loading into heap.
+    // https://github.com/oasp/oasp4j-sample/pull/45
+    return IOUtils.readBytesFromStream(binaryObjectBlob.getBinaryStream());
+  }
+
 }
