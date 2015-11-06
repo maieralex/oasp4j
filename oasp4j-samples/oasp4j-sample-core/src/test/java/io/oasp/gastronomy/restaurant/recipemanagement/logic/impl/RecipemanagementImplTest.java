@@ -8,7 +8,6 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -23,7 +22,7 @@ import java.sql.Blob;
 public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   @Inject
-  Recipemanagement recipeManagement;
+  private Recipemanagement recipeManagement;
 
 
 
@@ -109,6 +108,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertArrayEquals(bytes, actual);
   }
 
+  /**
+   * Test the update recipe picture functionality.
+   * @throws Exception
+   */
   @Test
   public void testUpdateRecipePicture() throws Exception {
 

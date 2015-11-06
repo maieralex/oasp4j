@@ -1,27 +1,53 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.common.api;
 
 import io.oasp.gastronomy.restaurant.general.common.api.ApplicationEntity;
-import io.oasp.gastronomy.restaurant.general.common.api.BinaryObject;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 
-import java.sql.Blob;
-
+/**
+ * This is the interface for a {@link Recipe} of the restaurant.
+ *
+ * @author pascaldung
+ */
 public interface Recipe extends ApplicationEntity {
 
-  public String getName() ;
+  /**
+   * @return the name of a {@link RecipeEto}
+   */
+  String getName();
 
-  public void setName(String name) ;
+  /**
+   * @param name set new name of a {@link RecipeEto}
+   */
+  void setName(String name);
 
-  public String getDescription() ;
+  /**
+   * @return the description of a {@link RecipeEto}
+   */
+  String getDescription();
 
-  public void setDescription(String description) ;
+  /**
+   * @param description set a new description of a {@link RecipeEto}
+   */
+  void setDescription(String description);
 
-  public Money getPrice() ;
+  /**
+   * @return the price of a {@link RecipeEto}
+   */
+  Money getPrice();
 
-  public void setPrice(Money price) ;
+  /**
+   * @param price set a new price of a {@link RecipeEto}
+   */
+  void setPrice(Money price);
 
-  public Long getImageId() ;
+  /**
+   * @return the image ID of a {@link RecipeEto}
+   */
+  Long getImageId();
 
-  public void setImageId(Long imageId) ;
+  /**
+   * @param imageId the image ID of a {@link RecipeEto}
+   */
+  void setImageId(Long imageId);
 
 }

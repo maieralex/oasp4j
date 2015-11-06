@@ -1,15 +1,11 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import io.oasp.gastronomy.restaurant.general.common.api.BinaryObject;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.api.ApplicationPersistenceEntity;
-import io.oasp.gastronomy.restaurant.general.dataaccess.api.BinaryObjectEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
-import java.sql.Blob;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * The {@link ApplicationPersistenceEntity persistent entity} for a recipe.
@@ -20,6 +16,8 @@ import java.sql.Blob;
 @Table(name = "Recipe")
 public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe {
 
+  private static final long serialVersionUID = 1L;
+
   private String name;
 
   private String description;
@@ -27,8 +25,6 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   private Money price;
 
   private Long imageId;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * Returns the name of this recipe.

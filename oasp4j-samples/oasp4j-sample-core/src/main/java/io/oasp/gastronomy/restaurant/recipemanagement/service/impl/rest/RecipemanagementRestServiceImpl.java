@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -144,9 +143,11 @@ public class RecipemanagementRestServiceImpl {
   @POST
   @Path("/recipe/{id}/picture")
   public void updateRecipePicture(@PathParam("id") Long recipeId,
-                                   @Multipart(value = "binaryObjectEto", type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
-                                   @Multipart(value = "blob", type = MediaType.APPLICATION_OCTET_STREAM) InputStream picture)
-    throws SerialException, SQLException, IOException {
+                                   @Multipart(value = "binaryObjectEto",
+                                     type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
+                                   @Multipart(value = "blob",
+                                     type = MediaType.APPLICATION_OCTET_STREAM) InputStream picture)
+    throws SQLException, IOException {
 
     Blob blob = new SerialBlob(IOUtils.readBytesFromStream(picture));
     this.recipemanagement.updateRecipePicture(recipeId, blob, binaryObjectEto);
@@ -179,6 +180,14 @@ public class RecipemanagementRestServiceImpl {
     return new MultipartBody(atts, true);
   }
 
+  /**
+   * Returns the picture as {@link Byte}.
+   *
+   * @param recipeId Recipe id of the recipe to load picture of
+   * @return {@link Byte}
+   * @throws SQLException
+   * @throws IOException
+   */
   @GET
   @Path("/recipe/{id}/pictureBytes")
   public byte[] getRecipePictureBytes(@PathParam("id") long recipeId) throws SQLException, IOException {

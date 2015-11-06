@@ -1,14 +1,11 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 
-import io.oasp.gastronomy.restaurant.general.common.api.BinaryObject;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
-import java.sql.Blob;
-
 /**
- * Entity transport object of Recipe
+ * Entity transport object of Recipe.
  */
 public class RecipeEto extends AbstractEto implements Recipe {
 

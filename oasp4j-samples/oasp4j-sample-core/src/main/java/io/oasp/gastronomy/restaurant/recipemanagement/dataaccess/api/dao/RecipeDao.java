@@ -6,7 +6,7 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchC
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 /**
- * Data access interface for Recipe entities
+ * Data access interface for Recipe entities.
  */
 public interface RecipeDao extends ApplicationDao<RecipeEntity> {
 
