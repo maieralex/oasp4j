@@ -12,6 +12,7 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindRe
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcManageRecipe;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -76,13 +77,15 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.FIND_RECIPE)
+  //@RolesAllowed(PermissionConstants.FIND_RECIPE)
+  @PermitAll
   public RecipeEto findRecipe(Long id) {
     return ucFindRecipe.findRecipe(id);
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.FIND_RECIPE)
+  //@RolesAllowed(PermissionConstants.FIND_RECIPE)
+  @PermitAll
   public PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria) {
     return ucFindRecipe.findRecipeEtos(criteria);
   }
@@ -118,13 +121,15 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.FIND_RECIPE_PICTURE)
+  //@RolesAllowed(PermissionConstants.FIND_RECIPE_PICTURE)
+  @PermitAll
   public BinaryObjectEto findBinaryObject(Long binaryObjectId) {
     return ucManageBinaryObject.findBinaryObject(binaryObjectId);
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.FIND_RECIPE_PICTURE)
+  //@RolesAllowed(PermissionConstants.FIND_RECIPE_PICTURE)
+  @PermitAll
   public Blob getBinaryObjectBlob(Long binaryObjectId) {
     return ucManageBinaryObject.getBinaryObjectBlob(binaryObjectId);
   }

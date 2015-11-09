@@ -11,6 +11,7 @@ import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.rowset.serial.SerialBlob;
@@ -64,6 +65,7 @@ public class RecipemanagementRestServiceImpl {
    */
   @GET
   @Path("/recipe/{id}/")
+  @PermitAll
   public RecipeEto getRecipe(@PathParam("id") String id) {
 
     Long idAsLong;
@@ -164,6 +166,7 @@ public class RecipemanagementRestServiceImpl {
   @Produces("multipart/mixed")
   @GET
   @Path("/recipe/{id}/picture")
+  @PermitAll
   public MultipartBody getRecipePicture(@PathParam("id") long recipeId) throws SQLException, IOException {
     RecipeEto recipeEto = this.recipemanagement.findRecipe(recipeId);
 
@@ -190,6 +193,7 @@ public class RecipemanagementRestServiceImpl {
    */
   @GET
   @Path("/recipe/{id}/pictureBytes")
+  @PermitAll
   public byte[] getRecipePictureBytes(@PathParam("id") long recipeId) throws SQLException, IOException {
     RecipeEto recipeEto = this.recipemanagement.findRecipe(recipeId);
 

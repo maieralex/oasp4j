@@ -11,6 +11,7 @@ import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 
@@ -27,7 +28,8 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   private static final Logger LOG = LoggerFactory.getLogger(UcFindRecipeImpl.class);
 
   @Override
-  @RolesAllowed(PermissionConstants.FIND_RECIPE)
+  /@RolesAllowed(PermissionConstants.FIND_RECIPE)
+  @PermitAll
   public RecipeEto findRecipe(Long id) {
 
     LOG.debug("Get Recipe with id {} from database.", id);
@@ -35,7 +37,8 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.FIND_RECIPE)
+  //@RolesAllowed(PermissionConstants.FIND_RECIPE)
+  @PermitAll
   public PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria) {
 
     criteria.limitMaximumPageSize(MAXIMUM_HIT_LIMIT);
