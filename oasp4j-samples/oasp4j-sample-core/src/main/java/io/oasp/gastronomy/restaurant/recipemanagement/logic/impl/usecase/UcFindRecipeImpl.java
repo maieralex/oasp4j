@@ -28,7 +28,7 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   private static final Logger LOG = LoggerFactory.getLogger(UcFindRecipeImpl.class);
 
   @Override
-  /@RolesAllowed(PermissionConstants.FIND_RECIPE)
+  //RolesAllowed(PermissionConstants.FIND_RECIPE)
   @PermitAll
   public RecipeEto findRecipe(Long id) {
 
