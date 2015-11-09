@@ -15,7 +15,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 
 /**
- * Use case implementation for searching, filtering and getting Recipes
+ * Use case implementation for searching, filtering and getting Recipes.
  */
 @Named
 @UseCase
