@@ -7,8 +7,6 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchC
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.security.PermitAll;
@@ -25,6 +23,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -161,22 +160,23 @@ public class RecipemanagementRestServiceImpl {
   @GET
   @Path("/recipe/{id}/picture")
   @PermitAll
-  public ResponseEntity<byte[]> getRecipePicture(@PathParam("id") long recipeId) throws SQLException, IOException {
+  public Response getRecipePicture(@PathParam("id") long recipeId) throws SQLException, IOException {
     RecipeEto recipeEto = this.recipemanagement.findRecipe(recipeId);
 
     BinaryObjectEto binaryObjectEto = this.recipemanagement.findBinaryObject(recipeEto.getImageId());
     Blob binaryObjectBlob = this.recipemanagement.getBinaryObjectBlob(recipeEto.getImageId());
-    // REVIEW arturk88 (hohwille) we need to find another way to stream the blob without loading into heap.
-    // https://github.com/oasp/oasp4j-sample/pull/45
 
     if (binaryObjectEto != null && binaryObjectBlob != null) {
-      org.springframework.http.MediaType mediaType = org.springframework.http.MediaType.valueOf(binaryObjectEto.getMimeType());
-      ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(
-        IOUtils.readBytesFromStream(binaryObjectBlob.getBinaryStream()), HttpStatus.ACCEPTED);
-      responseEntity.getHeaders().setContentType(mediaType);
-      return responseEntity;
+      MediaType mediaType = MediaType.valueOf(binaryObjectEto.getMimeType());
+      // REVIEW arturk88 (hohwille) we need to find another way to stream the blob without loading into heap.
+      // https://github.com/oasp/oasp4j-sample/pull/45
+      byte[] pictureBytes = IOUtils.readBytesFromStream(binaryObjectBlob.getBinaryStream());
+
+      Response.ResponseBuilder rBuild = Response.ok(pictureBytes, mediaType);
+      return rBuild.build();
     } else {
-      return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+      Response.ResponseBuilder rBuild = Response.noContent();
+      return rBuild.build();
     }
   }
 
