@@ -77,59 +77,46 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
-  //@RolesAllowed(PermissionConstants.FIND_RECIPE)
-  @PermitAll
   public RecipeEto findRecipe(Long id) {
     return ucFindRecipe.findRecipe(id);
   }
 
   @Override
-  //@RolesAllowed(PermissionConstants.FIND_RECIPE)
-  @PermitAll
   public PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria) {
     return ucFindRecipe.findRecipeEtos(criteria);
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.DELETE_RECIPE)
   public void deleteRecipe(Long recipeId) {
     ucManageRecipe.deleteRecipe(recipeId);
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.SAVE_RECIPE)
   public RecipeEto saveRecipe(RecipeEto recipe) {
     return ucManageRecipe.saveRecipe(recipe);
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.SAVE_RECIPE_PICTURE)
   public RecipeEto updateRecipePicture(Long recipeId, Blob blob, BinaryObjectEto binaryObjectEto) {
     return ucManageRecipe.updateRecipePicture(recipeId, blob, binaryObjectEto);
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.SAVE_RECIPE_PICTURE)
   public BinaryObjectEto saveBinaryObject(Blob data, BinaryObjectEto binaryObjectEto) {
     return ucManageBinaryObject.saveBinaryObject(data, binaryObjectEto);
   }
 
   @Override
-  @RolesAllowed(PermissionConstants.DELETE_RECIPE_PICTURE)
   public void deleteBinaryObject(Long binaryObjectId) {
     ucManageBinaryObject.deleteBinaryObject(binaryObjectId);
   }
 
   @Override
-  //@RolesAllowed(PermissionConstants.FIND_RECIPE_PICTURE)
-  @PermitAll
   public BinaryObjectEto findBinaryObject(Long binaryObjectId) {
     return ucManageBinaryObject.findBinaryObject(binaryObjectId);
   }
 
   @Override
-  //@RolesAllowed(PermissionConstants.FIND_RECIPE_PICTURE)
-  @PermitAll
   public Blob getBinaryObjectBlob(Long binaryObjectId) {
     return ucManageBinaryObject.getBinaryObjectBlob(binaryObjectId);
   }
