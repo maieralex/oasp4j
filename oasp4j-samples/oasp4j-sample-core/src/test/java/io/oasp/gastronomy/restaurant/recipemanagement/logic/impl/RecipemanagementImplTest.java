@@ -29,7 +29,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testFindRecipe() throws Exception {
 
-    assertEquals("WienerSchnitzel", recipeManagement.findRecipe(0L).getName());
+    assertEquals("Schnitzel", recipeManagement.findRecipe(0L).getName());
   }
 
   @Test
@@ -71,6 +71,28 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(newRecipe.getName(), insertedRecipe.getName());
     assertEquals(newRecipe.getDescription(), insertedRecipe.getDescription());
     assertEquals(newRecipe.getPrice(), insertedRecipe.getPrice());
+  }
+
+  @Test
+  public void testUpdateRecipe() throws Exception {
+
+    RecipeEto newRecipe = new RecipeEto();
+    newRecipe.setDescription("this should be updated.");
+    newRecipe.setImageId(10L);
+    newRecipe.setPrice(new Money(5.99));
+    newRecipe.setName("RecipeToBeUpdated");
+
+    RecipeEto savedRecipe = this.recipeManagement.saveRecipe(newRecipe);
+
+    savedRecipe.setDescription("this IS updated.");
+
+    RecipeEto updatedRecipe = this.recipeManagement.saveRecipe(savedRecipe);
+
+    assertEquals(savedRecipe.getId(), updatedRecipe.getId());
+    assertEquals("Recipe name has changed", savedRecipe.getName(), updatedRecipe.getName());
+    assertNotEquals("Recipe description was not updated", newRecipe.getDescription(), updatedRecipe.getDescription());
+
+
   }
 
   @Test

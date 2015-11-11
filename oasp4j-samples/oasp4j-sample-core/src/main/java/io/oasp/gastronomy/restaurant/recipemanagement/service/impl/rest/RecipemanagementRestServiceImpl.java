@@ -159,7 +159,6 @@ public class RecipemanagementRestServiceImpl {
    */
   @GET
   @Path("/recipe/{id}/picture")
-  @PermitAll
   public Response getRecipePicture(@PathParam("id") long recipeId) throws SQLException, IOException {
     RecipeEto recipeEto = this.recipemanagement.findRecipe(recipeId);
 

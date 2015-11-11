@@ -19,6 +19,24 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private Long imageId;
 
+  private String author;
+
+  private String categories;
+
+  private Integer portions;
+
+  private String ingredients;
+
+  private String difficulty;
+
+  private Integer prepTimeMinutes;
+
+  private Integer cookTimeMinutes;
+
+  private Integer calories;
+
+  private String cookingInstructions;
+
   /**
    * {@inheritDoc}
    */
@@ -90,6 +108,78 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
     this.imageId = imageId;
 
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(String author) {
+    this.author = author;
+  }
+
+  public Integer getPortions() {
+    return portions;
+  }
+
+  public void setPortions(Integer portions) {
+    this.portions = portions;
+  }
+
+  public String getCategories() {
+    return categories;
+  }
+
+  public void setCategories(String categories) {
+    this.categories = categories;
+  }
+
+  public String getIngredients() {
+    return ingredients;
+  }
+
+  public void setIngredients(String ingredients) {
+    this.ingredients = ingredients;
+  }
+
+  public String getDifficulty() {
+    return difficulty;
+  }
+
+  public void setDifficulty(String difficulty) {
+    this.difficulty = difficulty;
+  }
+
+  public Integer getCookTimeMinutes() {
+    return cookTimeMinutes;
+  }
+
+  public void setCookTimeMinutes(Integer cookTimeMinutes) {
+    this.cookTimeMinutes = cookTimeMinutes;
+  }
+
+  public Integer getPrepTimeMinutes() {
+    return prepTimeMinutes;
+  }
+
+  public void setPrepTimeMinutes(Integer prepTimeMinutes) {
+    this.prepTimeMinutes = prepTimeMinutes;
+  }
+
+  public Integer getCalories() {
+    return calories;
+  }
+
+  public void setCalories(Integer calories) {
+    this.calories = calories;
+  }
+
+  public String getCookingInstructions() {
+    return cookingInstructions;
+  }
+
+  public void setCookingInstructions(String cookingInstructions) {
+    this.cookingInstructions = cookingInstructions;
   }
 
   @Override
