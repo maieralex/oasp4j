@@ -120,4 +120,9 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   public Blob getBinaryObjectBlob(Long binaryObjectId) {
     return ucManageBinaryObject.getBinaryObjectBlob(binaryObjectId);
   }
+
+  @Override
+  public PaginatedListTo<RecipeEto> findRandomRecipeEtos(RecipeSearchCriteriaTo criteria) {
+    return ucFindRecipe.findRandomRecipeEtos(criteria);
+  }
 }

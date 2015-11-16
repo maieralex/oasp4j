@@ -179,4 +179,16 @@ public class RecipemanagementRestServiceImpl {
     }
   }
 
+
+  /**
+   * Delegates to {@link Recipemanagement#findRandomRecipeEtos}.
+   *
+   * @param searchCriteriaTo the pagination and search criteria to be used for finding random recipes.
+   * @return the {@link PaginatedListTo list} of matching {@link RecipeEto}s.
+   */
+  @POST
+  @Path("/recipe/random/")
+  public PaginatedListTo<RecipeEto> findRandomRecipesByPost(RecipeSearchCriteriaTo searchCriteriaTo) {
+    return this.recipemanagement.findRandomRecipeEtos(searchCriteriaTo);
+  }
 }
