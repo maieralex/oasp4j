@@ -49,6 +49,11 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
       query.where(Alias.$(recipe.getDescription()).eq(description));
     }
 
+    String language = criteria.getLanguage();
+    if (language != null) {
+      query.where(Alias.$(recipe.getLanguage()).eq(language));
+    }
+
     Money price = criteria.getPrice();
     if (price != null) {
       query.where(Alias.$(recipe.getPrice()).eq(price));

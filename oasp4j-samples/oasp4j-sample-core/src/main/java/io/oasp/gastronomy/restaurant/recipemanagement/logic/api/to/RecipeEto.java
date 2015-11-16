@@ -15,6 +15,8 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private String description;
 
+  private String language;
+
   private Money price;
 
   private Long imageId;
@@ -108,6 +110,14 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
     this.imageId = imageId;
 
+  }
+
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
   }
 
   public String getAuthor() {

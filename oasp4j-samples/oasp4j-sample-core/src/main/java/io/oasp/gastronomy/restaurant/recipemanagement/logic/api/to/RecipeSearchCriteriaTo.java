@@ -16,6 +16,8 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String description;
 
+  private String language;
+
   private Money price;
 
   private Long imageId;
@@ -108,6 +110,14 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   public void setImageId(Long imageId) {
 
     this.imageId = imageId;
+  }
+
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
   }
 
   public String getAuthor() {

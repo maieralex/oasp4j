@@ -31,6 +31,16 @@ public interface Recipe extends ApplicationEntity {
   void setDescription(String description);
 
   /**
+   * @return the language of a {@link RecipeEto}
+   */
+  String getLanguage();
+
+  /**
+   * @param language set a new language of a {@link RecipeEto}
+   */
+  void setLanguage(String language);
+
+  /**
    * @return the price of a {@link RecipeEto}
    */
   Money getPrice();

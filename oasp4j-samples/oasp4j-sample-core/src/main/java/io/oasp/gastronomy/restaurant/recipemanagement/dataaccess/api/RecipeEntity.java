@@ -22,6 +22,8 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   private String description;
 
+  private String language;
+
   private Money price;
 
   private Long imageId;
@@ -120,6 +122,14 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   public void setDescription(String description) {
 
     this.description = description;
+  }
+
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
   }
 
   public String getAuthor() {
