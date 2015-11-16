@@ -17,6 +17,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.Blob;
+import java.util.List;
 
 /**
  * Implementation class for {@link Recipemanagement}.
@@ -122,7 +123,7 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
-  public PaginatedListTo<RecipeEto> findRandomRecipeEtos(RecipeSearchCriteriaTo criteria) {
-    return ucFindRecipe.findRandomRecipeEtos(criteria);
+  public List<RecipeEto> findRandomRecipes(int id) {
+    return ucFindRecipe.findRandomRecipes(id);
   }
 }

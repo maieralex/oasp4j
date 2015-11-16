@@ -25,11 +25,11 @@ public interface UcFindRecipe {
 	PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria);
 
   /**
-   * Returns a random list of Recipes matching the search criteria.
+   * Returns a Recipe by its id 'id'.
    *
-   * @param criteria the {@link RecipeSearchCriteriaTo}.
-   * @return the {@link List} of matching {@link RecipeEto}s.
+   * @param total The number of max items for the RecipeList
+   * @return The {@link RecipeEto} with id 'id'
    */
-  PaginatedListTo<RecipeEto> findRandomRecipeEtos(RecipeSearchCriteriaTo criteria);
+  List<RecipeEto>  findRandomRecipes(int total);
 
 }

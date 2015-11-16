@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.lang.Iterable;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -52,29 +53,13 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   }
 
   @Override
-  //@RolesAllowed(PermissionConstants.FIND_RECIPE)
+  //RolesAllowed(PermissionConstants.FIND_RECIPE)
   @PermitAll
-  public PaginatedListTo<RecipeEto> findRandomRecipeEtos(RecipeSearchCriteriaTo criteria) {
+  public List<RecipeEto>  findRandomRecipes(int total) {
+    List<RecipeEntity> recipeList = getRecipeDao().findAllRecipes();
+    Collections.shuffle(recipeList);
 
-    criteria.limitMaximumPageSize(MAXIMUM_HIT_LIMIT);
-    //Gets all RecipesEntities which map to the criteria
-    PaginatedListTo<RecipeEntity> recipes = getRecipeDao().findRecipes(criteria);
-
-
-    //Creates an (Random)ArrayList from recipes.getResult()
-    List<RecipeEntity> randomList = new ArrayList<RecipeEntity>();
-    for (RecipeEntity recipeEntityItem: recipes.getResult()) {
-      randomList.add(recipeEntityItem);
-    }
-
-    //Randomize
-    Collections.shuffle(randomList);
-
-    //Creates and returns new PaginatedList with the RandomArrayList
-    PaginatedListTo<RecipeEntity> randomRecipesList =
-      new PaginatedListTo<RecipeEntity>(randomList, recipes.getPagination());
-
-    return mapPaginatedEntityList(randomRecipesList, RecipeEto.class);
+    return getBeanMapper().mapList(recipeList.subList(0,total), RecipeEto.class);
   }
 
 }

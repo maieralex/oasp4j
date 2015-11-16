@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * The service class for REST calls in order to execute the methods in {@link Recipemanagement}.
@@ -179,16 +180,26 @@ public class RecipemanagementRestServiceImpl {
     }
   }
 
-
   /**
-   * Delegates to {@link Recipemanagement#findRandomRecipeEtos}.
+   * Delegates to {@link Recipemanagement#findRandomRecipes}.
    *
-   * @param searchCriteriaTo the pagination and search criteria to be used for finding random recipes.
-   * @return the {@link PaginatedListTo list} of matching {@link RecipeEto}s.
+   * @param input the number of the {@link RecipeEto} to return
+   * @return the {@link RecipeEto}
    */
-  @POST
-  @Path("/recipe/random/")
-  public PaginatedListTo<RecipeEto> findRandomRecipesByPost(RecipeSearchCriteriaTo searchCriteriaTo) {
-    return this.recipemanagement.findRandomRecipeEtos(searchCriteriaTo);
+  @GET
+  @Path("/recipe/randomList/{id}/")
+  @PermitAll
+  public List<RecipeEto> getAllRandomRecipes(@PathParam("id") String input) {
+
+    int total;
+    if (input == null) {
+      throw new BadRequestException("missing input");
+    }
+    try {
+      total = Integer.parseInt(input);
+    } catch (NumberFormatException e) {
+      throw new BadRequestException("Your input is not a number");
+    }
+    return this.recipemanagement.findRandomRecipes(total);
   }
 }
