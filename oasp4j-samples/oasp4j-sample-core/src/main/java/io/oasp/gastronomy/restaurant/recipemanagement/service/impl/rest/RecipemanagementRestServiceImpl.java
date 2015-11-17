@@ -6,13 +6,11 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.apache.cxf.helpers.IOUtils;
-import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.sql.rowset.serial.SerialBlob;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,7 +23,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
@@ -136,18 +133,25 @@ public class RecipemanagementRestServiceImpl {
    * @throws SQLException
    * @throws IOException
    */
-  @Consumes("multipart/mixed")
+//  @Consumes("multipart/mixed")
+//  @POST
+//  @Path("/recipe/{id}/picture")
+//  public void updateRecipePicture(@PathParam("id") Long recipeId,
+//                                  @Multipart(value = "binaryObjectEto",
+//                                    type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
+//                                  @Multipart(value = "blob",
+//                                    type = MediaType.APPLICATION_OCTET_STREAM) InputStream picture)
+//    throws SQLException, IOException {
+//
+//    Blob blob = new SerialBlob(IOUtils.readBytesFromStream(picture));
+//    this.recipemanagement.updateRecipePicture(recipeId, blob, binaryObjectEto);
+//  }
   @POST
   @Path("/recipe/{id}/picture")
   public void updateRecipePicture(@PathParam("id") Long recipeId,
-                                  @Multipart(value = "binaryObjectEto",
-                                    type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
-                                  @Multipart(value = "blob",
-                                    type = MediaType.APPLICATION_OCTET_STREAM) InputStream picture)
+                                  Blob picture)
     throws SQLException, IOException {
 
-    Blob blob = new SerialBlob(IOUtils.readBytesFromStream(picture));
-    this.recipemanagement.updateRecipePicture(recipeId, blob, binaryObjectEto);
   }
 
   /**
