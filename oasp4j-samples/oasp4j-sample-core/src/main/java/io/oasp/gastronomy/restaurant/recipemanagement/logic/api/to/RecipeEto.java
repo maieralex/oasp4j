@@ -35,7 +35,7 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private Integer cookTimeMinutes;
 
-  private Integer calories;
+  private Long calories;
 
   private String cookingInstructions;
 
@@ -176,11 +176,11 @@ public class RecipeEto extends AbstractEto implements Recipe {
     this.prepTimeMinutes = prepTimeMinutes;
   }
 
-  public Integer getCalories() {
+  public Long getCalories() {
     return calories;
   }
 
-  public void setCalories(Integer calories) {
+  public void setCalories(Long calories) {
     this.calories = calories;
   }
 

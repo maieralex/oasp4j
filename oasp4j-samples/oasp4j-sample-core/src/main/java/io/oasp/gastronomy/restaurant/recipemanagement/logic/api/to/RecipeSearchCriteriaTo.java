@@ -36,7 +36,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private Integer cookTimeMinutes;
 
-  private Integer calories;
+  private Long calories;
 
   private String cookingInstructions;
 
@@ -176,11 +176,11 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
     this.prepTimeMinutes = prepTimeMinutes;
   }
 
-  public Integer getCalories() {
+  public Long getCalories() {
     return calories;
   }
 
-  public void setCalories(Integer calories) {
+  public void setCalories(Long calories) {
     this.calories = calories;
   }
 
