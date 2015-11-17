@@ -6,16 +6,15 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.apache.cxf.helpers.IOUtils;
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -24,10 +23,10 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
@@ -132,43 +131,17 @@ public class RecipemanagementRestServiceImpl {
     return this.recipemanagement.findRecipeEtos(searchCriteriaTo);
   }
 
-
-  //  @Consumes("multipart/mixed")
-//  @POST
-//  @Path("/recipe/{id}/picture")
-//  public void updateRecipePicture(@PathParam("id") Long recipeId,
-//                                  @Multipart(value = "binaryObjectEto",
-//                                    type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
-//                                  @Multipart(value = "blob",
-//                                    type = MediaType.APPLICATION_OCTET_STREAM) InputStream picture)
-//    throws SQLException, IOException {
-//
-//    Blob blob = new SerialBlob(IOUtils.readBytesFromStream(picture));
-//    this.recipemanagement.updateRecipePicture(recipeId, blob, binaryObjectEto);
-//  }
+  @Consumes("multipart/mixed")
   @POST
   @Path("/recipe/{id}/picture")
-  @Consumes("image/jpg")
   public void updateRecipePicture(@PathParam("id") Long recipeId,
-                                  Blob picture) {
-    LOG.info("Got a request");
-  }
+                                  @Multipart(value = "binaryObjectEto", type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
+                                  @Multipart(value = "blob") InputStream picture)
+    throws SQLException, IOException {
 
-  @POST
-  @Path("/recipe/{id}/picture2")
-  public void updateRecipePicture2(@PathParam("id") Long recipeId,
-                                   @RequestParam("file") MultipartFile file) {
-    LOG.info("Got a request");
+    Blob blob = new SerialBlob(IOUtils.readBytesFromStream(picture));
+    this.recipemanagement.updateRecipePicture(recipeId, blob, binaryObjectEto);
   }
-
-  //http://blogs.steeplesoft.com/posts/2014/file-uploads-with-jax-rs-2.html
-  @POST
-  @Path("uploadFile")
-  @Consumes(MediaType.MULTIPART_FORM_DATA)
-  public Response uploadFile(@Context HttpServletRequest request) {
-    return null;
-  }
-
 
   /**
    * Returns the picture as {@link Byte}.
