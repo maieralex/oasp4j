@@ -50,6 +50,7 @@
       <!-- recipemanagement -->
       <permission id="DeleteRecipe" />
       <permission id="SaveRecipe" />
+      <permission id="SaveRecipePicture" />
       <permission id="FindRecipe" />
       <permission id="FindRecipePicture" />
     </permissions>
