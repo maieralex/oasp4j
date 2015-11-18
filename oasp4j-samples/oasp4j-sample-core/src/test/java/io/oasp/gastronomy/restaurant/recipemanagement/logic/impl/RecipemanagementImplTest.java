@@ -29,7 +29,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testFindRecipe() throws Exception {
 
-    assertEquals("Schnitzel", recipeManagement.findRecipe(0L).getName());
+    assertEquals("Hamburger", recipeManagement.findRecipe(0L).getName());
   }
 
   @Test
@@ -38,7 +38,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
 
     PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
-    assertEquals(5, list.getResult().size());
+    assertEquals(7, list.getResult().size());
   }
 
   @Test
@@ -98,8 +98,8 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testGetBinaryObjectBlob() throws Exception {
 
-    RecipeEto recipe = this.recipeManagement.findRecipe(4L);
-    assertEquals(new Long(10), recipe.getImageId());
+    RecipeEto recipe = this.recipeManagement.findRecipe(6L);
+    assertEquals(new Long(0), recipe.getImageId());
 
     byte[] expected = {13, 73, 72, 68};
     byte[] actual = this.recipeManagement.getBinaryObjectBlob(recipe.getImageId()).getBytes(12, 4);
