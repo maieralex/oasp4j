@@ -30,6 +30,6 @@ public interface UcFindRecipe {
    * @param total The number of max items for the RecipeList
    * @return The {@link RecipeEto} with id 'id'
    */
-  List<RecipeEto>  findRandomRecipes(int total);
+  List<RecipeEto>  findRandomRecipes(int total, String language);
 
 }

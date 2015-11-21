@@ -123,7 +123,7 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
-  public List<RecipeEto> findRandomRecipes(int id) {
-    return ucFindRecipe.findRandomRecipes(id);
+  public List<RecipeEto> findRandomRecipes(int id, String language) {
+    return ucFindRecipe.findRandomRecipes(id, language);
   }
 }

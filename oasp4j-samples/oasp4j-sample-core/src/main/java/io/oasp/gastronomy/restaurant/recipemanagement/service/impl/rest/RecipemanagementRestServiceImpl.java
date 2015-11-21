@@ -180,9 +180,9 @@ public class RecipemanagementRestServiceImpl {
    * @return the {@link RecipeEto}
    */
   @GET
-  @Path("/recipe/randomList/{id}/")
+  @Path("/recipe/randomList/{id}/{lang}")
   @PermitAll
-  public List<RecipeEto> getAllRandomRecipes(@PathParam("id") String input) {
+  public List<RecipeEto> getAllRandomRecipes(@PathParam("id") String input, @PathParam("lang") String language) {
 
     int total;
     if (input == null) {
@@ -193,7 +193,7 @@ public class RecipemanagementRestServiceImpl {
     } catch (NumberFormatException e) {
       throw new BadRequestException("Your input is not a number");
     }
-    return this.recipemanagement.findRandomRecipes(total);
+    return this.recipemanagement.findRandomRecipes(total, language);
   }
 
 }

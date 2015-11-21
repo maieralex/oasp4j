@@ -55,9 +55,18 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   @Override
   //RolesAllowed(PermissionConstants.FIND_RECIPE)
   @PermitAll
-  public List<RecipeEto>  findRandomRecipes(int total) {
-    List<RecipeEntity> recipeList = getRecipeDao().findAllRecipes();
+  public List<RecipeEto>  findRandomRecipes(int total, String language) {
+    RecipeSearchCriteriaTo rsc = new RecipeSearchCriteriaTo();
+
+    rsc.setLanguage(language);
+    PaginatedListTo<RecipeEntity> recipes = getRecipeDao().findRecipes(rsc);
+
+    List<RecipeEntity> recipeList = recipes.getResult();
     Collections.shuffle(recipeList);
+
+    if (recipeList.size() < total){
+      total = recipeList.size();
+    }
 
     return getBeanMapper().mapList(recipeList.subList(0,total), RecipeEto.class);
   }
