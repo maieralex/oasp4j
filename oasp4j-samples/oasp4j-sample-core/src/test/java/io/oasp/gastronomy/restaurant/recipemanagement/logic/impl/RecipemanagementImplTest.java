@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
+import java.util.List;
 
 /**
  * Created by pascaldung on 21.10.15.
@@ -39,6 +40,20 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
     assertEquals(7, list.getResult().size());
+  }
+
+  @Test
+  public void testFindRandomRecipesSize() throws Exception {
+
+    List<RecipeEto> list = recipeManagement.findRandomRecipes(3, "en");
+    assertEquals(3, list.size());
+  }
+
+  @Test
+  public void testFindRandomRecipesLanguage() throws Exception {
+
+    List<RecipeEto> list = recipeManagement.findRandomRecipes(3, "en");
+    assertEquals("en", list.get(0).getLanguage());
   }
 
   @Test
@@ -150,5 +165,4 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     byte[] actual = binaryObjectBlob.getBytes(1, 4);
     assertArrayEquals(bytes, actual);
   }
-
 }
