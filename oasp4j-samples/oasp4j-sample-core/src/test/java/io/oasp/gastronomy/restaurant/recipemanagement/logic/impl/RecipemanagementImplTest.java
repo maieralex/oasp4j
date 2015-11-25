@@ -26,13 +26,20 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   private Recipemanagement recipeManagement;
 
 
-
+  /**
+   *
+   * @throws Exception if test fails.
+     */
   @Test
   public void testFindRecipe() throws Exception {
 
     assertEquals("Hamburger", recipeManagement.findRecipe(0L).getName());
   }
 
+  /**
+   *
+   * @throws Exception if something fails.
+     */
   @Test
   public void testFindRecipeEtos() throws Exception {
 
@@ -42,6 +49,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(7, list.getResult().size());
   }
 
+  /**
+   *
+   * @throws Exception if something fails.
+     */
   @Test
   public void testFindRandomRecipesSize() throws Exception {
 
@@ -49,6 +60,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(3, list.size());
   }
 
+  /**
+   *
+   * @throws Exception if something fails.
+     */
   @Test
   public void testFindRandomRecipesLanguage() throws Exception {
 
@@ -56,6 +71,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals("en", list.get(0).getLanguage());
   }
 
+  /**
+   *
+   * @throws Exception if something fails.
+     */
   @Test
   public void testDeleteRecipe() throws Exception {
 
@@ -73,6 +92,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(null, this.recipeManagement.findRecipe(insertedRecipe.getId()));
   }
 
+  /**
+   *
+   * @throws Exception if something fails.
+     */
   @Test
   public void testSaveRecipe() throws Exception {
 
@@ -88,6 +111,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(newRecipe.getPrice(), insertedRecipe.getPrice());
   }
 
+  /**
+   *
+   * @throws Exception if something fails.
+     */
   @Test
   public void testUpdateRecipe() throws Exception {
 
@@ -110,6 +137,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   }
 
+  /**
+   *
+   * @throws Exception if something fails.
+     */
   @Test
   public void testGetBinaryObjectBlob() throws Exception {
 
@@ -121,6 +152,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertArrayEquals(expected, actual);
   }
 
+  /**
+   *
+   * @throws Exception if something fails.
+     */
   @Test
   public void testNewUpdateRecipePicture() throws Exception {
     RecipeEto newRecipe = new RecipeEto();
@@ -147,7 +182,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   /**
    * Test the update recipe picture functionality.
-   * @throws Exception
+   * @throws Exception if something fails.
    */
   @Test
   public void testUpdateRecipePicture() throws Exception {

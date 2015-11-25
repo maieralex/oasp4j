@@ -112,82 +112,147 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   }
 
+  /**
+   *
+   * {@inheritDoc}
+   */
   public String getLanguage() {
     return language;
   }
 
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setLanguage(String language) {
     this.language = language;
   }
 
+  /**
+   *
+   * {@inheritDoc}
+   */
   public String getAuthor() {
     return author;
   }
 
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setAuthor(String author) {
     this.author = author;
   }
 
+  /**
+   *
+   * {@inheritDoc}
+   */
   public Integer getPortions() {
     return portions;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setPortions(Integer portions) {
     this.portions = portions;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public String getCategories() {
     return categories;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setCategories(String categories) {
     this.categories = categories;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public String getIngredients() {
     return ingredients;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setIngredients(String ingredients) {
     this.ingredients = ingredients;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public String getDifficulty() {
     return difficulty;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setDifficulty(String difficulty) {
     this.difficulty = difficulty;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public Integer getCookTimeMinutes() {
     return cookTimeMinutes;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setCookTimeMinutes(Integer cookTimeMinutes) {
     this.cookTimeMinutes = cookTimeMinutes;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public Integer getPrepTimeMinutes() {
     return prepTimeMinutes;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setPrepTimeMinutes(Integer prepTimeMinutes) {
     this.prepTimeMinutes = prepTimeMinutes;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public Long getCalories() {
     return calories;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setCalories(Long calories) {
     this.calories = calories;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public String getCookingInstructions() {
     return cookingInstructions;
   }
-
+  /**
+   *
+   * {@inheritDoc}
+   */
   public void setCookingInstructions(String cookingInstructions) {
     this.cookingInstructions = cookingInstructions;
   }

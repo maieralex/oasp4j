@@ -16,7 +16,7 @@ import java.sql.Blob;
 import java.util.Objects;
 
 /**
- * Use case implementation for modifying and deleting Recipes
+ * Use case implementation for modifying and deleting Recipes.
  */
 @Named
 @UseCase

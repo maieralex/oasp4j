@@ -11,10 +11,6 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchC
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 import javax.inject.Named;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**

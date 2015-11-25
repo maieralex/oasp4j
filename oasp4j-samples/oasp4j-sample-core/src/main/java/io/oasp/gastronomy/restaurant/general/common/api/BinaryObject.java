@@ -13,7 +13,7 @@ public interface BinaryObject extends ApplicationEntity {
   void setMimeType(String mimeType);
 
   /**
-   * Returns MIME-Type of thie {@link BinaryObject}
+   * Returns MIME-Type of thie {@link BinaryObject}.
    *
    * @return the MIME-Type, e.g image/jpeg
    */
@@ -25,7 +25,7 @@ public interface BinaryObject extends ApplicationEntity {
   long getSize();
 
   /**
-   * Sets the size of bytes
+   * Sets the size of bytes.
    *
    * @param size the size in bytes
    */

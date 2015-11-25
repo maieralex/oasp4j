@@ -7,6 +7,8 @@ import java.sql.Blob;
 
 /**
  * Interface of UcManageRecipe to centralize documentation and signatures of methods.
+ * @author Guided Project TH Koeln
+ * @version 1.0
  */
 public interface UcManageRecipe {
 
@@ -14,7 +16,6 @@ public interface UcManageRecipe {
    * Deletes a recipe from the database by its id 'recipeId'.
    *
    * @param recipeId Id of the recipe to delete
-   * @return boolean <code>true</code> if the recipe can be deleted, <code>false</code> otherwise
    */
   void deleteRecipe(Long recipeId);
 
@@ -32,7 +33,7 @@ public interface UcManageRecipe {
    * @param recipeId Id of the recipe to update
    * @param blob picture as Blob
    * @param binaryObjectEto the {@link BinaryObjectEto} to store the picture in.
-   * @return
+   * @return recipeEto
    */
   RecipeEto updateRecipePicture(Long recipeId, Blob blob, BinaryObjectEto binaryObjectEto);
 

@@ -3,7 +3,7 @@ package io.oasp.module.jpa.common.api.to;
 import net.sf.mmm.util.transferobject.api.AbstractTransferObject;
 
 /**
- * Transfer object to transmit order criteria
+ * Transfer object to transmit order criteria.
  */
 public class OrderByTo extends AbstractTransferObject {
 

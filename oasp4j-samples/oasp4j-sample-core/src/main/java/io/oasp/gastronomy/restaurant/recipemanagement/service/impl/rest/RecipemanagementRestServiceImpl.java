@@ -131,6 +131,14 @@ public class RecipemanagementRestServiceImpl {
     return this.recipemanagement.findRecipeEtos(searchCriteriaTo);
   }
 
+  /**
+   * Delegates to {@link Recipemanagement#updateRecipePicture(Long, Blob, BinaryObjectEto)}.
+   * @param recipeId which recipe should be updated with a new image.
+   * @param binaryObjectEto define the transferObject of the image.
+   * @param picture new data of the image.
+   * @throws SQLException if data can't be written into the database.
+   * @throws IOException if the stram can't be accessed.
+     */
   @Consumes("multipart/mixed")
   @POST
   @Path("/recipe/{id}/picture")
@@ -148,8 +156,8 @@ public class RecipemanagementRestServiceImpl {
    *
    * @param recipeId Recipe id of the recipe to load picture of
    * @return {@link Byte}
-   * @throws SQLException
-   * @throws IOException
+   * @throws SQLException if can't access database
+   * @throws IOException  if stram can't be read
    */
   @GET
   @Path("/recipe/{id}/picture")
@@ -176,7 +184,8 @@ public class RecipemanagementRestServiceImpl {
   /**
    * Delegates to {@link Recipemanagement#findRandomRecipes}.
    *
-   * @param input the number of the {@link RecipeEto} to return
+   * @param input     the number of the {@link RecipeEto} to return
+   * @param language  the language of the {@link RecipeEto} to return
    * @return the {@link RecipeEto}
    */
   @GET
