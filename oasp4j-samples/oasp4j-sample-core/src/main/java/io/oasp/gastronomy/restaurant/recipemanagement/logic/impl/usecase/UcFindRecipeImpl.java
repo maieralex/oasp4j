@@ -51,6 +51,7 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   //RolesAllowed(PermissionConstants.FIND_RECIPE)
   @PermitAll
   public List<RecipeEto>  findRandomRecipes(int total, String language) {
+    int totalTmp = total;
     RecipeSearchCriteriaTo rsc = new RecipeSearchCriteriaTo();
 
     rsc.setLanguage(language);
@@ -60,10 +61,12 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
     Collections.shuffle(recipeList);
 
     if (recipeList.size() < total) {
-      total = recipeList.size();
+
+      totalTmp = recipeList.size();
+
     }
 
-    return getBeanMapper().mapList(recipeList.subList(0, total), RecipeEto.class);
+    return getBeanMapper().mapList(recipeList.subList(0, totalTmp), RecipeEto.class);
   }
 
 }
