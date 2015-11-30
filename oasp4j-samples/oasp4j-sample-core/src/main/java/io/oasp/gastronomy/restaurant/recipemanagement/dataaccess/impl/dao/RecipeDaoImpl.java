@@ -1,5 +1,6 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.impl.dao;
 
+import com.mysema.query.QueryModifiers;
 import com.mysema.query.alias.Alias;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.path.EntityPathBase;
@@ -46,9 +47,20 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
     JPAQuery query = new JPAQuery(getEntityManager()).from(alias);
 
     String searchString = criteria.getSearchString();
-    if (searchString != null) {
-      query.where(Alias.$(recipe.getName()).contains(searchString)
-        .or(Alias.$(recipe.getDescription()).contains(searchString)));
+
+    if(searchString != null) {
+        if(searchString.contains(" ")) {
+            String[] searchParams = searchString.split(" ");
+
+            for (String param: searchParams) {
+              query.where(Alias.$(recipe.getName()).contains(param)
+                .or(Alias.$(recipe.getDescription()).contains(param)));
+            }
+        }
+      else {
+          query.where(Alias.$(recipe.getName()).contains(searchString)
+            .or(Alias.$(recipe.getDescription()).contains(searchString)));
+        }
     }
 
     String name = criteria.getName();
