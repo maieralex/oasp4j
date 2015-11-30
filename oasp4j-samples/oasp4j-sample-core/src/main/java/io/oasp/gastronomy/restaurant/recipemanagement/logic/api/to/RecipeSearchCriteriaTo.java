@@ -40,6 +40,8 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String cookingInstructions;
 
+  private String searchString;
+
   /**
    * The constructor.
    */
@@ -271,5 +273,22 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   public void setCookingInstructions(String cookingInstructions) {
     this.cookingInstructions = cookingInstructions;
   }
+
+  /**
+   *
+   * @return searchString
+   */
+  public String getSearchString() {
+    return searchString;
+  }
+
+  /**
+   *
+   * @param searchString set the searchString
+   */
+  public void setSearchString(String searchString){
+    this.searchString = searchString;
+  }
+
 
 }

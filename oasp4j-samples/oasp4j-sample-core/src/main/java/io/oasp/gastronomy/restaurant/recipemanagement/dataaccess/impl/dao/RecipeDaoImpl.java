@@ -45,6 +45,12 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
     EntityPathBase<RecipeEntity> alias = Alias.$(recipe);
     JPAQuery query = new JPAQuery(getEntityManager()).from(alias);
 
+    String searchString = criteria.getSearchString();
+    if (searchString != null) {
+      query.where(Alias.$(recipe.getName()).contains(searchString)
+        .or(Alias.$(recipe.getDescription()).contains(searchString)));
+    }
+
     String name = criteria.getName();
     if (name != null) {
       query.where(Alias.$(recipe.getName()).eq(name));
