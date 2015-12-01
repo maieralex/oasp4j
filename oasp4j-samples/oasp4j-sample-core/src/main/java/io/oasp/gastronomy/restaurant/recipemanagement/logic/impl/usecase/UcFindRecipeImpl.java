@@ -1,8 +1,6 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl.usecase;
 
-import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
 import io.oasp.gastronomy.restaurant.general.logic.api.UseCase;
-import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
@@ -12,13 +10,10 @@ import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
-import java.lang.Iterable;
 
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 
 /**
@@ -56,6 +51,7 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
   //RolesAllowed(PermissionConstants.FIND_RECIPE)
   @PermitAll
   public List<RecipeEto>  findRandomRecipes(int total, String language) {
+    int totalTmp = total;
     RecipeSearchCriteriaTo rsc = new RecipeSearchCriteriaTo();
 
     rsc.setLanguage(language);
@@ -64,11 +60,13 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
     List<RecipeEntity> recipeList = recipes.getResult();
     Collections.shuffle(recipeList);
 
-    if (recipeList.size() < total){
-      total = recipeList.size();
+    if (recipeList.size() < total) {
+
+      totalTmp = recipeList.size();
+
     }
 
-    return getBeanMapper().mapList(recipeList.subList(0,total), RecipeEto.class);
+    return getBeanMapper().mapList(recipeList.subList(0, totalTmp), RecipeEto.class);
   }
 
 }

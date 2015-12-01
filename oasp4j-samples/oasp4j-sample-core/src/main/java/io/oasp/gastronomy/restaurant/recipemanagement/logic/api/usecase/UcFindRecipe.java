@@ -6,6 +6,11 @@ import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 import java.util.List;
 
+/**
+ * Interface of UcFindRecipe to centralize documentation and signatures of methods.
+ * @author Guided Project TH Koeln
+ * @version 1.0
+ */
 public interface UcFindRecipe {
 
   /**
@@ -27,7 +32,8 @@ public interface UcFindRecipe {
   /**
    * Returns a Recipe by its id 'id'.
    *
-   * @param total The number of max items for the RecipeList
+   * @param total     The number of max items for the RecipeList
+   * @param language  The language of the items for the RecipeList
    * @return The {@link RecipeEto} with id 'id'
    */
   List<RecipeEto>  findRandomRecipes(int total, String language);

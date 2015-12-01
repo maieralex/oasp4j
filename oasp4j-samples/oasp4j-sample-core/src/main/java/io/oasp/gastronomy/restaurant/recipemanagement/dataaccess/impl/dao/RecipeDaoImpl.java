@@ -1,5 +1,6 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.impl.dao;
 
+import com.mysema.query.QueryModifiers;
 import com.mysema.query.alias.Alias;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.path.EntityPathBase;
@@ -11,10 +12,6 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchC
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 import javax.inject.Named;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -48,6 +45,23 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
     RecipeEntity recipe = Alias.alias(RecipeEntity.class);
     EntityPathBase<RecipeEntity> alias = Alias.$(recipe);
     JPAQuery query = new JPAQuery(getEntityManager()).from(alias);
+
+    String searchString = criteria.getSearchString();
+
+    if(searchString != null) {
+        if(searchString.contains(" ")) {
+            String[] searchParams = searchString.split(" ");
+
+            for (String param: searchParams) {
+              query.where(Alias.$(recipe.getName()).contains(param)
+                .or(Alias.$(recipe.getDescription()).contains(param)));
+            }
+        }
+      else {
+          query.where(Alias.$(recipe.getName()).contains(searchString)
+            .or(Alias.$(recipe.getDescription()).contains(searchString)));
+        }
+    }
 
     String name = criteria.getName();
     if (name != null) {
