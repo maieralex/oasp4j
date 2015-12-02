@@ -53,29 +53,29 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
             String[] searchParams = searchString.split(" ");
 
             for (String param: searchParams) {
-              query.where(Alias.$(recipe.getName()).contains(param)
-                .or(Alias.$(recipe.getDescription()).contains(param)));
+              query.where(Alias.$(recipe.getName()).containsIgnoreCase(param)
+                .or(Alias.$(recipe.getDescription()).containsIgnoreCase(param)));
             }
         }
       else {
-          query.where(Alias.$(recipe.getName()).contains(searchString)
-            .or(Alias.$(recipe.getDescription()).contains(searchString)));
+          query.where(Alias.$(recipe.getName()).containsIgnoreCase(searchString)
+            .or(Alias.$(recipe.getDescription()).containsIgnoreCase(searchString)));
         }
     }
 
     String name = criteria.getName();
     if (name != null) {
-      query.where(Alias.$(recipe.getName()).eq(name));
+      query.where(Alias.$(recipe.getName()).equalsIgnoreCase(name));
     }
 
     String description = criteria.getDescription();
     if (description != null) {
-      query.where(Alias.$(recipe.getDescription()).eq(description));
+      query.where(Alias.$(recipe.getDescription()).equalsIgnoreCase(description));
     }
 
     String language = criteria.getLanguage();
     if (language != null) {
-      query.where(Alias.$(recipe.getLanguage()).eq(language));
+      query.where(Alias.$(recipe.getLanguage()).equalsIgnoreCase(language));
     }
 
     Money price = criteria.getPrice();
