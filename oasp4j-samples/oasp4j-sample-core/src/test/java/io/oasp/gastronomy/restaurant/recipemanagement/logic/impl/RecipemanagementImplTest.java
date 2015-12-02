@@ -8,6 +8,7 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -54,6 +55,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
    * @throws Exception if something fails.
    */
   @Test
+  @Ignore
   public void testSearchRecipeEtosWithCriteriaSearchString() throws Exception {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();

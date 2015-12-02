@@ -3,6 +3,8 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractCto;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 
+import java.util.Set;
+
 /**
  * Composite transport object of Recipe.
  */
@@ -13,6 +15,8 @@ public class RecipeCto extends AbstractCto {
   private RecipeEto recipe;
 
   private BinaryObjectEto image;
+
+  private Set<IngredientEto> ingredients;
 
   /**
    * @return recipe
@@ -31,16 +35,30 @@ public class RecipeCto extends AbstractCto {
   }
 
   /**
-   * @return image
+   * @return image.
    */
   public BinaryObjectEto getImage() {
     return image;
   }
 
   /**
-   * @param image the image to be set
+   * @param image the image to be set.
    */
   public void setImage(BinaryObjectEto image) {
     this.image = image;
+  }
+
+  /**
+   * @return ingredients.
+     */
+  public Set<IngredientEto> getIngredients() {
+    return ingredients;
+  }
+
+  /**
+   * @param ingredients the ingredients to be set.
+     */
+  public void setIngredients(Set<IngredientEto> ingredients) {
+    this.ingredients = ingredients;
   }
 }

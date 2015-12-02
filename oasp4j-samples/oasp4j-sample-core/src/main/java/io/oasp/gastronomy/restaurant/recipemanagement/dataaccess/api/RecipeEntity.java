@@ -4,8 +4,8 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.api.ApplicationPersistenceEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * The {@link ApplicationPersistenceEntity persistent entity} for a recipe.
@@ -34,7 +34,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   private Integer portions;
 
-  private String ingredients;
+  private Set<RecipeIngredientEntity> recipeIngredients;
 
   private String difficulty;
 
@@ -60,7 +60,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   /**
    * Sets the name of this recipe.
    *
-   * @param name the name of this special.
+   * @param name the name of this recipe.
    */
   @Override
   public void setName(String name) {
@@ -126,7 +126,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return language return the language of a {@link RecipeEto}.
+   * @return language return the language of a recipe.
      */
   public String getLanguage() {
     return language;
@@ -134,7 +134,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param language set a new language of a {@link RecipeEto}
+   * @param language set a new language of a recipe
    */
   public void setLanguage(String language) {
     this.language = language;
@@ -142,7 +142,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return author return the author of a {@link RecipeEto}.
+   * @return author return the author of a recipe.
      */
   public String getAuthor() {
     return author;
@@ -150,7 +150,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param author set a new author of a {@link RecipeEto}.
+   * @param author set a new author of a recipe.
      */
   public void setAuthor(String author) {
     this.author = author;
@@ -158,7 +158,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return portions return the portion quantity of a {@link RecipeEto}.
+   * @return portions return the portion quantity of a recipe.
      */
   public Integer getPortions() {
     return portions;
@@ -166,7 +166,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param portions set a new quantity of portions of a {@link RecipeEto}.
+   * @param portions set a new quantity of portions of a recipe.
      */
   public void setPortions(Integer portions) {
     this.portions = portions;
@@ -174,7 +174,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return categories return the categories of a {@link RecipeEto}.
+   * @return categories return the categories of a recipe.
      */
   public String getCategories() {
     return categories;
@@ -182,7 +182,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param categories set new categories of a {@link RecipeEto}.
+   * @param categories set new categories of a recipe.
      */
   public void setCategories(String categories) {
     this.categories = categories;
@@ -190,23 +190,24 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return ingredients return the ingredients of a {@link RecipeEto}.
+   * @return ingredients return the ingredients of a recipe.
      */
-  public String getIngredients() {
-    return ingredients;
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipe")
+  public Set<RecipeIngredientEntity> getIngredients() {
+    return recipeIngredients;
   }
 
   /**
    *
-   * @param ingredients set new ingredients of a {@link RecipeEto}.
+   * @param recipeIngredients set new ingredients of a recipe.
      */
-  public void setIngredients(String ingredients) {
-    this.ingredients = ingredients;
+  public void setIngredients(Set<RecipeIngredientEntity> recipeIngredients) {
+    this.recipeIngredients = recipeIngredients;
   }
 
   /**
    *
-   * @return difficulty return the difficulty of a {@link RecipeEto}.
+   * @return difficulty return the difficulty of a recipe.
      */
   public String getDifficulty() {
     return difficulty;
@@ -214,7 +215,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param difficulty set a new difficulty of a {@link RecipeEto}.
+   * @param difficulty set a new difficulty of a recipe.
      */
   public void setDifficulty(String difficulty) {
     this.difficulty = difficulty;
@@ -222,7 +223,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return cookTimeMinutes return the time it takes to cook a {@link RecipeEto}.
+   * @return cookTimeMinutes return the time it takes to cook a recipe.
      */
   public Integer getCookTimeMinutes() {
     return cookTimeMinutes;
@@ -230,7 +231,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param cookTimeMinutes set the time it takes to cook a {@link RecipeEto}.
+   * @param cookTimeMinutes set the time it takes to cook a recipe.
      */
   public void setCookTimeMinutes(Integer cookTimeMinutes) {
     this.cookTimeMinutes = cookTimeMinutes;
@@ -238,7 +239,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return prepTimeMinutes return the time it takes to prepare everything for a {@link RecipeEto}.
+   * @return prepTimeMinutes return the time it takes to prepare everything for a recipe.
      */
   public Integer getPrepTimeMinutes() {
     return prepTimeMinutes;
@@ -246,7 +247,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param prepTimeMinutes set the time it takes to prepare everything for a {@link RecipeEto}.
+   * @param prepTimeMinutes set the time it takes to prepare everything for a recipe.
      */
   public void setPrepTimeMinutes(Integer prepTimeMinutes) {
     this.prepTimeMinutes = prepTimeMinutes;
@@ -254,7 +255,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return calories return the amount of calories of a {@link RecipeEto}.
+   * @return calories return the amount of calories of a recipe.
      */
   public Long getCalories() {
     return calories;
@@ -262,7 +263,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param calories set the amount of calories of a {@link RecipeEto}.
+   * @param calories set the amount of calories of a recipe.
      */
   public void setCalories(Long calories) {
     this.calories = calories;
@@ -270,7 +271,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @return cookingInstructions return the instructions to cook a {@link RecipeEto}.
+   * @return cookingInstructions return the instructions to cook a recipe.
      */
   public String getCookingInstructions() {
     return cookingInstructions;
@@ -278,7 +279,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   /**
    *
-   * @param cookingInstructions set the instructions to cook a {@link RecipeEto}.
+   * @param cookingInstructions set the instructions to cook a recipe.
      */
   public void setCookingInstructions(String cookingInstructions) {
     this.cookingInstructions = cookingInstructions;

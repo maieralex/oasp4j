@@ -11,52 +11,52 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 public interface Recipe extends ApplicationEntity {
 
   /**
-   * @return the name of a {@link RecipeEto}
+   * @return the name of a recipe
    */
   String getName();
 
   /**
-   * @param name set new name of a {@link RecipeEto}
+   * @param name set new name of a recipe
    */
   void setName(String name);
 
   /**
-   * @return the description of a {@link RecipeEto}
+   * @return the description of a recipe
    */
   String getDescription();
 
   /**
-   * @param description set a new description of a {@link RecipeEto}
+   * @param description set a new description of a recipe
    */
   void setDescription(String description);
 
   /**
-   * @return the language of a {@link RecipeEto}
+   * @return the language of a recipe
    */
   String getLanguage();
 
   /**
-   * @param language set a new language of a {@link RecipeEto}
+   * @param language set a new language of a recipe
    */
   void setLanguage(String language);
 
   /**
-   * @return the price of a {@link RecipeEto}
+   * @return the price of a recipe
    */
   Money getPrice();
 
   /**
-   * @param price set a new price of a {@link RecipeEto}
+   * @param price set a new price of a recipe
    */
   void setPrice(Money price);
 
   /**
-   * @return the image ID of a {@link RecipeEto}
+   * @return the image ID of a recipe
    */
   Long getImageId();
 
   /**
-   * @param imageId the image ID of a {@link RecipeEto}
+   * @param imageId the image ID of a recipe
    */
   void setImageId(Long imageId);
 

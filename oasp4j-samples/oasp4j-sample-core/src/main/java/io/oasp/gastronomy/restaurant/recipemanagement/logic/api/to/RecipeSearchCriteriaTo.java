@@ -28,8 +28,6 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private Integer portions;
 
-  private String ingredients;
-
   private String difficulty;
 
   private Integer prepTimeMinutes;
@@ -176,22 +174,6 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
      */
   public void setCategories(String categories) {
     this.categories = categories;
-  }
-
-  /**
-   *
-   * @return ingredients
-     */
-  public String getIngredients() {
-    return ingredients;
-  }
-
-  /**
-   *
-   * @param ingredients set the ingredients
-     */
-  public void setIngredients(String ingredients) {
-    this.ingredients = ingredients;
   }
 
   /**
