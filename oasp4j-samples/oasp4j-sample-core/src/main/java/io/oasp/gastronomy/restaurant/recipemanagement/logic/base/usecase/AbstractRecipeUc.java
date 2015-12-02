@@ -5,6 +5,7 @@ import io.oasp.gastronomy.restaurant.general.logic.api.UseCase;
 import io.oasp.gastronomy.restaurant.general.logic.base.AbstractUc;
 import io.oasp.gastronomy.restaurant.general.logic.base.UcManageBinaryObject;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.RecipeDao;
+import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.CategoryDao;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,7 @@ public class AbstractRecipeUc extends AbstractUc {
    * @see #getRecipeDao()
    */
   private RecipeDao recipeDao;
+  private CategoryDao categoryDao;
 
   /**
    * @see #getBinaryObjectDao()
@@ -47,6 +49,27 @@ public class AbstractRecipeUc extends AbstractUc {
   public void setRecipeDao(RecipeDao recipeDao) {
 
     this.recipeDao = recipeDao;
+  }
+
+  /**
+   * Returns the field 'categoryDao'.
+   *
+   * @return the {@link CategoryDao} instance.
+   */
+  public CategoryDao getCategoryDao() {
+
+    return this.categoryDao;
+  }
+
+  /**
+   * Sets the field 'categoryDao'.
+   *
+   * @param categoryDao New value for categoryDao
+   */
+  @Inject
+  public void setCategoryDao(CategoryDao categoryDao) {
+
+    this.categoryDao = categoryDao;
   }
 
   /**
@@ -87,6 +110,7 @@ public class AbstractRecipeUc extends AbstractUc {
    */
   @Inject
   @UseCase
+  @SuppressWarnings("SpringJavaAutowiringInspection")
   public void setUcManageBinaryObject(UcManageBinaryObject ucManageBinaryObject) {
     this.ucManageBinaryObject = ucManageBinaryObject;
   }

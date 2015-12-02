@@ -6,6 +6,9 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindRecipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.base.usecase.AbstractRecipeUc;
+import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.CategoryEntity;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategorySearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +70,14 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
     }
 
     return getBeanMapper().mapList(recipeList.subList(0, totalTmp), RecipeEto.class);
+  }
+
+  @Override
+  //RolesAllowed(PermissionConstants.FIND_RECIPE)
+  @PermitAll
+  public CategoryEto findCategory(Long id) {
+    LOG.debug("Get Category with id {} from database.", id);
+    return getBeanMapper().map(getCategoryDao().findOne(id), CategoryEto.class);
   }
 
 }

@@ -8,10 +8,11 @@ import io.oasp.gastronomy.restaurant.general.logic.base.UcManageBinaryObject;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategorySearchCriteriaTo;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindRecipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcManageRecipe;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
-
 
 
 import javax.inject.Inject;
@@ -49,6 +50,7 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
    */
   @Inject
   @UseCase
+  @SuppressWarnings("SpringJavaAutowiringInspection")
   public void setUcFindRecipe(UcFindRecipe ucFindRecipe) {
 
     this.ucFindRecipe = ucFindRecipe;
@@ -61,6 +63,7 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
    */
   @Inject
   @UseCase
+  @SuppressWarnings("SpringJavaAutowiringInspection")
   public void setUcManageRecipe(UcManageRecipe ucManageRecipe) {
 
     this.ucManageRecipe = ucManageRecipe;
@@ -73,6 +76,7 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
    */
   @Inject
   @UseCase
+  @SuppressWarnings("SpringJavaAutowiringInspection")
   public void setUcManageBinaryObject(UcManageBinaryObject ucManageBinaryObject) {
     this.ucManageBinaryObject = ucManageBinaryObject;
   }
@@ -80,6 +84,11 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   @Override
   public RecipeEto findRecipe(Long id) {
     return ucFindRecipe.findRecipe(id);
+  }
+
+  @Override
+  public CategoryEto findCategory(Long id) {
+    return ucFindRecipe.findCategory(id);
   }
 
   @Override
