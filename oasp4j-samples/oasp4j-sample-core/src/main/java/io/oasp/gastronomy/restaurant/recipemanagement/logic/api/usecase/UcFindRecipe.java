@@ -2,6 +2,8 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase;
 
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategorySearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 import java.util.List;
@@ -37,5 +39,13 @@ public interface UcFindRecipe {
    * @return The {@link RecipeEto} with id 'id'
    */
   List<RecipeEto>  findRandomRecipes(int total, String language);
+
+  /**
+   * Returns a Category by its id 'id'.
+   *
+   * @param id The id 'id' of the Category.
+   * @return The {@link CategoryEto} with id 'id'
+   */
+  CategoryEto findCategory(Long id);
 
 }

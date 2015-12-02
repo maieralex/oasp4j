@@ -39,6 +39,17 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   /**
    *
+   * @throws Exception if test fails.
+   */
+  @Test
+  public void testFindCategory() throws Exception {
+
+    assertEquals("Vorspeisen", recipeManagement.findCategory(0L).getName());
+    assertEquals("de", recipeManagement.findCategory(0L).getLanguage());
+  }
+
+  /**
+   *
    * @throws Exception if something fails.
      */
   @Test
