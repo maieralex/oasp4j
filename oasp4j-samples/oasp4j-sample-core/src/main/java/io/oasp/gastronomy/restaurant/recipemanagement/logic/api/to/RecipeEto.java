@@ -3,13 +3,6 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
-import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeIngredientEntity;
-
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 
 /**
  * Entity transport object of Recipe.
@@ -34,7 +27,7 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private Integer portions;
 
-  private Set<RecipeIngredientEntity> recipeIngredients;
+  //private ArrayList<RecipeIngredientEntity> recipeIngredients;
 
   private String difficulty;
 
@@ -195,24 +188,24 @@ public class RecipeEto extends AbstractEto implements Recipe {
     this.category = category;
   }
 
-  /**
-   *
-   * @return ingredients return the ingredients of a recipe.
-   */
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "Recipe")
-  public Set<RecipeIngredientEntity> getIngredients() {
-
-    return this.recipeIngredients;
-  }
-
-  /**
-   *
-   * @param recipeIngredients set new ingredients of a recipe.
-   */
-  public void setIngredients(Set<RecipeIngredientEntity> recipeIngredients) {
-
-    this.recipeIngredients = recipeIngredients;
-  }
+//  /**
+//   *
+//   * @return ingredients return the ingredients of a recipe.
+//   */
+//  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "Recipe")
+//  public ArrayList<RecipeIngredientEntity> getIngredients() {
+//
+//    return this.recipeIngredients;
+//  }
+//
+//  /**
+//   *
+//   * @param recipeIngredients set new ingredients of a recipe.
+//   */
+//  public void setIngredients(ArrayList<RecipeIngredientEntity> recipeIngredients) {
+//
+//    this.recipeIngredients = recipeIngredients;
+//  }
 
   /**
    *
