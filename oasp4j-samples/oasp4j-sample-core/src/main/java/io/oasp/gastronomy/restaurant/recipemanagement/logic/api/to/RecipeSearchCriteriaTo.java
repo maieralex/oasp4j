@@ -24,7 +24,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String author;
 
-  private String categories;
+  private String category;
 
   private Integer portions;
 
@@ -40,6 +40,8 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String searchString;
 
+  private Integer rating;
+
   /**
    * The constructor.
    */
@@ -53,7 +55,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
    */
   public String getName() {
 
-    return name;
+    return this.name;
   }
 
   /**
@@ -69,7 +71,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
    */
   public String getDescription() {
 
-    return description;
+    return this.description;
   }
 
   /**
@@ -85,7 +87,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
    */
   public Money getPrice() {
 
-    return price;
+    return this.price;
   }
 
   /**
@@ -115,145 +117,179 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   /**
    *
    * @return language return the language.
-     */
+   */
   public String getLanguage() {
-    return language;
+
+    return this.language;
   }
 
   /**
    *
    * @param language set the language
-     */
+   */
   public void setLanguage(String language) {
+
     this.language = language;
   }
 
   /**
    *
    * @return author
-     */
+   */
   public String getAuthor() {
-    return author;
+
+    return this.author;
   }
 
   /**
    *
    * @param author set the author
-     */
+   */
   public void setAuthor(String author) {
+
     this.author = author;
   }
 
   /**
    *
    * @return portions
-     */
+   */
   public Integer getPortions() {
-    return portions;
+
+    return this.portions;
   }
 
   /**
    *
    * @param portions set the portions
-     */
+   */
   public void setPortions(Integer portions) {
+
     this.portions = portions;
   }
 
   /**
    *
-   * @return categories
-     */
-  public String getCategories() {
-    return categories;
+   * @return category
+   */
+  public String getCategory() {
+
+    return this.category;
   }
 
   /**
    *
-   * @param categories set the categories
-     */
-  public void setCategories(String categories) {
-    this.categories = categories;
+   * @param category set the category
+   */
+  public void setCategory(String category) {
+
+    this.category = category;
   }
 
   /**
    *
    * @return difficulty
-     */
+   */
   public String getDifficulty() {
-    return difficulty;
+
+    return this.difficulty;
   }
 
   /**
    *
    * @param difficulty set the difficulty
-     */
+   */
   public void setDifficulty(String difficulty) {
+
     this.difficulty = difficulty;
   }
 
   /**
    *
    * @return cookTimeMinutes
-     */
+   */
   public Integer getCookTimeMinutes() {
-    return cookTimeMinutes;
+
+    return this.cookTimeMinutes;
   }
 
   /**
    *
    * @param cookTimeMinutes set the cookTimeMinutes
-     */
+   */
   public void setCookTimeMinutes(Integer cookTimeMinutes) {
+
     this.cookTimeMinutes = cookTimeMinutes;
   }
 
   /**
    *
    * @return prepTimeMinutes
-     */
+   */
   public Integer getPrepTimeMinutes() {
-    return prepTimeMinutes;
+
+    return this.prepTimeMinutes;
   }
 
   /**
    *
    * @param prepTimeMinutes set the prepTimeMinutes
-     */
+   */
   public void setPrepTimeMinutes(Integer prepTimeMinutes) {
+
     this.prepTimeMinutes = prepTimeMinutes;
   }
 
   /**
    *
    * @return calories
-     */
+   */
   public Long getCalories() {
-    return calories;
+
+    return this.calories;
   }
 
   /**
    *
    * @param calories set the calories
-     */
+   */
   public void setCalories(Long calories) {
+
     this.calories = calories;
   }
 
   /**
    *
    * @return cookingInstructions
-     */
+   */
   public String getCookingInstructions() {
-    return cookingInstructions;
+
+    return this.cookingInstructions;
   }
 
   /**
    *
    * @param cookingInstructions set the cookingInstructions
-     */
+   */
   public void setCookingInstructions(String cookingInstructions) {
+
     this.cookingInstructions = cookingInstructions;
+  }
+
+  /**
+   * @return rating return the actual rating of a recipe.
+   */
+  public Integer getRating() {
+
+    return this.rating;
+  }
+
+  /**
+   * @param rating set the actual rating of a recipe.
+   */
+  public void setRating(Integer rating) {
+
+    this.rating = rating;
   }
 
   /**
@@ -261,16 +297,17 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
    * @return searchString
    */
   public String getSearchString() {
-    return searchString;
+
+    return this.searchString;
   }
 
   /**
    *
    * @param searchString set the searchString
    */
-  public void setSearchString(String searchString){
+  public void setSearchString(String searchString) {
+
     this.searchString = searchString;
   }
-
 
 }

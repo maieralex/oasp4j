@@ -5,10 +5,11 @@ import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeIngredientEntity;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import java.util.Set;
 
 /**
  * Entity transport object of Recipe.
@@ -29,7 +30,7 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private String author;
 
-  private String categories;
+  private String category;
 
   private Integer portions;
 
@@ -45,13 +46,15 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private String cookingInstructions;
 
+  private Integer rating;
+
   /**
    * {@inheritDoc}
    */
   @Override
   public String getName() {
 
-    return name;
+    return this.name;
   }
 
   /**
@@ -69,7 +72,7 @@ public class RecipeEto extends AbstractEto implements Recipe {
   @Override
   public String getDescription() {
 
-    return description;
+    return this.description;
   }
 
   /**
@@ -87,7 +90,7 @@ public class RecipeEto extends AbstractEto implements Recipe {
   @Override
   public Money getPrice() {
 
-    return price;
+    return this.price;
   }
 
   /**
@@ -122,15 +125,19 @@ public class RecipeEto extends AbstractEto implements Recipe {
    *
    * {@inheritDoc}
    */
+  @Override
   public String getLanguage() {
-    return language;
+
+    return this.language;
   }
 
   /**
    *
    * {@inheritDoc}
    */
+  @Override
   public void setLanguage(String language) {
+
     this.language = language;
   }
 
@@ -139,7 +146,8 @@ public class RecipeEto extends AbstractEto implements Recipe {
    * {@inheritDoc}
    */
   public String getAuthor() {
-    return author;
+
+    return this.author;
   }
 
   /**
@@ -147,6 +155,7 @@ public class RecipeEto extends AbstractEto implements Recipe {
    * {@inheritDoc}
    */
   public void setAuthor(String author) {
+
     this.author = author;
   }
 
@@ -155,113 +164,162 @@ public class RecipeEto extends AbstractEto implements Recipe {
    * {@inheritDoc}
    */
   public Integer getPortions() {
-    return portions;
+
+    return this.portions;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public void setPortions(Integer portions) {
+
     this.portions = portions;
   }
+
   /**
    *
    * {@inheritDoc}
    */
-  public String getCategories() {
-    return categories;
+  public String getCategory() {
+
+    return this.category;
   }
+
   /**
    *
    * {@inheritDoc}
    */
-  public void setCategories(String categories) {
-    this.categories = categories;
+  public void setCategory(String category) {
+
+    this.category = category;
   }
+
   /**
    *
    * @return ingredients return the ingredients of a recipe.
    */
   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "Recipe")
   public Set<RecipeIngredientEntity> getIngredients() {
-    return recipeIngredients;
+
+    return this.recipeIngredients;
   }
+
   /**
    *
    * @param recipeIngredients set new ingredients of a recipe.
    */
   public void setIngredients(Set<RecipeIngredientEntity> recipeIngredients) {
+
     this.recipeIngredients = recipeIngredients;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public String getDifficulty() {
-    return difficulty;
+
+    return this.difficulty;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public void setDifficulty(String difficulty) {
+
     this.difficulty = difficulty;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public Integer getCookTimeMinutes() {
-    return cookTimeMinutes;
+
+    return this.cookTimeMinutes;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public void setCookTimeMinutes(Integer cookTimeMinutes) {
+
     this.cookTimeMinutes = cookTimeMinutes;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public Integer getPrepTimeMinutes() {
-    return prepTimeMinutes;
+
+    return this.prepTimeMinutes;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public void setPrepTimeMinutes(Integer prepTimeMinutes) {
+
     this.prepTimeMinutes = prepTimeMinutes;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public Long getCalories() {
-    return calories;
+
+    return this.calories;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public void setCalories(Long calories) {
+
     this.calories = calories;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public String getCookingInstructions() {
-    return cookingInstructions;
+
+    return this.cookingInstructions;
   }
+
   /**
    *
    * {@inheritDoc}
    */
   public void setCookingInstructions(String cookingInstructions) {
+
     this.cookingInstructions = cookingInstructions;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Integer getRating() {
+
+    return this.rating;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setRating(Integer rating) {
+
+    this.rating = rating;
   }
 
   @Override

@@ -60,4 +60,14 @@ public interface Recipe extends ApplicationEntity {
    */
   void setImageId(Long imageId);
 
+  /**
+   * @return rating return the actual rating of a recipe.
+   */
+  public Integer getRating();
+
+  /**
+   * @param rating set the actual rating of a recipe.
+   */
+  public void setRating(Integer rating);
+
 }
