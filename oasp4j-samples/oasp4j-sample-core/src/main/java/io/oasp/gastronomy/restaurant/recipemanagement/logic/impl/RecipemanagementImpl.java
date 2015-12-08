@@ -6,14 +6,14 @@ import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.general.logic.base.AbstractComponentFacade;
 import io.oasp.gastronomy.restaurant.general.logic.base.UcManageBinaryObject;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategorySearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindIngredient;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindRecipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcManageRecipe;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
-
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,6 +34,8 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   private UcManageRecipe ucManageRecipe;
 
   private UcManageBinaryObject ucManageBinaryObject;
+
+  private UcFindIngredient ucFindIngredient;
 
   /**
    * The constructor.
@@ -79,6 +81,18 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   @SuppressWarnings("SpringJavaAutowiringInspection")
   public void setUcManageBinaryObject(UcManageBinaryObject ucManageBinaryObject) {
     this.ucManageBinaryObject = ucManageBinaryObject;
+  }
+
+  /**
+   * Sets the field 'ucFindIngredient'.
+   *
+   * @param ucFindIngredient New value for ucFindIngredient
+   */
+  @Inject
+  @UseCase
+  @SuppressWarnings("SpringJavaAutowiringInspection")
+  public void setUcManageBinaryObject(UcFindIngredient ucFindIngredient) {
+    this.ucFindIngredient = ucFindIngredient;
   }
 
   @Override
@@ -134,5 +148,11 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   @Override
   public List<RecipeEto> findRandomRecipes(int id, String language) {
     return ucFindRecipe.findRandomRecipes(id, language);
+  }
+
+  @Override
+  public List<IngredientEto> findAllIngredients() {
+
+    return ucFindIngredient.findAllIngredients();
   }
 }

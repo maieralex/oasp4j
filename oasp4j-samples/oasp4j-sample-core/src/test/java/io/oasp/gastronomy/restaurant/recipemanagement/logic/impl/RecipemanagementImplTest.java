@@ -5,6 +5,7 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeIngredientEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
@@ -227,6 +228,13 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     byte[] actual = binaryObjectBlob.getBytes(1, 4);
     assertArrayEquals(bytes, actual);
+  }
+
+  @Test
+  public void testFindAllIngredients() throws Exception {
+    List<IngredientEto> ingredients = recipeManagement.findAllIngredients();
+    assertEquals(2, ingredients.size());
+    //TODO check content of the returned list
   }
 
   @Test

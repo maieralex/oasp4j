@@ -4,6 +4,7 @@ import io.oasp.gastronomy.restaurant.general.dataaccess.api.dao.BinaryObjectDao;
 import io.oasp.gastronomy.restaurant.general.logic.api.UseCase;
 import io.oasp.gastronomy.restaurant.general.logic.base.AbstractUc;
 import io.oasp.gastronomy.restaurant.general.logic.base.UcManageBinaryObject;
+import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.IngredientDao;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.RecipeDao;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.CategoryDao;
 
@@ -18,6 +19,15 @@ public class AbstractRecipeUc extends AbstractUc {
    * @see #getRecipeDao()
    */
   private RecipeDao recipeDao;
+
+  /**
+   * @see #getIngredientDao()
+   */
+  private IngredientDao ingredientDao;
+
+  /**
+   * @see #getCategoryDao()
+   */
   private CategoryDao categoryDao;
 
   /**
@@ -49,6 +59,25 @@ public class AbstractRecipeUc extends AbstractUc {
   public void setRecipeDao(RecipeDao recipeDao) {
 
     this.recipeDao = recipeDao;
+  }
+
+  /**
+   * Returns the field 'ingredientDao'.
+   *
+   * @return the {@link IngredientDao} instance.
+   */
+  public IngredientDao getIngredientDao() {
+    return ingredientDao;
+  }
+
+  /**
+   * Sets the field 'ingredientDao'.
+   *
+   * @param ingredientDao New value for ingredientDao
+   */
+  @Inject
+  public void setIngredientDao(IngredientDao ingredientDao) {
+    this.ingredientDao = ingredientDao;
   }
 
   /**

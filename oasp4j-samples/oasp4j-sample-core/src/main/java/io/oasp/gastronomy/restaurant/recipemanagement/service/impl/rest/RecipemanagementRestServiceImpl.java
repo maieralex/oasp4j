@@ -2,6 +2,7 @@ package io.oasp.gastronomy.restaurant.recipemanagement.service.impl.rest;
 
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
@@ -204,6 +205,18 @@ public class RecipemanagementRestServiceImpl {
       throw new BadRequestException("Your input is not a number");
     }
     return this.recipemanagement.findRandomRecipes(total, language);
+  }
+
+  /**
+   * Returns a {@link List} of all stored {@link IngredientEto}
+   *
+   * @return a list of all IngredientEto
+   */
+  @GET
+  @Path("/ingredient")
+  public List<IngredientEto> getAllIngredients() {
+
+    return recipemanagement.findAllIngredients();
   }
 
 }
