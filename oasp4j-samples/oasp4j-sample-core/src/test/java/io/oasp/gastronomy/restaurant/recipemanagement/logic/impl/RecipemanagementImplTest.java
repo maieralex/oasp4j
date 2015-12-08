@@ -16,7 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -235,19 +234,21 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     RecipeEto recipe = recipeManagement.findRecipe(0L);
 
     assertEquals(2, recipe.getIngredients().size());
+    for (RecipeIngredientEntity recipeIngredientEntity : recipe.getIngredients()) {
+      if (recipeIngredientEntity.getId() == 1) {
+        assertEquals(new Integer(1), recipeIngredientEntity.getPosition());
+        assertEquals(new Double(1), recipeIngredientEntity.getAmount());
+        assertEquals("Priese", recipeIngredientEntity.getMeasuringUnit());
+        assertEquals("Pfeffer", recipeIngredientEntity.getIngredient().getName());
+      } else if (recipeIngredientEntity.getId() == 2) {
+        assertEquals(new Integer(2), recipeIngredientEntity.getPosition());
+        assertEquals(new Double(5), recipeIngredientEntity.getAmount());
+        assertEquals("Priesen", recipeIngredientEntity.getMeasuringUnit());
+        assertEquals("Salz", recipeIngredientEntity.getIngredient().getName());
+      } else {
+        fail("Id should not be something else than 1 or 2.");
+      }
+    }
 
-    ArrayList<RecipeIngredientEntity> recIngr = new ArrayList<>();
-    recIngr.addAll(recipe.getIngredients());
-
-    assertEquals(new Integer(1), recIngr.get(0).getPosition());
-    assertEquals(new Double(1), recIngr.get(0).getAmount());
-    assertEquals("Priese", recIngr.get(0).getMeasuringUnit());
-
-    assertEquals(new Integer(2), recIngr.get(1).getPosition());
-    assertEquals(new Double(5), recIngr.get(1).getAmount());
-    assertEquals("Priesen", recIngr.get(1).getMeasuringUnit());
-
-    assertEquals("Pfeffer", recIngr.get(0).getIngredient().getName());
-    assertEquals("Salz", recIngr.get(1).getIngredient().getName());
   }
 }
