@@ -3,6 +3,7 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl;
 import io.oasp.gastronomy.restaurant.general.common.AbstractSpringIntegrationTest;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeIngredientEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
@@ -15,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -226,5 +228,26 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     byte[] actual = binaryObjectBlob.getBytes(1, 4);
     assertArrayEquals(bytes, actual);
+  }
+
+  @Test
+  public void testRecipeWithIngredients() throws Exception {
+    RecipeEto recipe = recipeManagement.findRecipe(0L);
+
+    assertEquals(2, recipe.getIngredients().size());
+
+    ArrayList<RecipeIngredientEntity> recIngr = new ArrayList<>();
+    recIngr.addAll(recipe.getIngredients());
+
+    assertEquals(new Integer(1), recIngr.get(0).getPosition());
+    assertEquals(new Double(1), recIngr.get(0).getAmount());
+    assertEquals("Priese", recIngr.get(0).getMeasuringUnit());
+
+    assertEquals(new Integer(2), recIngr.get(1).getPosition());
+    assertEquals(new Double(5), recIngr.get(1).getAmount());
+    assertEquals("Priesen", recIngr.get(1).getMeasuringUnit());
+
+    assertEquals("Pfeffer", recIngr.get(0).getIngredient().getName());
+    assertEquals("Salz", recIngr.get(1).getIngredient().getName());
   }
 }

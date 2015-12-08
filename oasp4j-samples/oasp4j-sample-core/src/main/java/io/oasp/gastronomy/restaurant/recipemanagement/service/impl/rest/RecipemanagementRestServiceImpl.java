@@ -133,12 +133,13 @@ public class RecipemanagementRestServiceImpl {
 
   /**
    * Delegates to {@link Recipemanagement#updateRecipePicture(Long, Blob, BinaryObjectEto)}.
-   * @param recipeId which recipe should be updated with a new image.
+   *
+   * @param recipeId        which recipe should be updated with a new image.
    * @param binaryObjectEto define the transferObject of the image.
-   * @param picture new data of the image.
+   * @param picture         new data of the image.
    * @throws SQLException if data can't be written into the database.
-   * @throws IOException if the stram can't be accessed.
-     */
+   * @throws IOException  if the stram can't be accessed.
+   */
   @Consumes("multipart/mixed")
   @POST
   @Path("/recipe/{id}/picture")
@@ -184,8 +185,8 @@ public class RecipemanagementRestServiceImpl {
   /**
    * Delegates to {@link Recipemanagement#findRandomRecipes}.
    *
-   * @param input     the number of the {@link RecipeEto} to return
-   * @param language  the language of the {@link RecipeEto} to return
+   * @param input    the number of the {@link RecipeEto} to return
+   * @param language the language of the {@link RecipeEto} to return
    * @return the {@link RecipeEto}
    */
   @GET
