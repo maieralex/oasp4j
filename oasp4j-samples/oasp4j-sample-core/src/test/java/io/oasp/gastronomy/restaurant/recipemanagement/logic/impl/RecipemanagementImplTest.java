@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,10 +46,19 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testFindCategory() throws Exception {
 
+    RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
+    List<String> categoryIdList = new ArrayList<>();
+    categoryIdList.add("Vom Grill");
+
+    criteria.setSearchCategoryList(categoryIdList);
+
+    PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
+
     assertEquals("Vorspeisen", recipeManagement.findCategory(0L).getName());
     assertEquals("de", recipeManagement.findCategory(0L).getLanguage());
     assertEquals(new Long(9), recipeManagement.findRecipe(0L).getCategoryId());
     assertEquals(14, recipeManagement.findAllCategories().size());
+    assertEquals(3, list.getResult().size());
     //assertEquals("Vom Grill", recipeManagement.findCategoryNameToRecipeId(2L));
     //assertEquals(new Long(1), recipeManagement.findRecipe(0L).getCategoryId());
     //assertEquals("1", recipeManagement.findRecipe(0L).getCategoryId());;

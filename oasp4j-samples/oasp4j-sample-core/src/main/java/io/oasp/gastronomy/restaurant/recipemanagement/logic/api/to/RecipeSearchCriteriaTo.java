@@ -3,6 +3,8 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.module.jpa.common.api.to.SearchCriteriaTo;
 
+import java.util.List;
+
 /**
  * This is the {@link SearchCriteriaTo search criteria} {@link net.sf.mmm.util.transferobject.api.TransferObject TO}
  * used to find {@link io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe}s.
@@ -39,6 +41,8 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   private String cookingInstructions;
 
   private String searchString;
+
+  private List<String> searchCategoryList;
 
   private Integer rating;
 
@@ -308,6 +312,24 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   public void setSearchString(String searchString) {
 
     this.searchString = searchString;
+  }
+
+  /**
+   *
+   * @return searchCategoryList
+   */
+  public List<String> getSearchCategoryList() {
+
+    return this.searchCategoryList;
+  }
+
+  /**
+   *
+   * @param searchCategoryList set the searchCategoryList
+   */
+  public void setSearchCategoryList(List<String> searchCategoryList) {
+
+    this.searchCategoryList = searchCategoryList;
   }
 
 }

@@ -63,6 +63,16 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
         }
     }
 
+    List<String> searchCategoryList = criteria.getSearchCategoryList();
+    if (searchCategoryList != null) {
+      for (String searchParam: searchCategoryList) {
+        if(searchParam != null) {
+          query.where(Alias.$(recipe.getCategoryEntity().getName()).eq(searchParam));
+        }
+      }
+    }
+
+
     String name = criteria.getName();
     if (name != null) {
       query.where(Alias.$(recipe.getName()).equalsIgnoreCase(name));
