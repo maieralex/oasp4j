@@ -48,16 +48,15 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
 
     String searchString = criteria.getSearchString();
 
-    if(searchString != null) {
-        if(searchString.contains(" ")) {
+    if (searchString != null) {
+        if (searchString.contains(" ")) {
             String[] searchParams = searchString.split(" ");
 
             for (String param: searchParams) {
               query.where(Alias.$(recipe.getName()).containsIgnoreCase(param)
                 .or(Alias.$(recipe.getDescription()).containsIgnoreCase(param)));
             }
-        }
-      else {
+        } else {
           query.where(Alias.$(recipe.getName()).containsIgnoreCase(searchString)
             .or(Alias.$(recipe.getDescription()).containsIgnoreCase(searchString)));
         }
@@ -66,7 +65,7 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
     List<String> searchCategoryList = criteria.getSearchCategoryList();
     if (searchCategoryList != null) {
       for (String searchParam: searchCategoryList) {
-        if(searchParam != null) {
+        if (searchParam != null) {
           query.where(Alias.$(recipe.getCategoryEntity().getName()).eq(searchParam));
         }
       }

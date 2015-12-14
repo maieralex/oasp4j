@@ -7,7 +7,7 @@ import io.oasp.module.jpa.common.api.to.SearchCriteriaTo;
  */
 public class IngredientSearchCriteriaTo extends SearchCriteriaTo {
 
-  String name;
+  private String name;
 
   /**
    * Returns the name of this ingredient.

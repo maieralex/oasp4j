@@ -12,19 +12,19 @@ import javax.persistence.*;
  */
 @Entity(name = "Recipe_Ingredient")
 @Table(name = "Recipe_Ingredient")
-public class RecipeIngredientEntity extends ApplicationPersistenceEntity implements RecipeIngredient{
+public class RecipeIngredientEntity extends ApplicationPersistenceEntity implements RecipeIngredient {
 
   private static final long serialVersionUID = 1L;
 
-  RecipeEntity recipe;
+  private RecipeEntity recipe;
 
-  IngredientEntity ingredient;
+  private IngredientEntity ingredient;
 
-  String measuringUnit;
+  private String measuringUnit;
 
-  Double amount;
+  private Double amount;
 
-  Integer position;
+  private Integer position;
 
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "pk_recipe")

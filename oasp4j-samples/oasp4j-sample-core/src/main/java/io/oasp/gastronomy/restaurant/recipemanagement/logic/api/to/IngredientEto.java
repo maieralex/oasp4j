@@ -7,7 +7,7 @@ import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Ingredient;
  */
 public class IngredientEto implements Ingredient {
 
-  String name;
+  private String name;
 
   /**
    * Returns the name of this ingredient.
