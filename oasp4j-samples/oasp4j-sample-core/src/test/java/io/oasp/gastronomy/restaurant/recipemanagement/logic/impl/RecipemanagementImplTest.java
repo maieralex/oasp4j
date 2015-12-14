@@ -68,13 +68,28 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
    */
   @Test
   @Ignore
-  public void testSearchRecipeEtosWithCriteriaSearchString() throws Exception {
+  public void testSearchRecipeEtosWithCriteriaSearchStringTwoOrMoreParam() throws Exception {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     criteria.setSearchString("hAmbuRGER BaCOn");
 
     PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
     assertEquals(1, list.getResult().size());
+  }
+
+  /**
+   *
+   * @throws Exception if something fails.
+   */
+  @Test
+  @Ignore
+  public void testSearchRecipeEtosWithCriteriaSearchStringOneParam() throws Exception {
+
+    RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
+    criteria.setSearchString("gEmÜse");
+
+    PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
+    assertEquals(2, list.getResult().size());
   }
 
   /**
