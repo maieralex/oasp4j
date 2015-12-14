@@ -9,22 +9,32 @@ import io.oasp.gastronomy.restaurant.general.common.api.ApplicationEntity;
 public interface Category extends ApplicationEntity {
 
   /**
-   * @return the name of a {@link CategoryEto}
+   * @return the ID of a category
+   */
+  Long getCategoryId();
+
+  /**
+   * @param categoryId set ID of a category
+   */
+  void setCategoryId(Long categoryId);
+
+  /**
+   * @return the name of a category
    */
   String getName();
 
   /**
-   * @param name set new name of a {@link CategoryEto}
+   * @param name set new name of a category
    */
   void setName(String name);
 
   /**
-   * @return the language of a {@link CategoryEto}
+   * @return the language of a category
    */
   String getLanguage();
 
   /**
-   * @param language set a new language of a {@link CategoryEto}
+   * @param language set a new language of a category
    */
   void setLanguage(String language);
 

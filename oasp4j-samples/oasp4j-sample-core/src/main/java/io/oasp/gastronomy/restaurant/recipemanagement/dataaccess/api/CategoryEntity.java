@@ -15,9 +15,41 @@ public class CategoryEntity extends ApplicationPersistenceEntity implements Cate
 
   private static final long serialVersionUID = 1L;
 
+  private Long categoryId;
+
   private String name;
 
   private String language;
+
+  /**
+   * The constructor.
+   */
+  public CategoryEntity() {
+
+    super();
+  }
+
+  /**
+   * Returns the ID of this category.
+   *
+   * @return categoryID the ID of the category.
+   */
+  @Override
+  public Long getCategoryId() {
+
+    return this.categoryId;
+  }
+
+  /**
+   * Sets the ID of this category.
+   *
+   * @param categoryId the ID of this category.
+   */
+  @Override
+  public void setCategoryId(Long categoryId) {
+
+    this.categoryId = categoryId;
+  }
 
   /**
    * Returns the name of this category.

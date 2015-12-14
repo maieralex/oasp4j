@@ -18,7 +18,9 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String language;
 
-  private Money price;
+  private Money priceFrom;
+
+  private Money priceTo;
 
   private Long imageId;
 
@@ -40,7 +42,9 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String searchString;
 
-  private Integer rating;
+  private Integer ratingFrom;
+
+  private Integer ratingTo;
 
   /**
    * The constructor.
@@ -83,19 +87,35 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @return price
+   * @return priceFrom
    */
-  public Money getPrice() {
+  public Money getPriceFrom() {
 
-    return this.price;
+    return this.priceFrom;
   }
 
   /**
-   * @param price price to be set
+   * @param priceFrom new value of {@link #getpriceFrom}.
    */
-  public void setPrice(Money price) {
+  public void setPriceFrom(Money priceFrom) {
 
-    this.price = price;
+    this.priceFrom = priceFrom;
+  }
+
+  /**
+   * @return priceTo
+   */
+  public Money getPriceTo() {
+
+    return this.priceTo;
+  }
+
+  /**
+   * @param priceTo new value of {@link #getpriceTo}.
+   */
+  public void setPriceTo(Money priceTo) {
+
+    this.priceTo = priceTo;
   }
 
   /**
@@ -277,19 +297,35 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @return rating return the actual rating of a recipe.
+   * @return ratingFrom
    */
-  public Integer getRating() {
+  public Integer getRatingFrom() {
 
-    return this.rating;
+    return this.ratingFrom;
   }
 
   /**
-   * @param rating set the actual rating of a recipe.
+   * @param ratingFrom new value of {@link #getratingFrom}.
    */
-  public void setRating(Integer rating) {
+  public void setRatingFrom(Integer ratingFrom) {
 
-    this.rating = rating;
+    this.ratingFrom = ratingFrom;
+  }
+
+  /**
+   * @return ratingTo
+   */
+  public Integer getRatingTo() {
+
+    return this.ratingTo;
+  }
+
+  /**
+   * @param ratingTo new value of {@link #getratingTo}.
+   */
+  public void setRatingTo(Integer ratingTo) {
+
+    this.ratingTo = ratingTo;
   }
 
   /**

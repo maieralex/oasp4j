@@ -6,11 +6,7 @@ import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * The {@link ApplicationPersistenceEntity persistent entity} for a recipe.
@@ -22,6 +18,8 @@ import javax.persistence.Table;
 public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe {
 
   private static final long serialVersionUID = 1L;
+
+  private Long recipeId;
 
   private String name;
 
@@ -52,6 +50,40 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   private String cookingInstructions;
 
   private Integer rating;
+
+  private Long categoryId;
+
+  private CategoryEntity categoryEntity;
+
+  /**
+   * The constructor.
+   */
+  public RecipeEntity() {
+
+    super();
+  }
+
+  /**
+   * Returns the ID of this recipe.
+   *
+   * @return recipeId the ID of the recipe.
+   */
+  @Override
+  public Long getRecipeId() {
+
+    return this.recipeId;
+  }
+
+  /**
+   * Sets the ID of this recipe.
+   *
+   * @param recipeId the ID of this recipe.
+   */
+  @Override
+  public void setRecipeId(Long recipeId) {
+
+    this.recipeId = recipeId;
+  }
 
   /**
    * Returns the name of this recipe.
@@ -330,6 +362,50 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   public void setRating(Integer rating) {
 
     this.rating = rating;
+  }
+
+  /**
+   * Returns the CategoryEntity of a Recipe.
+   *
+   * @return CategoryEntity
+   */
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name="categoryId")
+  public CategoryEntity getCategoryEntity() {
+
+    return this.categoryEntity;
+  }
+
+  /**
+   * Sets the CategoryEntity of a Recipe.
+   *
+   * @param category new CategoryEntity
+   */
+  public void setCategoryEntity(CategoryEntity category) {
+
+    this.categoryEntity = category;
+  }
+
+  @Override
+  @Transient
+  public Long getCategoryId() {
+
+    if (this.categoryEntity == null) {
+      return null;
+    }
+    return this.categoryEntity.getId();
+  }
+
+  @Override
+  public void setCategoryId(Long categoryId) {
+
+    if (categoryId == null) {
+      this.categoryId = null;
+    } else {
+      CategoryEntity categoryEntity = new CategoryEntity();
+      categoryEntity.setId(categoryId);
+      this.categoryId = categoryId;
+    }
   }
 
 }

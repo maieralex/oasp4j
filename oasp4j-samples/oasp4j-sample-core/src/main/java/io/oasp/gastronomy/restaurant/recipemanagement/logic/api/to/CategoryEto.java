@@ -10,9 +10,38 @@ public class CategoryEto extends AbstractEto implements Category {
 
   private static final long serialVersionUID = 1L;
 
+  private Long categoryId;
+
   private String name;
 
   private String language;
+
+  /**
+   * The constructor.
+   */
+  public CategoryEto() {
+
+    super();
+  }
+
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Long getCategoryId() {
+
+    return categoryId;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setCategoryId(Long categoryId) {
+
+    this.categoryId = categoryId;
+  }
 
   /**
    * {@inheritDoc}

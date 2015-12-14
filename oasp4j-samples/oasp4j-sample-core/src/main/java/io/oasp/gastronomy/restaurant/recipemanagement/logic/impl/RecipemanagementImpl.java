@@ -10,6 +10,7 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindCategory;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindIngredient;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindRecipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcManageRecipe;
@@ -32,6 +33,8 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   private UcFindRecipe ucFindRecipe;
 
   private UcManageRecipe ucManageRecipe;
+
+  private UcFindCategory ucFindCategory;
 
   private UcManageBinaryObject ucManageBinaryObject;
 
@@ -95,6 +98,20 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
     this.ucFindIngredient = ucFindIngredient;
   }
 
+
+  /**
+   * Sets the field 'ucFindCategory'.
+   *
+   * @param ucFindCategory New value for ucFindCategory
+   */
+  @Inject
+  @UseCase
+  @SuppressWarnings("SpringJavaAutowiringInspection")
+  public void setUcFindCategory(UcFindCategory ucFindCategory) {
+
+    this.ucFindCategory = ucFindCategory;
+  }
+
   @Override
   public RecipeEto findRecipe(Long id) {
     return ucFindRecipe.findRecipe(id);
@@ -102,7 +119,13 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
 
   @Override
   public CategoryEto findCategory(Long id) {
-    return ucFindRecipe.findCategory(id);
+    return ucFindCategory.findCategory(id);
+  }
+
+  @Override
+  public List<CategoryEto> findAllCategories() {
+
+    return ucFindCategory.findAllCategories();
   }
 
   @Override

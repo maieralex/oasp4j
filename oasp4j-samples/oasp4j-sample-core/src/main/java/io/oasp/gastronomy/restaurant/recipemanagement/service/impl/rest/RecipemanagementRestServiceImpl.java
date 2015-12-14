@@ -2,9 +2,7 @@ package io.oasp.gastronomy.restaurant.recipemanagement.service.impl.rest;
 
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
@@ -130,6 +128,18 @@ public class RecipemanagementRestServiceImpl {
   public PaginatedListTo<RecipeEto> findRecipesByPost(RecipeSearchCriteriaTo searchCriteriaTo) {
 
     return this.recipemanagement.findRecipeEtos(searchCriteriaTo);
+  }
+
+  /**
+   * Returns a {@link List} of all stored {@link CategoryEto}
+   *
+   * @return a list of all CategoryEto
+   */
+  @GET
+  @Path("/categories")
+  public List<CategoryEto> getAllCategories() {
+
+    return recipemanagement.findAllCategories();
   }
 
   /**
