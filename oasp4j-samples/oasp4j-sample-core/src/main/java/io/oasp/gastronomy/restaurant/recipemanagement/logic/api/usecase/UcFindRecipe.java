@@ -16,12 +16,12 @@ import java.util.List;
 public interface UcFindRecipe {
 
   /**
-	 * Returns a Recipe by its id 'id'.
-	 *
-	 * @param id The id 'id' of the Recipe.
-	 * @return The {@link RecipeEto} with id 'id'
-	 */
-	RecipeEto findRecipe(Long id);
+   * Returns a Recipe by its id 'id'.
+   *
+   * @param id The id 'id' of the Recipe.
+   * @return The {@link RecipeEto} with id 'id'
+   */
+  RecipeEto findRecipe(Long id);
 
   /**
 	 * Returns a paginated list of Recipes matching the search criteria.
@@ -39,13 +39,5 @@ public interface UcFindRecipe {
    * @return The {@link RecipeEto} with id 'id'
    */
   List<RecipeEto>  findRandomRecipes(int total, String language);
-
-  /**
-   * Returns a Category by its id 'id'.
-   *
-   * @param id The id 'id' of the Category.
-   * @return The {@link CategoryEto} with id 'id'
-   */
-  CategoryEto findCategory(Long id);
 
 }

@@ -11,6 +11,16 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 public interface Recipe extends ApplicationEntity {
 
   /**
+   * @return the ID of a recipe
+   */
+  Long getRecipeId();
+
+  /**
+   * @param recipeId set ID of a recipe
+   */
+  void setRecipeId(Long recipeId);
+
+  /**
    * @return the name of a recipe
    */
   String getName();
@@ -70,4 +80,13 @@ public interface Recipe extends ApplicationEntity {
    */
   public void setRating(Integer rating);
 
+  /**
+   * @param categoryId the category ID of a recipe
+   */
+  public void setCategoryId(Long categoryId);
+
+  /**
+   * @return the category ID of a recipe
+   */
+  public Long getCategoryId();
 }

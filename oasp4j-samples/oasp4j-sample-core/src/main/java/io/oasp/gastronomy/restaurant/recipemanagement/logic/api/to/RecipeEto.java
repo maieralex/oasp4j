@@ -11,6 +11,8 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private static final long serialVersionUID = 1L;
 
+  private Long recipeId;
+
   private String name;
 
   private String description;
@@ -40,6 +42,35 @@ public class RecipeEto extends AbstractEto implements Recipe {
   private String cookingInstructions;
 
   private Integer rating;
+
+  private Long categoryId;
+
+  /**
+   * The constructor.
+   */
+  public RecipeEto() {
+
+    super();
+  }
+
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Long getRecipeId() {
+
+    return recipeId;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setRecipeId(Long recipeId) {
+
+    this.recipeId = recipeId;
+  }
 
   /**
    * {@inheritDoc}
@@ -313,6 +344,21 @@ public class RecipeEto extends AbstractEto implements Recipe {
   public void setRating(Integer rating) {
 
     this.rating = rating;
+  }
+
+  /**
+   *
+   * {@inheritDoc}
+   */
+  public Long getCategoryId() {
+    return categoryId;
+  }
+  /**
+   *
+   * {@inheritDoc}
+   */
+  public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
   }
 
   @Override

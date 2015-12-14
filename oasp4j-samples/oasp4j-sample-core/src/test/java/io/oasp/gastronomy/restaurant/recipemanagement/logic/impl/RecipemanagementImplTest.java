@@ -47,6 +47,11 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     assertEquals("Vorspeisen", recipeManagement.findCategory(0L).getName());
     assertEquals("de", recipeManagement.findCategory(0L).getLanguage());
+    assertEquals(new Long(9), recipeManagement.findRecipe(0L).getCategoryId());
+    assertEquals(14, recipeManagement.findAllCategories().size());
+    //assertEquals("Vom Grill", recipeManagement.findCategoryNameToRecipeId(2L));
+    //assertEquals(new Long(1), recipeManagement.findRecipe(0L).getCategoryId());
+    //assertEquals("1", recipeManagement.findRecipe(0L).getCategoryId());;
   }
 
   /**

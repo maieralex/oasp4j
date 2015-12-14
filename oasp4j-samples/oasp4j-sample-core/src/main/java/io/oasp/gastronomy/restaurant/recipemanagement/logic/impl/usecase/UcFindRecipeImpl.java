@@ -71,13 +71,4 @@ public class UcFindRecipeImpl extends AbstractRecipeUc implements UcFindRecipe {
 
     return getBeanMapper().mapList(recipeList.subList(0, totalTmp), RecipeEto.class);
   }
-
-  @Override
-  //RolesAllowed(PermissionConstants.FIND_RECIPE)
-  @PermitAll
-  public CategoryEto findCategory(Long id) {
-    LOG.debug("Get Category with id {} from database.", id);
-    return getBeanMapper().map(getCategoryDao().findOne(id), CategoryEto.class);
-  }
-
 }
