@@ -19,8 +19,6 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   private static final long serialVersionUID = 1L;
 
-  private Long recipeId;
-
   private String name;
 
   private String description;
@@ -61,28 +59,6 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   public RecipeEntity() {
 
     super();
-  }
-
-  /**
-   * Returns the ID of this recipe.
-   *
-   * @return recipeId the ID of the recipe.
-   */
-  @Override
-  public Long getRecipeId() {
-
-    return this.recipeId;
-  }
-
-  /**
-   * Sets the ID of this recipe.
-   *
-   * @param recipeId the ID of this recipe.
-   */
-  @Override
-  public void setRecipeId(Long recipeId) {
-
-    this.recipeId = recipeId;
   }
 
   /**

@@ -10,8 +10,6 @@ public class CategoryEto extends AbstractEto implements Category {
 
   private static final long serialVersionUID = 1L;
 
-  private Long categoryId;
-
   private String name;
 
   private String language;
@@ -22,25 +20,6 @@ public class CategoryEto extends AbstractEto implements Category {
   public CategoryEto() {
 
     super();
-  }
-
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Long getCategoryId() {
-
-    return categoryId;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void setCategoryId(Long categoryId) {
-
-    this.categoryId = categoryId;
   }
 
   /**
@@ -65,6 +44,7 @@ public class CategoryEto extends AbstractEto implements Category {
    *
    * {@inheritDoc}
    */
+  @Override
   public String getLanguage() {
     return language;
   }
@@ -73,6 +53,7 @@ public class CategoryEto extends AbstractEto implements Category {
    *
    * {@inheritDoc}
    */
+  @Override
   public void setLanguage(String language) {
     this.language = language;
   }
