@@ -1,7 +1,5 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.common.api;
 
-import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.IngredientEntity;
-
 /**
  * Created by pascaldung on 01.12.15.
  */
@@ -11,9 +9,9 @@ public interface RecipeIngredient {
 
   public void setRecipeId(Long recipeId);
 
-  public IngredientEntity getIngredient();
+  public Long getIngredientId();
 
-  public void setIngredient(IngredientEntity ingredient);
+  public void setIngredientId(Long ingredientId);
 
   public String getMeasuringUnit();
 

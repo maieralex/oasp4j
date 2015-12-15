@@ -26,13 +26,15 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
 
   Integer position;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne()
   @JoinColumn(name = "pk_recipe")
   public RecipeEntity getRecipe() {
+
     return recipe;
   }
 
   public void setRecipe(RecipeEntity recipe) {
+
     this.recipe = recipe;
   }
 
@@ -43,6 +45,29 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
       return this.recipe.getId();
     }
     return null;
+  }
+
+  @Override
+  @Transient
+  public Long getIngredientId() {
+    if (ingredient == null) {
+      return null;
+    }
+
+    return ingredient.getId();
+  }
+
+  @Override
+  public void setIngredientId(Long ingredientId) {
+
+    if(ingredientId == null) {
+      this.ingredient = null;
+    }
+    else {
+      IngredientEntity newIngredientEntity = new IngredientEntity();
+      newIngredientEntity.setId(ingredientId);
+      this.ingredient = newIngredientEntity;
+    }
   }
 
   @Override
@@ -59,13 +84,15 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
 
   }
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "pk_ingredient")
   public IngredientEntity getIngredient() {
+
     return ingredient;
   }
 
   public void setIngredient(IngredientEntity ingredient) {
+
     this.ingredient = ingredient;
   }
 

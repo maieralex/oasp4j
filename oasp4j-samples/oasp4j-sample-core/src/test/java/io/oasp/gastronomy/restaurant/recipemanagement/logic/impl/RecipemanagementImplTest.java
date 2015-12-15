@@ -6,6 +6,7 @@ import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredientEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
@@ -242,27 +243,56 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   }
 
   @Test
+  public void testSaveRecipeWithIngredients() throws Exception {
+    RecipeEto recipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(2, recipe.getRecipeIngredients().size());
+
+    List<IngredientEto> allIngredients = this.recipeManagement.findAllIngredients();
+
+    RecipeIngredientEto recipeIngredientEto = new RecipeIngredientEto();
+    recipeIngredientEto.setAmount(55.0);
+    recipeIngredientEto.setMeasuringUnit("Löffel");
+    recipeIngredientEto.setPosition(4);
+    recipeIngredientEto.setRecipeId(recipe.getId());
+    recipeIngredientEto.setIngredient(allIngredients.get(0));
+
+    recipe.getRecipeIngredients().add(recipeIngredientEto);
+    this.recipeManagement.saveRecipe(recipe);
+
+    RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(3, updatedRecipe.getRecipeIngredients().size());
+    //TODO check the new ingredient
+  }
+
+  @Test
+  public void testSaveRecipeWithNewIngredient() throws Exception {
+    RecipeEto recipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(2, recipe.getRecipeIngredients().size());
+
+    IngredientEto newIngredientEto = new IngredientEto();
+    newIngredientEto.setName("new one");
+
+    RecipeIngredientEto recipeIngredientEto = new RecipeIngredientEto();
+    recipeIngredientEto.setAmount(55.0);
+    recipeIngredientEto.setMeasuringUnit("Löffel");
+    recipeIngredientEto.setPosition(4);
+    recipeIngredientEto.setRecipeId(recipe.getId());
+    recipeIngredientEto.setIngredient(newIngredientEto);
+
+    recipe.getRecipeIngredients().add(recipeIngredientEto);
+    this.recipeManagement.saveRecipe(recipe);
+
+    RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(3, updatedRecipe.getRecipeIngredients().size());
+    //TODO check the new ingredient
+  }
+
+  @Test
   public void testRecipeWithIngredients() throws Exception {
 
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
-
-     assertEquals(2, recipe.getRecipeIngredients().size());
-
-//     for (RecipeIngredientEntity recipeIngredientEntity : recipe.getIngredients()) {
-//     if (recipeIngredientEntity.getId() == 1) {
-//     assertEquals(new Integer(1), recipeIngredientEntity.getPosition());
-//     assertEquals(new Double(1), recipeIngredientEntity.getAmount());
-//     assertEquals("Priese", recipeIngredientEntity.getMeasuringUnit());
-//     assertEquals("Pfeffer", recipeIngredientEntity.getIngredient().getName());
-//     } else if (recipeIngredientEntity.getId() == 2) {
-//     assertEquals(new Integer(2), recipeIngredientEntity.getPosition());
-//     assertEquals(new Double(5), recipeIngredientEntity.getAmount());
-//     assertEquals("Priesen", recipeIngredientEntity.getMeasuringUnit());
-//     assertEquals("Salz", recipeIngredientEntity.getIngredient().getName());
-//     } else {
-//     fail("Id should not be something else than 1 or 2.");
-//     }
-//     }
+    assertEquals(2, recipe.getRecipeIngredients().size());
+    //TODO check ingredient list
 
   }
 }
