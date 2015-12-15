@@ -36,6 +36,29 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
     this.recipe = recipe;
   }
 
+  @Override
+  @Transient
+  public Long getRecipeId() {
+    if(this.recipe != null){
+      return this.recipe.getId();
+    }
+    return null;
+  }
+
+  @Override
+  public void setRecipeId(Long recipeId) {
+
+    if(recipeId == null) {
+      this.recipe = null;
+    }
+    else {
+      RecipeEntity newRecipe = new RecipeEntity();
+      newRecipe.setId(recipeId);
+      this.recipe = newRecipe;
+    }
+
+  }
+
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "pk_ingredient")
   public IngredientEntity getIngredient() {
