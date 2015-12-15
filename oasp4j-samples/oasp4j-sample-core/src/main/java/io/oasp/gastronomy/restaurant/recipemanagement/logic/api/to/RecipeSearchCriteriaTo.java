@@ -26,7 +26,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String author;
 
-  private String category;
+  private String[] categories;
 
   private Integer portions;
 
@@ -97,9 +97,9 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   /**
    * @param priceFrom new value of {@link #getpriceFrom}.
    */
-  public void setPriceFrom(Money priceFrom) {
+  public void setPriceFrom(Integer priceFrom) {
 
-    this.priceFrom = priceFrom;
+    this.priceFrom = new Money(priceFrom);
   }
 
   /**
@@ -113,9 +113,9 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   /**
    * @param priceTo new value of {@link #getpriceTo}.
    */
-  public void setPriceTo(Money priceTo) {
+  public void setPriceTo(Integer priceTo) {
 
-    this.priceTo = priceTo;
+    this.priceTo = new Money(priceTo);
   }
 
   /**
@@ -189,21 +189,19 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   *
-   * @return category
+   * @return categories
    */
-  public String getCategory() {
+  public String[] getCategories() {
 
-    return this.category;
+    return this.categories;
   }
 
   /**
-   *
-   * @param category set the category
+   * @param categories new value of {@link #getcategories}.
    */
-  public void setCategory(String category) {
+  public void setCategories(String[] categories) {
 
-    this.category = category;
+    this.categories = categories;
   }
 
   /**

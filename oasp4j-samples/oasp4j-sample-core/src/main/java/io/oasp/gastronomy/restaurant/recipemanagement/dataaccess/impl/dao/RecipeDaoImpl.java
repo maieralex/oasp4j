@@ -7,6 +7,7 @@ import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.RecipeD
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Named;
@@ -82,7 +83,7 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity> implements R
     Money priceFrom = criteria.getPriceFrom();
     Money priceTo = criteria.getPriceTo();
     if (priceFrom != null && priceTo != null) {
-      query.where(Alias.$(recipe.getRating()).between(priceFrom.getValue(), priceTo.getValue()));
+      query.where(Alias.$(recipe.getPrice()).between(priceFrom, priceTo));
     }
 
     Long imageId = criteria.getImageId();
@@ -94,6 +95,11 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity> implements R
     Integer ratingTo = criteria.getRatingTo();
     if (ratingFrom != null && ratingTo != null) {
       query.where(Alias.$(recipe.getRating()).between(ratingFrom, ratingTo));
+    }
+
+    String[] categories = criteria.getCategories();
+    if (categories != null && categories.length != 0) {
+      query.where(Alias.$(recipe.getCategory()).in(Arrays.asList(categories)));
     }
 
     return findPaginated(criteria, query, alias);
