@@ -95,7 +95,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @param priceFrom new value of {@link #getpriceFrom}.
+   * @param priceFrom new value of {@link #priceFrom}.
    */
   public void setPriceFrom(Integer priceFrom) {
 
@@ -111,7 +111,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @param priceTo new value of {@link #getpriceTo}.
+   * @param priceTo new value of {@link #priceTo}.
    */
   public void setPriceTo(Integer priceTo) {
 
@@ -197,7 +197,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @param categories new value of {@link #getcategories}.
+   * @param categories new value of {@link #categories}.
    */
   public void setCategories(String[] categories) {
 
@@ -303,7 +303,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @param ratingFrom new value of {@link #getratingFrom}.
+   * @param ratingFrom new value of {@link #ratingFrom}.
    */
   public void setRatingFrom(Integer ratingFrom) {
 
@@ -319,7 +319,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @param ratingTo new value of {@link #getratingTo}.
+   * @param ratingTo new value of {@link #ratingTo}.
    */
   public void setRatingTo(Integer ratingTo) {
 
