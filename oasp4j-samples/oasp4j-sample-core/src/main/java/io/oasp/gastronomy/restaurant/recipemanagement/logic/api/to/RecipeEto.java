@@ -108,10 +108,12 @@ public class RecipeEto extends AbstractEto implements Recipe {
   }
 
   public Set<RecipeIngredientEto> getRecipeIngredients() {
+
     return recipeIngredients;
   }
 
   public void setRecipeIngredients(Set<RecipeIngredientEto> recipeIngredients) {
+
     this.recipeIngredients = recipeIngredients;
   }
 
