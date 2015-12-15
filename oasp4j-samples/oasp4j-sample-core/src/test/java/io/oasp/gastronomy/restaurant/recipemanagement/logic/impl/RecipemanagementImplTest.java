@@ -9,16 +9,14 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
-
-import java.sql.Blob;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.sql.rowset.serial.SerialBlob;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
+
+import javax.inject.Inject;
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
+import java.util.List;
 
 /**
  * Created by pascaldung on 21.10.15.
@@ -248,22 +246,23 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
 
-    // assertEquals(2, recipe.getIngredients().size());
-    // for (RecipeIngredientEntity recipeIngredientEntity : recipe.getIngredients()) {
-    // if (recipeIngredientEntity.getId() == 1) {
-    // assertEquals(new Integer(1), recipeIngredientEntity.getPosition());
-    // assertEquals(new Double(1), recipeIngredientEntity.getAmount());
-    // assertEquals("Priese", recipeIngredientEntity.getMeasuringUnit());
-    // assertEquals("Pfeffer", recipeIngredientEntity.getIngredient().getName());
-    // } else if (recipeIngredientEntity.getId() == 2) {
-    // assertEquals(new Integer(2), recipeIngredientEntity.getPosition());
-    // assertEquals(new Double(5), recipeIngredientEntity.getAmount());
-    // assertEquals("Priesen", recipeIngredientEntity.getMeasuringUnit());
-    // assertEquals("Salz", recipeIngredientEntity.getIngredient().getName());
-    // } else {
-    // fail("Id should not be something else than 1 or 2.");
-    // }
-    // }
+     assertEquals(2, recipe.getRecipeIngredients().size());
+
+//     for (RecipeIngredientEntity recipeIngredientEntity : recipe.getIngredients()) {
+//     if (recipeIngredientEntity.getId() == 1) {
+//     assertEquals(new Integer(1), recipeIngredientEntity.getPosition());
+//     assertEquals(new Double(1), recipeIngredientEntity.getAmount());
+//     assertEquals("Priese", recipeIngredientEntity.getMeasuringUnit());
+//     assertEquals("Pfeffer", recipeIngredientEntity.getIngredient().getName());
+//     } else if (recipeIngredientEntity.getId() == 2) {
+//     assertEquals(new Integer(2), recipeIngredientEntity.getPosition());
+//     assertEquals(new Double(5), recipeIngredientEntity.getAmount());
+//     assertEquals("Priesen", recipeIngredientEntity.getMeasuringUnit());
+//     assertEquals("Salz", recipeIngredientEntity.getIngredient().getName());
+//     } else {
+//     fail("Id should not be something else than 1 or 2.");
+//     }
+//     }
 
   }
 }
