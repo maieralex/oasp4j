@@ -1,11 +1,12 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 
+import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Ingredient;
 
 /**
  * Created by pascaldung on 02.12.15.
  */
-public class IngredientEto implements Ingredient {
+public class IngredientEto extends AbstractEto implements Ingredient {
 
   private String name;
 

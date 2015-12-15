@@ -4,9 +4,15 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.api.ApplicationPersistenceEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Set;
-
-import javax.persistence.*;
 
 /**
  * The {@link ApplicationPersistenceEntity persistent entity} for a recipe.
@@ -218,7 +224,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    * @return ingredients return the ingredients of a recipe.
    */
   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipe")
-  public Set<RecipeIngredientEntity> getIngredients() {
+  public Set<RecipeIngredientEntity> getRecipeIngredients() {
 
     return this.recipeIngredients;
   }
@@ -227,7 +233,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    *
    * @param recipeIngredients set new ingredients of a recipe.
    */
-  public void setIngredients(Set<RecipeIngredientEntity> recipeIngredients) {
+  public void setRecipeIngredients(Set<RecipeIngredientEntity> recipeIngredients) {
 
     this.recipeIngredients = recipeIngredients;
   }

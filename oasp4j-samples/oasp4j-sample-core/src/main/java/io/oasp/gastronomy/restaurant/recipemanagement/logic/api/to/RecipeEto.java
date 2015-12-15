@@ -4,6 +4,8 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
+import java.util.Set;
+
 /**
  * Entity transport object of Recipe.
  */
@@ -27,7 +29,7 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private Integer portions;
 
-  //private ArrayList<RecipeIngredientEntity> recipeIngredients;
+  private Set<RecipeIngredientEto> recipeIngredients;
 
   private String difficulty;
 
@@ -103,6 +105,16 @@ public class RecipeEto extends AbstractEto implements Recipe {
   public void setPrice(Money price) {
 
     this.price = price;
+  }
+
+  public Set<RecipeIngredientEto> getRecipeIngredients() {
+
+    return recipeIngredients;
+  }
+
+  public void setRecipeIngredients(Set<RecipeIngredientEto> recipeIngredients) {
+
+    this.recipeIngredients = recipeIngredients;
   }
 
   /**
@@ -197,25 +209,6 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
     this.category = category;
   }
-
-//  /**
-//   *
-//   * @return ingredients return the ingredients of a recipe.
-//   */
-//  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "Recipe")
-//  public ArrayList<RecipeIngredientEntity> getIngredients() {
-//
-//    return this.recipeIngredients;
-//  }
-//
-//  /**
-//   *
-//   * @param recipeIngredients set new ingredients of a recipe.
-//   */
-//  public void setIngredients(ArrayList<RecipeIngredientEntity> recipeIngredients) {
-//
-//    this.recipeIngredients = recipeIngredients;
-//  }
 
   /**
    *

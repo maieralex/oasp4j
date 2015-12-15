@@ -1,9 +1,5 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.impl.dao;
 
-import com.mysema.query.QueryModifiers;
-import com.mysema.query.alias.Alias;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.path.EntityPathBase;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.base.dao.ApplicationDaoImpl;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeEntity;
@@ -11,14 +7,20 @@ import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.RecipeD
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
-import javax.inject.Named;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Named;
+
+import com.mysema.query.alias.Alias;
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.path.EntityPathBase;
 
 /**
  * This is the implementation of {@link RecipeDao}.
  */
 @Named
-public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements RecipeDao {
+public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity> implements RecipeDao {
 
   /**
    * The constructor.
@@ -36,6 +38,7 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
 
   @Override
   public List<RecipeEntity> findAllRecipes() {
+
     return findAll();
   }
 
@@ -49,28 +52,18 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
     String searchString = criteria.getSearchString();
 
     if (searchString != null) {
-        if (searchString.contains(" ")) {
-            String[] searchParams = searchString.split(" ");
+      if (searchString.contains(" ")) {
+        String[] searchParams = searchString.split(" ");
 
-            for (String param: searchParams) {
-              query.where(Alias.$(recipe.getName()).containsIgnoreCase(param)
-                .or(Alias.$(recipe.getDescription()).containsIgnoreCase(param)));
-            }
-        } else {
-          query.where(Alias.$(recipe.getName()).containsIgnoreCase(searchString)
+        for (String param : searchParams) {
+          query.where(Alias.$(recipe.getName()).containsIgnoreCase(param)
+              .or(Alias.$(recipe.getDescription()).containsIgnoreCase(param)));
+        }
+      } else {
+        query.where(Alias.$(recipe.getName()).containsIgnoreCase(searchString)
             .or(Alias.$(recipe.getDescription()).containsIgnoreCase(searchString)));
-        }
-    }
-
-    List<String> searchCategoryList = criteria.getSearchCategoryList();
-    if (searchCategoryList != null) {
-      for (String searchParam: searchCategoryList) {
-        if (searchParam != null) {
-          query.where(Alias.$(recipe.getCategoryEntity().getName()).eq(searchParam));
-        }
       }
     }
-
 
     String name = criteria.getName();
     if (name != null) {
@@ -87,15 +80,29 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity>implements Re
       query.where(Alias.$(recipe.getLanguage()).equalsIgnoreCase(language));
     }
 
-    Money price = criteria.getPrice();
-    if (price != null) {
-      query.where(Alias.$(recipe.getPrice()).eq(price));
+    Money priceFrom = criteria.getPriceFrom();
+    Money priceTo = criteria.getPriceTo();
+    if (priceFrom != null && priceTo != null) {
+      query.where(Alias.$(recipe.getPrice()).between(priceFrom, priceTo));
     }
 
     Long imageId = criteria.getImageId();
     if (imageId != null) {
       query.where(Alias.$(recipe.getImageId()).eq(imageId));
     }
+
+    Integer ratingFrom = criteria.getRatingFrom();
+    Integer ratingTo = criteria.getRatingTo();
+    if (ratingFrom != null && ratingTo != null) {
+      query.where(Alias.$(recipe.getRating()).between(ratingFrom, ratingTo));
+    }
+
+    String[] categories = criteria.getCategories();
+    if (categories != null && categories.length != 0) {
+      query.where(Alias.$(recipe.getCategory()).in(Arrays.asList(categories)));
+    }
+
+    query.orderBy(Alias.$(recipe.getName()).asc());
 
     return findPaginated(criteria, query, alias);
   }

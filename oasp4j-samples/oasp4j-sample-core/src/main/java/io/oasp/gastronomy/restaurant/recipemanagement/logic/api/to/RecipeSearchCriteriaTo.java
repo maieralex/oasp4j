@@ -3,8 +3,6 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.module.jpa.common.api.to.SearchCriteriaTo;
 
-import java.util.List;
-
 /**
  * This is the {@link SearchCriteriaTo search criteria} {@link net.sf.mmm.util.transferobject.api.TransferObject TO}
  * used to find {@link io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe}s.
@@ -20,13 +18,15 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String language;
 
-  private Money price;
+  private Money priceFrom;
+
+  private Money priceTo;
 
   private Long imageId;
 
   private String author;
 
-  private String category;
+  private String[] categories;
 
   private Integer portions;
 
@@ -42,9 +42,9 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String searchString;
 
-  private List<String> searchCategoryList;
+  private Integer ratingFrom;
 
-  private Integer rating;
+  private Integer ratingTo;
 
   /**
    * The constructor.
@@ -87,19 +87,35 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @return price
+   * @return priceFrom
    */
-  public Money getPrice() {
+  public Money getPriceFrom() {
 
-    return this.price;
+    return this.priceFrom;
   }
 
   /**
-   * @param price price to be set
+   * @param priceFrom new value of {@link #priceFrom}.
    */
-  public void setPrice(Money price) {
+  public void setPriceFrom(Integer priceFrom) {
 
-    this.price = price;
+    this.priceFrom = new Money(priceFrom);
+  }
+
+  /**
+   * @return priceTo
+   */
+  public Money getPriceTo() {
+
+    return this.priceTo;
+  }
+
+  /**
+   * @param priceTo new value of {@link #priceTo}.
+   */
+  public void setPriceTo(Integer priceTo) {
+
+    this.priceTo = new Money(priceTo);
   }
 
   /**
@@ -173,21 +189,19 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   *
-   * @return category
+   * @return categories
    */
-  public String getCategory() {
+  public String[] getCategories() {
 
-    return this.category;
+    return this.categories;
   }
 
   /**
-   *
-   * @param category set the category
+   * @param categories new value of {@link #categories}.
    */
-  public void setCategory(String category) {
+  public void setCategories(String[] categories) {
 
-    this.category = category;
+    this.categories = categories;
   }
 
   /**
@@ -281,19 +295,35 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   }
 
   /**
-   * @return rating return the actual rating of a recipe.
+   * @return ratingFrom
    */
-  public Integer getRating() {
+  public Integer getRatingFrom() {
 
-    return this.rating;
+    return this.ratingFrom;
   }
 
   /**
-   * @param rating set the actual rating of a recipe.
+   * @param ratingFrom new value of {@link #ratingFrom}.
    */
-  public void setRating(Integer rating) {
+  public void setRatingFrom(Integer ratingFrom) {
 
-    this.rating = rating;
+    this.ratingFrom = ratingFrom;
+  }
+
+  /**
+   * @return ratingTo
+   */
+  public Integer getRatingTo() {
+
+    return this.ratingTo;
+  }
+
+  /**
+   * @param ratingTo new value of {@link #ratingTo}.
+   */
+  public void setRatingTo(Integer ratingTo) {
+
+    this.ratingTo = ratingTo;
   }
 
   /**
@@ -312,24 +342,6 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   public void setSearchString(String searchString) {
 
     this.searchString = searchString;
-  }
-
-  /**
-   *
-   * @return searchCategoryList
-   */
-  public List<String> getSearchCategoryList() {
-
-    return this.searchCategoryList;
-  }
-
-  /**
-   *
-   * @param searchCategoryList set the searchCategoryList
-   */
-  public void setSearchCategoryList(List<String> searchCategoryList) {
-
-    this.searchCategoryList = searchCategoryList;
   }
 
 }

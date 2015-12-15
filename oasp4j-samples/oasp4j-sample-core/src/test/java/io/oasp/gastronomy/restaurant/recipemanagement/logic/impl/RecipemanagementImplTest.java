@@ -6,6 +6,7 @@ import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredientEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
@@ -16,7 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,52 +28,26 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Inject
   private Recipemanagement recipeManagement;
 
-
-  /**
-   *
-   * @throws Exception if test fails.
-     */
-  @Test
-  public void testFindRecipe() throws Exception {
-
-    assertEquals("Hamburger", recipeManagement.findRecipe(0L).getName());
-  }
-
   /**
    *
    * @throws Exception if test fails.
    */
   @Test
-  public void testFindCategory() throws Exception {
+  public void testFindRecipe() throws Exception {
 
-    RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
-    List<String> categoryIdList = new ArrayList<>();
-    categoryIdList.add("Vom Grill");
-
-    criteria.setSearchCategoryList(categoryIdList);
-
-    PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
-
-    assertEquals("Vorspeisen", recipeManagement.findCategory(0L).getName());
-    assertEquals("de", recipeManagement.findCategory(0L).getLanguage());
-    assertEquals(new Long(9), recipeManagement.findRecipe(0L).getCategoryId());
-    assertEquals(14, recipeManagement.findAllCategories().size());
-    assertEquals(3, list.getResult().size());
-    //assertEquals("Vom Grill", recipeManagement.findCategoryNameToRecipeId(2L));
-    //assertEquals(new Long(1), recipeManagement.findRecipe(0L).getCategoryId());
-    //assertEquals("1", recipeManagement.findRecipe(0L).getCategoryId());;
+    assertEquals("Hamburger", this.recipeManagement.findRecipe(0L).getName());
   }
 
   /**
    *
    * @throws Exception if something fails.
-     */
+   */
   @Test
   public void testFindRecipeEtos() throws Exception {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
 
-    PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
+    PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
     assertEquals(7, list.getResult().size());
   }
 
@@ -88,7 +62,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     criteria.setSearchString("hAmbuRGER BaCOn");
 
-    PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
+    PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
     assertEquals(1, list.getResult().size());
   }
 
@@ -103,40 +77,40 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     criteria.setSearchString("gEmÜse");
 
-    PaginatedListTo<RecipeEto> list = recipeManagement.findRecipeEtos(criteria);
+    PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
     assertEquals(2, list.getResult().size());
   }
 
   /**
    *
    * @throws Exception if something fails.
-     */
+   */
   @Test
   public void testFindRandomRecipesSize() throws Exception {
 
-    List<RecipeEto> list = recipeManagement.findRandomRecipes(3, "en");
+    List<RecipeEto> list = this.recipeManagement.findRandomRecipes(3, "en");
     assertEquals(3, list.size());
   }
 
   /**
    *
    * @throws Exception if something fails.
-     */
+   */
   @Test
   public void testFindRandomRecipesLanguage() throws Exception {
 
-    List<RecipeEto> list = recipeManagement.findRandomRecipes(3, "en");
+    List<RecipeEto> list = this.recipeManagement.findRandomRecipes(3, "en");
     assertEquals("en", list.get(0).getLanguage());
   }
 
   /**
    *
    * @throws Exception if something fails.
-     */
+   */
   @Test
   public void testDeleteRecipe() throws Exception {
 
-    //Create new Recipe to save and delete.
+    // Create new Recipe to save and delete.
     RecipeEto newRecipe = new RecipeEto();
     newRecipe.setName("RecipeToBeDeleted");
     newRecipe.setDescription("A recipe, that is to be deleted.");
@@ -144,7 +118,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto insertedRecipe = this.recipeManagement.saveRecipe(newRecipe);
 
-    //Delete created recipe.
+    // Delete created recipe.
     this.recipeManagement.deleteRecipe(insertedRecipe.getId());
 
     assertEquals(null, this.recipeManagement.findRecipe(insertedRecipe.getId()));
@@ -153,7 +127,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   /**
    *
    * @throws Exception if something fails.
-     */
+   */
   @Test
   public void testSaveRecipe() throws Exception {
 
@@ -172,7 +146,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   /**
    *
    * @throws Exception if something fails.
-     */
+   */
   @Test
   public void testUpdateRecipe() throws Exception {
 
@@ -192,20 +166,19 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals("Recipe name has changed", savedRecipe.getName(), updatedRecipe.getName());
     assertNotEquals("Recipe description was not updated", newRecipe.getDescription(), updatedRecipe.getDescription());
 
-
   }
 
   /**
    *
    * @throws Exception if something fails.
-     */
+   */
   @Test
   public void testGetBinaryObjectBlob() throws Exception {
 
     RecipeEto recipe = this.recipeManagement.findRecipe(6L);
     assertEquals(new Long(0), recipe.getImageId());
 
-    byte[] expected = {13, 73, 72, 68};
+    byte[] expected = { 13, 73, 72, 68 };
     byte[] actual = this.recipeManagement.getBinaryObjectBlob(recipe.getImageId()).getBytes(12, 4);
     assertArrayEquals(expected, actual);
   }
@@ -213,9 +186,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   /**
    *
    * @throws Exception if something fails.
-     */
+   */
   @Test
   public void testNewUpdateRecipePicture() throws Exception {
+
     RecipeEto newRecipe = new RecipeEto();
     newRecipe.setId(null);
     newRecipe.setName("NewRecipe 123");
@@ -223,7 +197,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     newRecipe.setPrice(new Money(0.99));
     RecipeEto insertedRecipe = this.recipeManagement.saveRecipe(newRecipe);
 
-    byte[] bytes = {11, 22, 33, 44};
+    byte[] bytes = { 11, 22, 33, 44 };
     Blob blob = new SerialBlob(bytes);
 
     BinaryObjectEto binaryObjectEto = new BinaryObjectEto();
@@ -232,7 +206,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto recipeEto = this.recipeManagement.updateRecipePicture(insertedRecipe.getId(), blob, binaryObjectEto);
 
-    Blob binaryObjectBlob = recipeManagement.getBinaryObjectBlob(recipeEto.getImageId());
+    Blob binaryObjectBlob = this.recipeManagement.getBinaryObjectBlob(recipeEto.getImageId());
 
     byte[] actual = binaryObjectBlob.getBytes(1, 4);
     assertArrayEquals(bytes, actual);
@@ -240,12 +214,13 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   /**
    * Test the update recipe picture functionality.
+   * 
    * @throws Exception if something fails.
    */
   @Test
   public void testUpdateRecipePicture() throws Exception {
 
-    byte[] bytes = {11, 22, 33, 44};
+    byte[] bytes = { 11, 22, 33, 44 };
     Blob blob = new SerialBlob(bytes);
 
     BinaryObjectEto binaryObjectEto = new BinaryObjectEto();
@@ -253,7 +228,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     binaryObjectEto.setSize(blob.length());
 
     RecipeEto recipeEto = this.recipeManagement.updateRecipePicture(4L, blob, binaryObjectEto);
-    Blob binaryObjectBlob = recipeManagement.getBinaryObjectBlob(recipeEto.getImageId());
+    Blob binaryObjectBlob = this.recipeManagement.getBinaryObjectBlob(recipeEto.getImageId());
 
     byte[] actual = binaryObjectBlob.getBytes(1, 4);
     assertArrayEquals(bytes, actual);
@@ -261,31 +236,63 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   @Test
   public void testFindAllIngredients() throws Exception {
-    List<IngredientEto> ingredients = recipeManagement.findAllIngredients();
+
+    List<IngredientEto> ingredients = this.recipeManagement.findAllIngredients();
     assertEquals(2, ingredients.size());
-    //TODO check content of the returned list
+    // TODO check content of the returned list
+  }
+
+  @Test
+  public void testSaveRecipeWithIngredients() throws Exception {
+    RecipeEto recipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(2, recipe.getRecipeIngredients().size());
+
+    List<IngredientEto> allIngredients = this.recipeManagement.findAllIngredients();
+
+    RecipeIngredientEto recipeIngredientEto = new RecipeIngredientEto();
+    recipeIngredientEto.setAmount(55.0);
+    recipeIngredientEto.setMeasuringUnit("Löffel");
+    recipeIngredientEto.setPosition(4);
+    recipeIngredientEto.setRecipeId(recipe.getId());
+    recipeIngredientEto.setIngredient(allIngredients.get(0));
+
+    recipe.getRecipeIngredients().add(recipeIngredientEto);
+    this.recipeManagement.saveRecipe(recipe);
+
+    RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(3, updatedRecipe.getRecipeIngredients().size());
+    //TODO check the new ingredient
+  }
+
+  @Test
+  public void testSaveRecipeWithNewIngredient() throws Exception {
+    RecipeEto recipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(2, recipe.getRecipeIngredients().size());
+
+    IngredientEto newIngredientEto = new IngredientEto();
+    newIngredientEto.setName("new one");
+
+    RecipeIngredientEto recipeIngredientEto = new RecipeIngredientEto();
+    recipeIngredientEto.setAmount(55.0);
+    recipeIngredientEto.setMeasuringUnit("Löffel");
+    recipeIngredientEto.setPosition(4);
+    recipeIngredientEto.setRecipeId(recipe.getId());
+    recipeIngredientEto.setIngredient(newIngredientEto);
+
+    recipe.getRecipeIngredients().add(recipeIngredientEto);
+    this.recipeManagement.saveRecipe(recipe);
+
+    RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(3, updatedRecipe.getRecipeIngredients().size());
+    //TODO check the new ingredient
   }
 
   @Test
   public void testRecipeWithIngredients() throws Exception {
-    RecipeEto recipe = recipeManagement.findRecipe(0L);
 
-//    assertEquals(2, recipe.getIngredients().size());
-//    for (RecipeIngredientEntity recipeIngredientEntity : recipe.getIngredients()) {
-//      if (recipeIngredientEntity.getId() == 1) {
-//        assertEquals(new Integer(1), recipeIngredientEntity.getPosition());
-//        assertEquals(new Double(1), recipeIngredientEntity.getAmount());
-//        assertEquals("Priese", recipeIngredientEntity.getMeasuringUnit());
-//        assertEquals("Pfeffer", recipeIngredientEntity.getIngredient().getName());
-//      } else if (recipeIngredientEntity.getId() == 2) {
-//        assertEquals(new Integer(2), recipeIngredientEntity.getPosition());
-//        assertEquals(new Double(5), recipeIngredientEntity.getAmount());
-//        assertEquals("Priesen", recipeIngredientEntity.getMeasuringUnit());
-//        assertEquals("Salz", recipeIngredientEntity.getIngredient().getName());
-//      } else {
-//        fail("Id should not be something else than 1 or 2.");
-//      }
-//    }
+    RecipeEto recipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(2, recipe.getRecipeIngredients().size());
+    //TODO check ingredient list
 
   }
 }
