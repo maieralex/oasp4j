@@ -102,6 +102,8 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity> implements R
       query.where(Alias.$(recipe.getCategory()).in(Arrays.asList(categories)));
     }
 
+    query.orderBy(Alias.$(recipe.getName()).asc());
+
     return findPaginated(criteria, query, alias);
   }
 }
