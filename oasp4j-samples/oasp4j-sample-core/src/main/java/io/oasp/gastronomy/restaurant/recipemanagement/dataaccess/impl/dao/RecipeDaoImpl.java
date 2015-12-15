@@ -99,7 +99,7 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity> implements R
 
     String[] categories = criteria.getCategories();
     if (categories != null && categories.length != 0) {
-      query.where(Alias.$(recipe.getCategory()).in(Arrays.asList(categories)));
+      query.where(Alias.$(recipe.getCategoryEntity().getName()).in(Arrays.asList(categories)));
     }
 
     query.orderBy(Alias.$(recipe.getName()).asc());
