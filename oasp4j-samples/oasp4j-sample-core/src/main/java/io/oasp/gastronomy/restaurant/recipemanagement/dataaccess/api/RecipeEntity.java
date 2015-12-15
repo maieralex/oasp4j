@@ -352,7 +352,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    * @return CategoryEntity
    */
   @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="categoryId")
+  @JoinColumn(name = "categoryId")
   public CategoryEntity getCategoryEntity() {
 
     return this.categoryEntity;

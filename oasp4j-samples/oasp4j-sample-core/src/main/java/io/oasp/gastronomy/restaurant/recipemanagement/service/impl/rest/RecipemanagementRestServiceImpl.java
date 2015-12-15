@@ -131,9 +131,9 @@ public class RecipemanagementRestServiceImpl {
   }
 
   /**
-   * Returns a {@link List} of all stored {@link CategoryEto}
+   * Returns a {@link List} of all stored {@link CategoryEto}.
    *
-   * @return a list of all CategoryEto
+   * @return a list of all CategoryEto.
    */
   @GET
   @Path("/categories")
