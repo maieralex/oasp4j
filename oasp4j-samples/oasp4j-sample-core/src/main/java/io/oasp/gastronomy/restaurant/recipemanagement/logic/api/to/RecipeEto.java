@@ -45,6 +45,8 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private Long categoryId;
 
+  private CategoryEto categoryEntity;
+
   /**
    * The constructor.
    */
@@ -316,6 +318,21 @@ public class RecipeEto extends AbstractEto implements Recipe {
   public void setRating(Integer rating) {
 
     this.rating = rating;
+  }
+
+  public CategoryEto getCategoryEntity() {
+
+    return this.categoryEntity;
+  }
+
+  /**
+   * Sets the CategoryEntity of a Recipe.
+   *
+   * @param category new CategoryEntity
+   */
+  public void setCategoryEntity(CategoryEto category) {
+
+    this.categoryEntity = category;
   }
 
   /**
