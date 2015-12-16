@@ -10,14 +10,15 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredi
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
+
+import java.sql.Blob;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
-import java.sql.Blob;
-import java.util.List;
+
+import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Created by pascaldung on 21.10.15.
@@ -40,6 +41,30 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   /**
    *
+   * @throws Exception if test fails.
+   */
+  @Test
+  public void testFindCategory() throws Exception {
+
+    RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
+    String[] categories = new String[1];
+    categories[0] = "Vom Grill";
+
+    criteria.setCategories(categories);
+
+    PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
+
+    assertEquals(2, list.getResult().size());
+    assertEquals("Vorspeisen", this.recipeManagement.findCategory(0L).getName());
+    assertEquals("de", this.recipeManagement.findCategory(0L).getLanguage());
+    assertEquals(new Long(2), this.recipeManagement.findRecipe(0L).getCategoryId());
+    assertEquals(14, this.recipeManagement.findAllCategories().size());
+    assertEquals("Vom Grill", this.recipeManagement.findCategory(2L).getName());
+    assertEquals(new Long(2), this.recipeManagement.findRecipe(0L).getCategoryId());
+  }
+
+  /**
+   *
    * @throws Exception if something fails.
    */
   @Test
@@ -56,11 +81,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
    * @throws Exception if something fails.
    */
   @Test
-  @Ignore
-  public void testSearchRecipeEtosWithCriteriaSearchStringTwoOrMoreParam() throws Exception {
+  public void testSearchRecipeEtosWithCriteriaSearchStringName() throws Exception {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
-    criteria.setSearchString("hAmbuRGER BaCOn");
+    criteria.setSearchString("hAm");
 
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
     assertEquals(1, list.getResult().size());
@@ -71,14 +95,27 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
    * @throws Exception if something fails.
    */
   @Test
-  @Ignore
-  public void testSearchRecipeEtosWithCriteriaSearchStringOneParam() throws Exception {
+  public void testSearchRecipeEtosWithCriteriaSearchStringDescription() throws Exception {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     criteria.setSearchString("gEmÜse");
 
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
     assertEquals(2, list.getResult().size());
+  }
+
+  /**
+   *
+   * @throws Exception if something fails.
+   */
+  @Test
+  public void testSearchRecipeEtosWithCriteriaSearchStringTwoParameters() throws Exception {
+
+    RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
+    criteria.setSearchString("Hamburger Lammkarree");
+
+    PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
+    assertEquals(0, list.getResult().size());
   }
 
   /**
@@ -214,7 +251,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   /**
    * Test the update recipe picture functionality.
-   * 
+   *
    * @throws Exception if something fails.
    */
   @Test
@@ -244,6 +281,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
   @Test
   public void testSaveRecipeWithIngredients() throws Exception {
+
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
     assertEquals(2, recipe.getRecipeIngredients().size());
 
@@ -261,11 +299,12 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(3, updatedRecipe.getRecipeIngredients().size());
-    //TODO check the new ingredient
+    // TODO check the new ingredient
   }
 
   @Test
   public void testSaveRecipeWithNewIngredient() throws Exception {
+
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
     assertEquals(2, recipe.getRecipeIngredients().size());
 
@@ -284,7 +323,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(3, updatedRecipe.getRecipeIngredients().size());
-    //TODO check the new ingredient
+    // TODO check the new ingredient
   }
 
   @Test
@@ -292,7 +331,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
     assertEquals(2, recipe.getRecipeIngredients().size());
-    //TODO check ingredient list
+    // TODO check ingredient list
 
   }
 }
