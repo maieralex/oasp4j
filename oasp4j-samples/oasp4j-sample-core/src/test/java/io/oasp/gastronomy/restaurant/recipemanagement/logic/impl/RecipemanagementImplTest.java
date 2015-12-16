@@ -4,19 +4,14 @@ import io.oasp.gastronomy.restaurant.general.common.AbstractSpringIntegrationTes
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
-
 import java.sql.Blob;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
-
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -331,7 +326,20 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
     assertEquals(2, recipe.getRecipeIngredients().size());
-    // TODO check ingredient list
+  }
 
+  // TODO check ingredient list
+
+  /**
+   *
+   * @throws Exception if test fails.
+   */
+  @Test
+  public void testFindAllCategories() throws Exception {
+
+    List<CategoryEto> categories = this.recipeManagement.findAllCategories();
+    assertEquals(14, categories.size());
+    assertEquals("Vorspeisen", categories.get(0).getName());
+    assertEquals("de", categories.get(0).getLanguage());
   }
 }
