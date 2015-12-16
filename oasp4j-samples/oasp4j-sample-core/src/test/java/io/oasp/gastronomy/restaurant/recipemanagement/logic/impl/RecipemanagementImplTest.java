@@ -4,14 +4,20 @@ import io.oasp.gastronomy.restaurant.general.common.AbstractSpringIntegrationTes
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredientEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
+
 import java.sql.Blob;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
-import org.junit.Ignore;
+
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -56,6 +62,8 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(14, this.recipeManagement.findAllCategories().size());
     assertEquals("Vom Grill", this.recipeManagement.findCategory(2L).getName());
     assertEquals(new Long(2), this.recipeManagement.findRecipe(0L).getCategoryId());
+    assertEquals(new Integer(1), this.recipeManagement.findRecipe(0L).getRating());
+    assertEquals(new Money(7.99), this.recipeManagement.findRecipe(0L).getPrice());
   }
 
   /**
@@ -341,5 +349,48 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(14, categories.size());
     assertEquals("Vorspeisen", categories.get(0).getName());
     assertEquals("de", categories.get(0).getLanguage());
+  }
+
+  @Test
+  public void testRecipeFilter() {
+
+    RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
+    String[] categories = new String[1];
+    categories[0] = "Vom Grill";
+    PaginatedListTo<RecipeEto> list;
+
+    criteria.setCategories(categories);
+    criteria.setPriceFrom(7);
+    criteria.setPriceTo(24);
+    criteria.setRatingFrom(1);
+    criteria.setRatingTo(1);
+
+    list = this.recipeManagement.findRecipeEtos(criteria);
+    assertEquals(1, list.getResult().size());
+
+    criteria.setCategories(null);
+    criteria.setPriceFrom(7);
+    criteria.setPriceTo(24);
+    criteria.setRatingFrom(1);
+    criteria.setRatingTo(5);
+
+    list = this.recipeManagement.findRecipeEtos(criteria);
+    assertEquals(2, list.getResult().size());
+
+    categories[0] = "Vorspeisen";
+    criteria.setCategories(categories);
+    criteria.setPriceFrom(5);
+    criteria.setPriceTo(6);
+    criteria.setRatingFrom(null);
+    criteria.setRatingTo(4);
+
+    list = this.recipeManagement.findRecipeEtos(criteria);
+    assertEquals(2, list.getResult().size());
+
+    try {
+      criteria.setPriceFrom(null);
+      fail("Expected an NullPointerException to be thrown");
+    } catch (NullPointerException e) {
+    }
   }
 }
