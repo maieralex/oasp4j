@@ -54,8 +54,8 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     criteria.setCategories(categories);
 
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
-
-    assertEquals(2, list.getResult().size());
+    //von 2 auf 193 wegen Test Data !
+    assertEquals(193, list.getResult().size());
     assertEquals("Vorspeisen", this.recipeManagement.findCategory(0L).getName());
     assertEquals("de", this.recipeManagement.findCategory(0L).getLanguage());
     assertEquals(new Long(2), this.recipeManagement.findRecipe(0L).getCategoryId());
@@ -74,9 +74,9 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   public void testFindRecipeEtos() throws Exception {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
-
+    //wegen Testdaten von 7 auf 500 angepasst
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(7, list.getResult().size());
+    assertEquals(500, list.getResult().size());
   }
 
   /**
@@ -88,9 +88,9 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     criteria.setSearchString("hAm");
-
+    //wegen Testdaten von 1 auf 12 geändert.
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(1, list.getResult().size());
+    assertEquals(12, list.getResult().size());
   }
 
   /**
@@ -363,18 +363,18 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     criteria.setPriceTo(24);
     criteria.setRatingFrom(1);
     criteria.setRatingTo(1);
-
+    //wegen Testdaten von 1 auf 4 geändert.
     list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(1, list.getResult().size());
+    assertEquals(4, list.getResult().size());
 
     criteria.setCategories(null);
     criteria.setPriceFrom(7);
     criteria.setPriceTo(24);
     criteria.setRatingFrom(1);
     criteria.setRatingTo(5);
-
+    //wegen Testdaten von 2 auf 107 geändert.
     list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(2, list.getResult().size());
+    assertEquals(107, list.getResult().size());
 
     categories[0] = "Vorspeisen";
     criteria.setCategories(categories);
@@ -382,9 +382,9 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     criteria.setPriceTo(6);
     criteria.setRatingFrom(null);
     criteria.setRatingTo(4);
-
+    //wegen Testdaten von 2 auf 5 geändert.
     list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(2, list.getResult().size());
+    assertEquals(5, list.getResult().size());
 
     try {
       criteria.setPriceFrom(null);
