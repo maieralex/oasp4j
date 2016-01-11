@@ -74,7 +74,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   public void testFindRecipeEtos() throws Exception {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
-    //wegen Testdaten von 7 auf 500 angepasst
+    //wegen Testdaten von 7 auf 500
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
     assertEquals(500, list.getResult().size());
   }
