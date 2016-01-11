@@ -22,6 +22,7 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -186,6 +187,12 @@ public class RecipemanagementRestServiceImpl {
       byte[] pictureBytes = IOUtils.readBytesFromStream(binaryObjectBlob.getBinaryStream());
 
       Response.ResponseBuilder rBuild = Response.ok(pictureBytes, mediaType);
+
+       //Developing and Benchmarking purposes
+       CacheControl cc = new CacheControl();
+       cc.setNoCache(true);
+       cc.setMustRevalidate(true);
+       rBuild.cacheControl(cc);
       return rBuild.build();
     } else {
       Response.ResponseBuilder rBuild = Response.noContent();

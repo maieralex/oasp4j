@@ -75,8 +75,9 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     //wegen Testdaten von 7 auf 500
+    //nachdem MAXIMUM HIT COUNT auf 1000
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(500, list.getResult().size());
+    assertEquals(1000, list.getResult().size());
   }
 
   /**

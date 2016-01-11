@@ -26,7 +26,8 @@ public abstract class AbstractUc extends AbstractBeanMapperSupport {
    * The limit for {@link net.sf.mmm.util.search.base.AbstractSearchCriteria#getMaximumHitCount() maximum hit count} for
    * UI requests.
    */
-  protected static final int MAXIMUM_HIT_LIMIT = 500;
+  // eigentlich steht hier protected static final int MAXIMUM_HIT_LIMIT = 500;
+  protected static final int MAXIMUM_HIT_LIMIT = 1000;
 
   /**
    * The constructor.
