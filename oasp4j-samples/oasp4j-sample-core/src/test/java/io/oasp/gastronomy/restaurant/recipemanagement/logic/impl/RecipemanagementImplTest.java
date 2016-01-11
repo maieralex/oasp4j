@@ -421,4 +421,17 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals("Vorspeisen", updatedRecipe.getCategoryEntity().getName());
   }
+
+  /**
+   *
+   * @throws Exception if test fails.
+   */
+  @Test
+  public void testFindCategoriesByLanguage() throws Exception {
+    List<CategoryEto> categories = this.recipeManagement.findCategories("en");
+    assertEquals(7, categories.size());
+    assertEquals("Appetizer", categories.get(0).getName());
+    assertEquals("en", categories.get(0).getLanguage());
+  }
+
 }

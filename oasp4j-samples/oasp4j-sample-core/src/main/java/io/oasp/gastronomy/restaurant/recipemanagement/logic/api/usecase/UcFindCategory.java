@@ -25,4 +25,12 @@ public interface UcFindCategory {
    * @return The {@link CategoryEto} with id 'id'
    */
   CategoryEto findCategory(Long id);
+
+  /**
+   * Returns a {@link List} of all stored {@link CategoryEto} filtered by language
+   *
+   * @param language The language 'language' of the Category.
+   * @return all stored CategoryEto filtered by language
+   */
+  List<CategoryEto> findCategories(String language);
 }

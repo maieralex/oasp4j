@@ -129,6 +129,12 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   }
 
   @Override
+  public List<CategoryEto> findCategories(String language) {
+
+    return ucFindCategory.findCategories(language);
+  }
+
+  @Override
   public PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria) {
     return ucFindRecipe.findRecipeEtos(criteria);
   }
