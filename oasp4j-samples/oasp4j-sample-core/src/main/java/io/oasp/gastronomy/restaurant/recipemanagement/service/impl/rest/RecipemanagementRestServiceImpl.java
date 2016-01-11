@@ -143,6 +143,19 @@ public class RecipemanagementRestServiceImpl {
   }
 
   /**
+   * Returns a {@link List} of all stored {@link CategoryEto} filtered by language.
+   *
+   * @param language the language of the {@link CategoryEto} to return
+   * @return a list of all CategoryEto filtered by language.
+   */
+  @GET
+  @Path("/categories/{language}/")
+  public List<CategoryEto> getCategories(@PathParam("language") String language) {
+
+    return recipemanagement.findCategories(language);
+  }
+
+  /**
    * Delegates to {@link Recipemanagement#updateRecipePicture(Long, Blob, BinaryObjectEto)}.
    *
    * @param recipeId        which recipe should be updated with a new image.
