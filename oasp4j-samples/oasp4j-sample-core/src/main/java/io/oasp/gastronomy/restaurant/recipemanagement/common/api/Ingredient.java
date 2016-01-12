@@ -6,6 +6,18 @@ package io.oasp.gastronomy.restaurant.recipemanagement.common.api;
 public interface Ingredient {
 
   /**
+   *
+   * @return id of the ingredient.
+     */
+  Long getId();
+
+  /**
+   *
+   * @param id new id of the ingredient.
+     */
+  void setId(Long id);
+
+  /**
    * Returns the name of this ingredient.
    *
    * @return name the name of the ingredient.
