@@ -94,7 +94,7 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   @Inject
   @UseCase
   @SuppressWarnings("SpringJavaAutowiringInspection")
-  public void setUcManageBinaryObject(UcFindIngredient ucFindIngredient) {
+  public void setUcFindIngredient(UcFindIngredient ucFindIngredient) {
     this.ucFindIngredient = ucFindIngredient;
   }
 

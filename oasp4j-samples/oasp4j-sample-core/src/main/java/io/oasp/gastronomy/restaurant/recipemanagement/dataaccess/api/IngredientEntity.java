@@ -15,11 +15,11 @@ import javax.persistence.Table;
  */
 @Entity(name = "Ingredient")
 @Table(name = "Ingredient")
-public class IngredientEntity extends ApplicationPersistenceEntity implements Ingredient{
+public class IngredientEntity extends ApplicationPersistenceEntity implements Ingredient {
 
   private static final long serialVersionUID = 1L;
 
-  String name;
+  private String name;
 
   /**
    * Returns the name of this ingredient.

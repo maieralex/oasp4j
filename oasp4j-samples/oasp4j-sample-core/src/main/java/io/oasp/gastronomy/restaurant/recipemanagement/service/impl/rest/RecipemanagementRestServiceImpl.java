@@ -2,7 +2,10 @@ package io.oasp.gastronomy.restaurant.recipemanagement.service.impl.rest;
 
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
@@ -14,14 +17,7 @@ import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.rowset.serial.SerialBlob;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -168,7 +164,8 @@ public class RecipemanagementRestServiceImpl {
   @POST
   @Path("/recipe/{id}/picture")
   public void updateRecipePicture(@PathParam("id") Long recipeId,
-                                  @Multipart(value = "binaryObjectEto", type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
+                                  @Multipart(value = "binaryObjectEto",
+                                    type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
                                   @Multipart(value = "blob") InputStream picture)
     throws SQLException, IOException {
 
@@ -231,7 +228,7 @@ public class RecipemanagementRestServiceImpl {
   }
 
   /**
-   * Returns a {@link List} of all stored {@link IngredientEto}
+   * Returns a {@link List} of all stored {@link IngredientEto}.
    *
    * @return a list of all IngredientEto
    */
