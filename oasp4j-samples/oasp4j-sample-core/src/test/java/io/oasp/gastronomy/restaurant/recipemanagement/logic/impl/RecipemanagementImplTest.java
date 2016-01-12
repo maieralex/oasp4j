@@ -11,15 +11,13 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredi
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
-
-import java.sql.Blob;
-import java.util.List;
+import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
-
-import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
+import java.sql.Blob;
+import java.util.List;
 
 /**
  * Created by pascaldung on 21.10.15.
@@ -308,6 +306,8 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testSaveRecipeWithNewIngredient() throws Exception {
 
+    List<IngredientEto> allIngredients = this.recipeManagement.findAllIngredients();
+
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
     assertEquals(2, recipe.getRecipeIngredients().size());
 
@@ -326,6 +326,9 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(3, updatedRecipe.getRecipeIngredients().size());
+
+    int updatedIngredientsSize = this.recipeManagement.findAllIngredients().size();
+    assertEquals(allIngredients.size() + 1 , updatedIngredientsSize);
     // TODO check the new ingredient
   }
 

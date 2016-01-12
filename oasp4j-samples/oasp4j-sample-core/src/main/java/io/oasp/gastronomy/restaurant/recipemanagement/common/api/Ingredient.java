@@ -5,6 +5,10 @@ package io.oasp.gastronomy.restaurant.recipemanagement.common.api;
  */
 public interface Ingredient {
 
+  public Long getId();
+
+  public void setId(Long id);
+
   /**
    * Returns the name of this ingredient.
    *
