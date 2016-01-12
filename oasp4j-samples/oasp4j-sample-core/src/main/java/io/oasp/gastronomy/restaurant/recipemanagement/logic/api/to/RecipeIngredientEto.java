@@ -1,7 +1,6 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to;
 
 import io.oasp.gastronomy.restaurant.general.common.api.to.AbstractEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Ingredient;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.RecipeIngredient;
 
 /**
@@ -20,11 +19,7 @@ public class RecipeIngredientEto extends AbstractEto implements RecipeIngredient
   private Integer position;
 
   public IngredientEto getIngredient() {
-    return (IngredientEto) ingredient;
-  }
-
-  public void setIngredient(Ingredient ingredient) {
-    this.ingredient = (IngredientEto) ingredient;
+    return ingredient;
   }
 
   public void setIngredient(IngredientEto ingredient) {
