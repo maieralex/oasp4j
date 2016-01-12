@@ -28,4 +28,13 @@ public interface Category extends ApplicationEntity {
    */
   void setLanguage(String language);
 
+  /**
+   * @return the languageId of a category
+   */
+  public long getLanguageId();
+
+  /**
+   * @param languageId set new languageId of a category
+   */
+  public void setLanguageId(long languageId);
 }
