@@ -333,7 +333,6 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     int updatedIngredientsSize = this.recipeManagement.findAllIngredients().size();
     assertEquals(allIngredients.size() + 1 , updatedIngredientsSize);
-    // TODO check the new ingredient
   }
 
   @Test

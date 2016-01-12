@@ -8,18 +8,7 @@ import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Ingredient;
  */
 public class IngredientEto extends AbstractEto implements Ingredient {
 
-  private Long id;
   private String name;
-
-  @Override
-  public Long getId() {
-    return id;
-  }
-
-  @Override
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   /**
    * Returns the name of this ingredient.
