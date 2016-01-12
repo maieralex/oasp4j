@@ -5,7 +5,6 @@ import io.oasp.gastronomy.restaurant.recipemanagement.common.api.RecipeIngredien
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -90,7 +89,7 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
 
   }
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "pk_ingredient")
   public IngredientEntity getIngredient() {
 

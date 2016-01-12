@@ -300,6 +300,11 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(3, updatedRecipe.getRecipeIngredients().size());
+
+    updatedRecipe.setRecipeIngredients(null);
+    this.recipeManagement.saveRecipe(updatedRecipe);
+    RecipeEto noIngredientsRecipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(0, noIngredientsRecipe.getRecipeIngredients().size());
     // TODO check the new ingredient
   }
 
