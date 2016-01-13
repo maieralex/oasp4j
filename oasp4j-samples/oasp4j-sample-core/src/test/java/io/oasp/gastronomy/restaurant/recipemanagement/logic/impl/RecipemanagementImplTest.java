@@ -468,4 +468,26 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(expectedPrice, summedPrice);
   }
 
+  @Test
+  public void testGetSummedPriceEmpty() {
+
+    Set<RecipeIngredientEto> ingredients = new HashSet<RecipeIngredientEto>();
+
+    Money expectedPrice = new Money(0.0);
+
+    Money summedPrice = this.recipeManagement.getSummedPrice(ingredients);
+
+    assertEquals(expectedPrice, summedPrice);
+  }
+
+  @Test
+  public void testGetSummedPriceNull() {
+
+    Money expectedPrice = new Money(0.0);
+
+    Money summedPrice = this.recipeManagement.getSummedPrice(null);
+
+    assertEquals(expectedPrice, summedPrice);
+  }
+
 }
