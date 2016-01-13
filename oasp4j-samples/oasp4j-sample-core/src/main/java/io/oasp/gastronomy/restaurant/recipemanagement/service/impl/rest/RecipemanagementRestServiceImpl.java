@@ -1,5 +1,6 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.service.impl.rest;
 
+import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
@@ -14,15 +15,7 @@ import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.rowset.serial.SerialBlob;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -30,6 +23,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The service class for REST calls in order to execute the methods in {@link Recipemanagement}.
@@ -200,12 +194,6 @@ public class RecipemanagementRestServiceImpl {
       byte[] pictureBytes = IOUtils.readBytesFromStream(binaryObjectBlob.getBinaryStream());
 
       Response.ResponseBuilder rBuild = Response.ok(pictureBytes, mediaType);
-
-       //Developing and Benchmarking purposes
-       CacheControl cc = new CacheControl();
-       cc.setNoCache(true);
-       cc.setMustRevalidate(true);
-       rBuild.cacheControl(cc);
       return rBuild.build();
     } else {
       Response.ResponseBuilder rBuild = Response.noContent();

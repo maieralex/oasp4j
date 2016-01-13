@@ -10,12 +10,12 @@ public interface Ingredient {
    *
    * @return name the name of the ingredient.
    */
-  public String getName();
+  String getName();
 
   /**
    * Sets the name of this recipe.
    *
    * @param name the name of this special.
    */
-  public void setName(String name);
+  void setName(String name);
 }

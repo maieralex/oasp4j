@@ -3,7 +3,9 @@ package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl.usecase;
 import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
 import io.oasp.gastronomy.restaurant.general.logic.api.UseCase;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
+import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.IngredientEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeEntity;
+import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.RecipeIngredientEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcManageRecipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.base.usecase.AbstractRecipeUc;
@@ -44,7 +46,14 @@ public class UcManageRecipeImpl extends AbstractRecipeUc implements UcManageReci
 
     RecipeEntity recipeEntity = getBeanMapper().map(recipe, RecipeEntity.class);
 
-    // initialize, validate recipeEntity here if necessary
+    if (recipeEntity.getRecipeIngredients() != null) {
+      for (RecipeIngredientEntity recipeIngredientEntity : recipeEntity.getRecipeIngredients()) {
+        IngredientEntity ingredient = recipeIngredientEntity.getIngredient();
+        if (ingredient.getId() == null) {
+          getIngredientDao().save(ingredient);
+        }
+      }
+    }
 
     getRecipeDao().save(recipeEntity);
     LOG.debug("Recipe with id '{}' has been created.", recipeEntity.getId());

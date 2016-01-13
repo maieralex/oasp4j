@@ -14,6 +14,8 @@ public class CategoryEto extends AbstractEto implements Category {
 
   private String language;
 
+  private long languageId;
+
   /**
    * The constructor.
    */
@@ -28,7 +30,7 @@ public class CategoryEto extends AbstractEto implements Category {
   @Override
   public String getName() {
 
-    return name;
+    return this.name;
   }
 
   /**
@@ -46,7 +48,8 @@ public class CategoryEto extends AbstractEto implements Category {
    */
   @Override
   public String getLanguage() {
-    return language;
+
+    return this.language;
   }
 
   /**
@@ -55,9 +58,27 @@ public class CategoryEto extends AbstractEto implements Category {
    */
   @Override
   public void setLanguage(String language) {
+
     this.language = language;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public long getLanguageId() {
+
+    return this.languageId;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setLanguageId(long languageId) {
+
+    this.languageId = languageId;
+  }
 
   @Override
   public int hashCode() {

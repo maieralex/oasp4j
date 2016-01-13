@@ -109,14 +109,26 @@ public class RecipeEto extends AbstractEto implements Recipe {
     this.price = price;
   }
 
+  /**
+   *
+   * @return A set of recipe ingredient ETOs.
+     */
   public Set<RecipeIngredientEto> getRecipeIngredients() {
 
     return recipeIngredients;
   }
 
+  /**
+   *
+   * @param recipeIngredients set new Set of recipe ingredient ETOs.
+     */
   public void setRecipeIngredients(Set<RecipeIngredientEto> recipeIngredients) {
 
-    this.recipeIngredients = recipeIngredients;
+    if (recipeIngredients == null) {
+      this.recipeIngredients.clear();
+    } else {
+      this.recipeIngredients = recipeIngredients;
+    }
   }
 
   /**
@@ -320,6 +332,10 @@ public class RecipeEto extends AbstractEto implements Recipe {
     this.rating = rating;
   }
 
+  /**
+   *
+   * @return CategoryEntity.
+     */
   public CategoryEto getCategoryEntity() {
 
     return this.categoryEntity;

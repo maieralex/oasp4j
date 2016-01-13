@@ -12,7 +12,7 @@ import java.util.List;
 public interface UcFindCategory {
 
   /**
-   * Returns a {@link List} of all stored {@link CategoryEto}
+   * Returns a {@link List} of all stored {@link CategoryEto}.
    *
    * @return all stored CategoryEto
    */
@@ -27,7 +27,7 @@ public interface UcFindCategory {
   CategoryEto findCategory(Long id);
 
   /**
-   * Returns a {@link List} of all stored {@link CategoryEto} filtered by language
+   * Returns a {@link List} of all stored {@link CategoryEto} filtered by language.
    *
    * @param language The language 'language' of the Category.
    * @return all stored CategoryEto filtered by language

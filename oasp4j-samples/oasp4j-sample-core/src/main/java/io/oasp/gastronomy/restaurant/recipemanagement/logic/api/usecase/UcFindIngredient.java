@@ -12,7 +12,7 @@ import java.util.List;
 public interface UcFindIngredient {
 
   /**
-   * Retuns a {@link List} of all stored {@link IngredientEto}
+   * Retuns a {@link List} of all stored {@link IngredientEto}.
    *
    * @return all stored IngredientEto
    */

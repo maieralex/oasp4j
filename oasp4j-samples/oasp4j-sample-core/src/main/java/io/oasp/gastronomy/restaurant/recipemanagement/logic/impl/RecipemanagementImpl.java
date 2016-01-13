@@ -1,25 +1,21 @@
 package io.oasp.gastronomy.restaurant.recipemanagement.logic.impl;
 
 
+import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.UseCase;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.general.logic.base.AbstractComponentFacade;
 import io.oasp.gastronomy.restaurant.general.logic.base.UcManageBinaryObject;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindCategory;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindIngredient;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindRecipe;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcManageRecipe;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.*;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.Blob;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation class for {@link Recipemanagement}.
@@ -40,12 +36,26 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
 
   private UcFindIngredient ucFindIngredient;
 
+  private UcCalculatePrice ucCalculatePrice;
+
   /**
    * The constructor.
    */
   public RecipemanagementImpl() {
 
     super();
+  }
+
+  /**
+   * Sets the field 'ucCalculatePrice'.
+   *
+   * @param ucCalculatePrice New value for ucCalculatePrice
+     */
+  @Inject
+  @UseCase
+  public void setUcCalculatePrice(UcCalculatePrice ucCalculatePrice) {
+
+    this.ucCalculatePrice = ucCalculatePrice;
   }
 
   /**
@@ -94,7 +104,8 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   @Inject
   @UseCase
   @SuppressWarnings("SpringJavaAutowiringInspection")
-  public void setUcManageBinaryObject(UcFindIngredient ucFindIngredient) {
+  public void setUcFindIngredient(UcFindIngredient ucFindIngredient) {
+
     this.ucFindIngredient = ucFindIngredient;
   }
 
@@ -114,11 +125,13 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
 
   @Override
   public RecipeEto findRecipe(Long id) {
+
     return ucFindRecipe.findRecipe(id);
   }
 
   @Override
   public CategoryEto findCategory(Long id) {
+
     return ucFindCategory.findCategory(id);
   }
 
@@ -136,46 +149,55 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
 
   @Override
   public PaginatedListTo<RecipeEto> findRecipeEtos(RecipeSearchCriteriaTo criteria) {
+
     return ucFindRecipe.findRecipeEtos(criteria);
   }
 
   @Override
   public void deleteRecipe(Long recipeId) {
+
     ucManageRecipe.deleteRecipe(recipeId);
   }
 
   @Override
   public RecipeEto saveRecipe(RecipeEto recipe) {
+
     return ucManageRecipe.saveRecipe(recipe);
   }
 
   @Override
   public RecipeEto updateRecipePicture(Long recipeId, Blob blob, BinaryObjectEto binaryObjectEto) {
+
     return ucManageRecipe.updateRecipePicture(recipeId, blob, binaryObjectEto);
   }
 
   @Override
   public BinaryObjectEto saveBinaryObject(Blob data, BinaryObjectEto binaryObjectEto) {
+
     return ucManageBinaryObject.saveBinaryObject(data, binaryObjectEto);
   }
 
   @Override
   public void deleteBinaryObject(Long binaryObjectId) {
+
     ucManageBinaryObject.deleteBinaryObject(binaryObjectId);
   }
 
   @Override
   public BinaryObjectEto findBinaryObject(Long binaryObjectId) {
+
     return ucManageBinaryObject.findBinaryObject(binaryObjectId);
   }
 
   @Override
   public Blob getBinaryObjectBlob(Long binaryObjectId) {
+
     return ucManageBinaryObject.getBinaryObjectBlob(binaryObjectId);
   }
 
   @Override
   public List<RecipeEto> findRandomRecipes(int id, String language) {
+
     return ucFindRecipe.findRandomRecipes(id, language);
   }
 
@@ -183,5 +205,11 @@ public class RecipemanagementImpl extends AbstractComponentFacade implements Rec
   public List<IngredientEto> findAllIngredients() {
 
     return ucFindIngredient.findAllIngredients();
+  }
+
+  @Override
+  public Money getSummedPrice(Set<RecipeIngredientEto> ingredients) {
+
+    return ucCalculatePrice.getSummedPrice(ingredients);
   }
 }

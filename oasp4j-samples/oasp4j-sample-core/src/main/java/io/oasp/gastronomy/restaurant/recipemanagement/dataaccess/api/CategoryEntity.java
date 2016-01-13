@@ -19,6 +19,8 @@ public class CategoryEntity extends ApplicationPersistenceEntity implements Cate
 
   private String language;
 
+  private long languageId;
+
   /**
    * The constructor.
    */
@@ -69,6 +71,24 @@ public class CategoryEntity extends ApplicationPersistenceEntity implements Cate
   public void setLanguage(String language) {
 
     this.language = language;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public long getLanguageId() {
+
+    return this.languageId;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setLanguageId(long languageId) {
+
+    this.languageId = languageId;
   }
 
 }

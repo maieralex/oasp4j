@@ -6,22 +6,30 @@ import io.oasp.gastronomy.restaurant.recipemanagement.common.api.RecipeIngredien
 /**
  * Created by pascaldung on 15.12.15.
  */
-public class RecipeIngredientEto extends AbstractEto implements RecipeIngredient{
+public class RecipeIngredientEto extends AbstractEto implements RecipeIngredient {
 
-  Long recipeId;
+  private Long recipeId;
 
-  IngredientEto ingredient;
+  private IngredientEto ingredient;
 
-  String measuringUnit;
+  private String measuringUnit;
 
-  Double amount;
+  private Double amount;
 
-  Integer position;
+  private Integer position;
 
+  /**
+   *
+   * @return ETO of the ingredient.
+     */
   public IngredientEto getIngredient() {
     return ingredient;
   }
 
+  /**
+   *
+   * @param ingredient new ETO of the ingredient.
+     */
   public void setIngredient(IngredientEto ingredient) {
     this.ingredient = ingredient;
   }
@@ -35,6 +43,10 @@ public class RecipeIngredientEto extends AbstractEto implements RecipeIngredient
     return ingredient.getId();
   }
 
+  /**
+   *
+   * @param ingredientId new Id to be set for the recipe.
+   */
   @Override
   public void setIngredientId(Long ingredientId) {
     if (ingredientId == null) {
@@ -46,36 +58,84 @@ public class RecipeIngredientEto extends AbstractEto implements RecipeIngredient
     }
   }
 
+  /**
+   *
+   * @return id of the recipe.
+   */
   public Long getRecipeId() {
     return recipeId;
   }
 
+  /**
+   *
+   * @param recipeId new Id to be set for the recipe.
+   */
   public void setRecipeId(Long recipeId) {
     this.recipeId = recipeId;
   }
 
+  /**
+   *
+   * @return Measuring Unit for the ingredient in the recipe.
+   */
   public String getMeasuringUnit() {
     return measuringUnit;
   }
 
+  /**
+   *
+   * @param measuringUnit set new Measuring Unit for the ingredient in the recipe.
+   */
   public void setMeasuringUnit(String measuringUnit) {
     this.measuringUnit = measuringUnit;
   }
 
+  /**
+   *
+   * @return Amount of the ingredient in the recipe.
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   *
+   * @param amount set new Amount of the ingredient in the recipe.
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   *
+   * @return Position of the ingredient in the recipe.
+   */
   public Integer getPosition() {
     return position;
   }
 
+  /**
+   *
+   * @param position set new Position for the ingredient in the recipe.
+   */
   public void setPosition(Integer position) {
     this.position = position;
+  }
+
+  /**
+   * Overwrite default behavior because we are able to add multiple new (id is null) ingredients.
+   *
+   * @param obj
+   * @return
+     */
+  @Override
+  public boolean equals(Object obj) {
+
+    if (getId() == null) {
+      return false;
+    } else {
+      return super.equals(obj);
+    }
   }
 
 }

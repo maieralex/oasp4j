@@ -4,22 +4,18 @@ import io.oasp.gastronomy.restaurant.general.common.AbstractSpringIntegrationTes
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
-
-import java.sql.Blob;
-import java.util.List;
+import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialBlob;
-
-import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
+import java.sql.Blob;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by pascaldung on 21.10.15.
@@ -299,15 +295,31 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     recipeIngredientEto.setIngredient(allIngredients.get(0));
 
     recipe.getRecipeIngredients().add(recipeIngredientEto);
-    this.recipeManagement.saveRecipe(recipe);
+    RecipeEto savedRecipe = this.recipeManagement.saveRecipe(recipe);
 
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(3, updatedRecipe.getRecipeIngredients().size());
-    // TODO check the new ingredient
+
+    updatedRecipe.setRecipeIngredients(null);
+    this.recipeManagement.saveRecipe(updatedRecipe);
+    RecipeEto noIngredientsRecipe = this.recipeManagement.findRecipe(0L);
+    assertEquals(0, noIngredientsRecipe.getRecipeIngredients().size());
+
+    assertEquals(2, this.recipeManagement.findAllIngredients().size());
+
+    RecipeSearchCriteriaTo recipeSearchCriteriaTo = new RecipeSearchCriteriaTo();
+    PaginatedListTo<RecipeEto> recipeEtos = recipeManagement.findRecipeEtos(recipeSearchCriteriaTo);
+    for (RecipeEto recipeEto : recipeEtos.getResult()) {
+      if (recipeEto.getId() == 0L) {
+        assertEquals(0, recipeEto.getRecipeIngredients().size());
+      }
+    }
   }
 
   @Test
   public void testSaveRecipeWithNewIngredient() throws Exception {
+
+    List<IngredientEto> allIngredients = this.recipeManagement.findAllIngredients();
 
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
     assertEquals(2, recipe.getRecipeIngredients().size());
@@ -323,11 +335,13 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     recipeIngredientEto.setIngredient(newIngredientEto);
 
     recipe.getRecipeIngredients().add(recipeIngredientEto);
-    this.recipeManagement.saveRecipe(recipe);
+    RecipeEto savedRecipe = this.recipeManagement.saveRecipe(recipe);
 
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(3, updatedRecipe.getRecipeIngredients().size());
-    // TODO check the new ingredient
+
+    int updatedIngredientsSize = this.recipeManagement.findAllIngredients().size();
+    assertEquals(allIngredients.size() + 1 , updatedIngredientsSize);
   }
 
   @Test
@@ -428,10 +442,63 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
    */
   @Test
   public void testFindCategoriesByLanguage() throws Exception {
+
     List<CategoryEto> categories = this.recipeManagement.findCategories("en");
     assertEquals(7, categories.size());
     assertEquals("Appetizer", categories.get(0).getName());
     assertEquals("en", categories.get(0).getLanguage());
+  }
+
+  @Test
+  public void testGetSummedPrice() {
+
+    Set<RecipeIngredientEto> ingredients = new HashSet<>(3);
+
+    RecipeIngredientEto ingredientOne = new RecipeIngredientEto();
+    ingredientOne.setId(98765L);
+    ingredientOne.setAmount(5.0);
+    ingredientOne.setMeasuringUnit("g");
+
+    RecipeIngredientEto ingredientTwo = new RecipeIngredientEto();
+    ingredientTwo.setId(98766L);
+    ingredientTwo.setAmount(50.0);
+    ingredientTwo.setMeasuringUnit("l");
+
+    RecipeIngredientEto ingredientThree = new RecipeIngredientEto();
+    ingredientThree.setId(98767L);
+    ingredientThree.setAmount(75.0);
+    ingredientThree.setMeasuringUnit("kg");
+
+    ingredients.add(ingredientOne);
+    ingredients.add(ingredientTwo);
+    ingredients.add(ingredientThree);
+
+    Money expectedPrice = new Money(130.0);
+    Money summedPrice = this.recipeManagement.getSummedPrice(ingredients);
+
+    assertEquals(expectedPrice, summedPrice);
+  }
+
+  @Test
+  public void testGetSummedPriceEmpty() {
+
+    Set<RecipeIngredientEto> ingredients = new HashSet<RecipeIngredientEto>();
+
+    Money expectedPrice = new Money(0.0);
+
+    Money summedPrice = this.recipeManagement.getSummedPrice(ingredients);
+
+    assertEquals(expectedPrice, summedPrice);
+  }
+
+  @Test
+  public void testGetSummedPriceNull() {
+
+    Money expectedPrice = new Money(0.0);
+
+    Money summedPrice = this.recipeManagement.getSummedPrice(null);
+
+    assertEquals(expectedPrice, summedPrice);
   }
 
 }

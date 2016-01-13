@@ -5,25 +5,65 @@ package io.oasp.gastronomy.restaurant.recipemanagement.common.api;
  */
 public interface RecipeIngredient {
 
-  public Long getRecipeId();
+  /**
+   *
+   * @return id of the recipe.
+     */
+  Long getRecipeId();
 
-  public void setRecipeId(Long recipeId);
+  /**
+   *
+   * @param recipeId new Id to be set for the recipe.
+     */
+  void setRecipeId(Long recipeId);
 
-  public Long getIngredientId();
+  /**
+   *
+   * @return id of the ingredient.
+     */
+  Long getIngredientId();
 
-  public void setIngredientId(Long ingredientId);
+  /**
+   *
+   * @param ingredientId new Id to be set for the recipe.
+     */
+  void setIngredientId(Long ingredientId);
 
-  public String getMeasuringUnit();
+  /**
+   *
+   * @return Measuring Unit for the ingredient in the recipe.
+     */
+  String getMeasuringUnit();
 
-  public void setMeasuringUnit(String measuringUnit);
+  /**
+   *
+   * @param measuringUnit set new Measuring Unit for the ingredient in the recipe.
+     */
+  void setMeasuringUnit(String measuringUnit);
 
-  public Double getAmount();
+  /**
+   *
+   * @return Amount of the ingredient in the recipe.
+     */
+  Double getAmount();
 
-  public void setAmount(Double amount);
+  /**
+   *
+   * @param amount set new Amount of the ingredient in the recipe.
+     */
+  void setAmount(Double amount);
 
-  public Integer getPosition();
+  /**
+   *
+   * @return Position of the ingredient in the recipe.
+     */
+  Integer getPosition();
 
-  public void setPosition(Integer position);
+  /**
+   *
+   * @param position set new Position for the ingredient in the recipe.
+     */
+  void setPosition(Integer position);
 }
 
 

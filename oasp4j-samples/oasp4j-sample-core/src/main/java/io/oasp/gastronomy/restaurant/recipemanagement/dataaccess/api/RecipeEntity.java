@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -223,7 +224,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    *
    * @return ingredients return the ingredients of a recipe.
    */
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipe")
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
   public Set<RecipeIngredientEntity> getRecipeIngredients() {
 
     return this.recipeIngredients;
@@ -235,6 +236,9 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    */
   public void setRecipeIngredients(Set<RecipeIngredientEntity> recipeIngredients) {
 
+    if (recipeIngredients == null) {
+      recipeIngredients = new HashSet<>();
+    }
     this.recipeIngredients = recipeIngredients;
   }
 

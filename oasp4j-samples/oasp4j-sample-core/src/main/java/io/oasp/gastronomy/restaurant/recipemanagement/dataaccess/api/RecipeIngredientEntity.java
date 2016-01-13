@@ -3,7 +3,12 @@ package io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api;
 import io.oasp.gastronomy.restaurant.general.dataaccess.api.ApplicationPersistenceEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.RecipeIngredient;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -26,6 +31,10 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
 
   private Integer position;
 
+  /**
+   *
+   * @return entity of the recipe.
+     */
   @ManyToOne()
   @JoinColumn(name = "pk_recipe")
   public RecipeEntity getRecipe() {
@@ -33,6 +42,10 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
     return recipe;
   }
 
+  /**
+   *
+   * @param recipe new entity of the recipe to be set.
+     */
   public void setRecipe(RecipeEntity recipe) {
 
     this.recipe = recipe;
@@ -41,10 +54,23 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
   @Override
   @Transient
   public Long getRecipeId() {
-    if(this.recipe != null){
+    if (this.recipe != null) {
       return this.recipe.getId();
     }
     return null;
+  }
+
+  @Override
+  public void setRecipeId(Long recipeId) {
+
+    if (recipeId == null) {
+      this.recipe = null;
+    } else {
+      RecipeEntity newRecipe = new RecipeEntity();
+      newRecipe.setId(recipeId);
+      this.recipe = newRecipe;
+    }
+
   }
 
   @Override
@@ -60,28 +86,13 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
   @Override
   public void setIngredientId(Long ingredientId) {
 
-    if(ingredientId == null) {
+    if (ingredientId == null) {
       this.ingredient = null;
-    }
-    else {
+    } else {
       IngredientEntity newIngredientEntity = new IngredientEntity();
       newIngredientEntity.setId(ingredientId);
       this.ingredient = newIngredientEntity;
     }
-  }
-
-  @Override
-  public void setRecipeId(Long recipeId) {
-
-    if(recipeId == null) {
-      this.recipe = null;
-    }
-    else {
-      RecipeEntity newRecipe = new RecipeEntity();
-      newRecipe.setId(recipeId);
-      this.recipe = newRecipe;
-    }
-
   }
 
   @ManyToOne(cascade = CascadeType.PERSIST)
@@ -91,32 +102,76 @@ public class RecipeIngredientEntity extends ApplicationPersistenceEntity impleme
     return ingredient;
   }
 
+  /**
+   *
+   * @param ingredient new entity of the ingredient to be set.
+     */
   public void setIngredient(IngredientEntity ingredient) {
 
     this.ingredient = ingredient;
   }
 
+  /**
+   *
+   * @return Measuring Unit for the ingredient in the recipe.
+   */
   public String getMeasuringUnit() {
     return measuringUnit;
   }
 
+  /**
+   *
+   * @param measuringUnit set new Measuring Unit for the ingredient in the recipe.
+   */
   public void setMeasuringUnit(String measuringUnit) {
     this.measuringUnit = measuringUnit;
   }
 
+  /**
+   *
+   * @return Amount of the ingredient in the recipe.
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   *
+   * @param amount set new Amount of the ingredient in the recipe.
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   *
+   * @return Position of the ingredient in the recipe.
+   */
   public Integer getPosition() {
     return position;
   }
 
+  /**
+   *
+   * @param position set new Position for the ingredient in the recipe.
+   */
   public void setPosition(Integer position) {
     this.position = position;
+  }
+
+  /**
+   * Overwrite default behavior because we are able to add multiple new (id is null) ingredients.
+   *
+   * @param obj
+   * @return
+   */
+  @Override
+  public boolean equals(Object obj) {
+
+    if (getId() == null) {
+      return false;
+    } else {
+      return super.equals(obj);
+    }
   }
 }
