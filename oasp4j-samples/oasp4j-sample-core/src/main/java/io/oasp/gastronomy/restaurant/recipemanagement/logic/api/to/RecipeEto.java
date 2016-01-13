@@ -123,8 +123,12 @@ public class RecipeEto extends AbstractEto implements Recipe {
    * @param recipeIngredients set new Set of recipe ingredient ETOs.
      */
   public void setRecipeIngredients(Set<RecipeIngredientEto> recipeIngredients) {
-    
-    this.recipeIngredients = recipeIngredients;
+
+    if (recipeIngredients == null) {
+      this.recipeIngredients.clear();
+    } else {
+      this.recipeIngredients = recipeIngredients;
+    }
   }
 
   /**
