@@ -26,7 +26,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
 
   private String author;
 
-  private String[] categories;
+  private Long[] categories;
 
   private Integer portions;
 
@@ -191,7 +191,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   /**
    * @return categories
    */
-  public String[] getCategories() {
+  public Long[] getCategories() {
 
     return this.categories;
   }
@@ -199,7 +199,7 @@ public class RecipeSearchCriteriaTo extends SearchCriteriaTo {
   /**
    * @param categories new value of {@link #categories}.
    */
-  public void setCategories(String[] categories) {
+  public void setCategories(Long[] categories) {
 
     this.categories = categories;
   }

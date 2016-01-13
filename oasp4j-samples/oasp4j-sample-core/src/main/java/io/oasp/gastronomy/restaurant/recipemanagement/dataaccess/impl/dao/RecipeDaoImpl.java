@@ -7,7 +7,6 @@ import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.dao.RecipeD
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Named;
@@ -97,9 +96,9 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity> implements R
       query.where(Alias.$(recipe.getRating()).between(ratingFrom, ratingTo));
     }
 
-    String[] categories = criteria.getCategories();
-    if (categories != null && categories.length != 0) {
-      query.where(Alias.$(recipe.getCategory()).in(Arrays.asList(categories)));
+    Long[] categories = criteria.getCategories();
+    if (categories != null) {
+      query.where(Alias.$(recipe.getCategoryEntity().getLanguageId()).in(categories));
     }
 
     query.orderBy(Alias.$(recipe.getName()).asc());
