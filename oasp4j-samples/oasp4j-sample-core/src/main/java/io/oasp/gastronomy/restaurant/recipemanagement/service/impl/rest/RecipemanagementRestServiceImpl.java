@@ -246,7 +246,7 @@ public class RecipemanagementRestServiceImpl {
      */
   @POST
   @Path("/price/sum")
-  public Money getSummedPrice (Set<RecipeIngredientEto> ingredients) {
+  public Money getSummedPrice(Set<RecipeIngredientEto> ingredients) {
 
     return this.recipemanagement.getSummedPrice(ingredients);
   }

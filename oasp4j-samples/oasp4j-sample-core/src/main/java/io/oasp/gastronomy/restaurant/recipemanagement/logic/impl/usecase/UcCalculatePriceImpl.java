@@ -22,15 +22,15 @@ public class UcCalculatePriceImpl extends AbstractRecipeUc implements UcCalculat
   public Money getSummedPrice(Set<RecipeIngredientEto> ingredients) {
 
     Double sum = 0.0;
-    Double FIXPRICE = 1.0;
+    Double fixprice = 1.0;
 
     if (ingredients == null) {
       return new Money(sum);
     }
 
-    for (RecipeIngredientEto ingredientEto :
-      ingredients) {
-      sum += ingredientEto.getAmount() * FIXPRICE;
+    for (RecipeIngredientEto ingredientEto
+      : ingredients) {
+      sum += ingredientEto.getAmount() * fixprice;
     }
 
     return new Money(sum);
