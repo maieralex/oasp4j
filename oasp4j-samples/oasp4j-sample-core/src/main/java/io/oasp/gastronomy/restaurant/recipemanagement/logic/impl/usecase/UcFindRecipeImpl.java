@@ -6,18 +6,14 @@ import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.usecase.UcFindRecipe;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.base.usecase.AbstractRecipeUc;
-import io.oasp.gastronomy.restaurant.recipemanagement.dataaccess.api.CategoryEntity;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategorySearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Collections;
-
 import javax.annotation.security.PermitAll;
 import javax.inject.Named;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Use case implementation for searching, filtering and getting Recipes.

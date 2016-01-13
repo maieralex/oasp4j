@@ -53,7 +53,7 @@ public class UcManageRecipeImpl extends AbstractRecipeUc implements UcManageReci
           getIngredientDao().save(ingredient);
         }
       }
-  }
+    }
 
     getRecipeDao().save(recipeEntity);
     LOG.debug("Recipe with id '{}' has been created.", recipeEntity.getId());

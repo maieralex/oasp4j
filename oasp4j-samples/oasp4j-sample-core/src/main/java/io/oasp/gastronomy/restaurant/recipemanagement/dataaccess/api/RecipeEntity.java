@@ -224,7 +224,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    *
    * @return ingredients return the ingredients of a recipe.
    */
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipe")
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
   public Set<RecipeIngredientEntity> getRecipeIngredients() {
 
     return this.recipeIngredients;

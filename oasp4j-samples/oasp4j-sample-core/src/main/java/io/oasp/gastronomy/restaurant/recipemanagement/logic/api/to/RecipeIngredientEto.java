@@ -122,4 +122,20 @@ public class RecipeIngredientEto extends AbstractEto implements RecipeIngredient
     this.position = position;
   }
 
+  /**
+   * Overwrite default behavior because we are able to add multiple new (id is null) ingredients.
+   *
+   * @param obj
+   * @return
+     */
+  @Override
+  public boolean equals(Object obj) {
+
+    if (getId() == null) {
+      return false;
+    } else {
+      return super.equals(obj);
+    }
+  }
+
 }

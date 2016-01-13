@@ -296,7 +296,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     recipeIngredientEto.setIngredient(allIngredients.get(0));
 
     recipe.getRecipeIngredients().add(recipeIngredientEto);
-    this.recipeManagement.saveRecipe(recipe);
+    RecipeEto savedRecipe = this.recipeManagement.saveRecipe(recipe);
 
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(3, updatedRecipe.getRecipeIngredients().size());
@@ -305,6 +305,16 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     this.recipeManagement.saveRecipe(updatedRecipe);
     RecipeEto noIngredientsRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(0, noIngredientsRecipe.getRecipeIngredients().size());
+
+    assertEquals(2, this.recipeManagement.findAllIngredients().size());
+
+    RecipeSearchCriteriaTo recipeSearchCriteriaTo = new RecipeSearchCriteriaTo();
+    PaginatedListTo<RecipeEto> recipeEtos = recipeManagement.findRecipeEtos(recipeSearchCriteriaTo);
+    for (RecipeEto recipeEto : recipeEtos.getResult()) {
+      if (recipeEto.getId() == 0L) {
+        assertEquals(0, recipeEto.getRecipeIngredients().size());
+      }
+    }
   }
 
   @Test
@@ -326,7 +336,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     recipeIngredientEto.setIngredient(newIngredientEto);
 
     recipe.getRecipeIngredients().add(recipeIngredientEto);
-    this.recipeManagement.saveRecipe(recipe);
+    RecipeEto savedRecipe = this.recipeManagement.saveRecipe(recipe);
 
     RecipeEto updatedRecipe = this.recipeManagement.findRecipe(0L);
     assertEquals(3, updatedRecipe.getRecipeIngredients().size());
