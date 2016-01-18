@@ -4,6 +4,9 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.api.ApplicationPersistenceEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * The {@link ApplicationPersistenceEntity persistent entity} for a recipe.
@@ -355,7 +356,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
    *
    * @return CategoryEntity
    */
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "categoryId")
   public CategoryEntity getCategoryEntity() {
 
