@@ -97,7 +97,7 @@ public class RecipeDaoImpl extends ApplicationDaoImpl<RecipeEntity> implements R
     }
 
     Long[] categories = criteria.getCategories();
-    if (categories != null) {
+    if (categories != null && categories.length != 0) {
       query.where(Alias.$(recipe.getCategoryEntity().getLanguageId()).in(categories));
     }
 
