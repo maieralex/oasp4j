@@ -39,8 +39,6 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
 
   private String author;
 
-  private String category;
-
   private Integer portions;
 
   private Set<RecipeIngredientEntity> recipeIngredients;
@@ -201,24 +199,6 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   public void setPortions(Integer portions) {
 
     this.portions = portions;
-  }
-
-  /**
-   *
-   * @return category return the category of a recipe.
-   */
-  public String getCategory() {
-
-    return this.category;
-  }
-
-  /**
-   *
-   * @param category set the new category of a recipe.
-   */
-  public void setCategory(String category) {
-
-    this.category = category;
   }
 
   /**

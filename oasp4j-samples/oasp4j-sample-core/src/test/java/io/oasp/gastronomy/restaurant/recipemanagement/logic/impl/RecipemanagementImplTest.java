@@ -56,8 +56,8 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     criteria.setCategories(categories);
 
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
-    // von 2 auf 175 wegen Test Data !
-    assertEquals(175, list.getResult().size());
+    // von 2 auf 149 wegen Test Data !
+    assertEquals(149, list.getResult().size());
     assertEquals("Vorspeisen", this.recipeManagement.findCategory(0L).getName());
     assertEquals("de", this.recipeManagement.findCategory(0L).getLanguage());
     assertEquals(new Long(2), this.recipeManagement.findRecipe(0L).getCategoryId());
@@ -91,9 +91,9 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     criteria.setSearchString("hAm");
-    // wegen Testdaten von 1 auf 12 geändert.
+    // wegen Testdaten von 1 auf 9 geändert.
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(12, list.getResult().size());
+    assertEquals(9, list.getResult().size());
   }
 
   /**
@@ -385,18 +385,18 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     criteria.setPriceTo(24);
     criteria.setRatingFrom(1);
     criteria.setRatingTo(1);
-    // wegen Testdaten von 1 auf 5 geändert.
+    // wegen Testdaten von 1 auf 7 geändert.
     list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(5, list.getResult().size());
+    assertEquals(7, list.getResult().size());
 
     criteria.setCategories(null);
     criteria.setPriceFrom(7);
     criteria.setPriceTo(24);
     criteria.setRatingFrom(1);
     criteria.setRatingTo(5);
-    // wegen Testdaten von 2 auf 107 geändert.
+    // wegen Testdaten von 2 auf 102 geändert.
     list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(107, list.getResult().size());
+    assertEquals(102, list.getResult().size());
 
     categories[0] = (long) 0;
     criteria.setCategories(categories);
