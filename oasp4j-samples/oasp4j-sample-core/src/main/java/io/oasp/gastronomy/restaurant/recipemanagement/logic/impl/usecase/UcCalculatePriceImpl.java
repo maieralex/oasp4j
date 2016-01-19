@@ -31,7 +31,7 @@ public class UcCalculatePriceImpl extends AbstractRecipeUc implements UcCalculat
     for (RecipeIngredientEto ingredientEto
       : ingredients) {
 
-      if(ingredientEto != null || ingredientEto.getAmount() != null)
+      if(ingredientEto != null)
       sum += ingredientEto.getAmount() * fixprice;
     }
 
