@@ -237,4 +237,16 @@ public class RecipemanagementRestServiceImpl {
     return recipemanagement.findAllIngredients();
   }
 
+  /**
+  * Returns the summed up price for the given ingredients.
+  *
+  * @param ingredients ingredients for the price calculation
+  * @return summed up price
+  */
+  @POST
+  @Path("/price/sum")
+  public Money getSummedPrice (Set<RecipeIngredientEto> ingredients) {
+
+    return this.recipemanagement.getSummedPrice(ingredients);
+  }
 }
