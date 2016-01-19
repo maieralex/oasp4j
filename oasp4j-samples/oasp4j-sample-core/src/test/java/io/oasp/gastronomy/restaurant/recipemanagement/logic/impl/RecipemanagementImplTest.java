@@ -4,24 +4,18 @@ import io.oasp.gastronomy.restaurant.general.common.AbstractSpringIntegrationTes
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
+import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
 
+import javax.inject.Inject;
+import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.inject.Inject;
-import javax.sql.rowset.serial.SerialBlob;
-
-import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Created by pascaldung on 21.10.15.
@@ -508,6 +502,31 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     Money summedPrice = this.recipeManagement.getSummedPrice(null);
 
     assertEquals(expectedPrice, summedPrice);
+  }
+
+  @Test
+  public void testGetSummedPriceWithOneEmptySlot() {
+
+    Set<RecipeIngredientEto> ingredients = new HashSet<>();
+
+    RecipeIngredientEto ingredientOne = new RecipeIngredientEto();
+    ingredientOne.setId(98765L);
+    ingredientOne.setAmount(5.0);
+    ingredientOne.setMeasuringUnit("g");
+
+    RecipeIngredientEto ingredientTwo = null;
+
+    RecipeIngredientEto ingredientThree = new RecipeIngredientEto();
+    ingredientThree.setId(98767L);
+    ingredientThree.setAmount(75.0);
+    ingredientThree.setMeasuringUnit("kg");
+
+    ingredients.add(ingredientOne);
+    ingredients.add(ingredientTwo);
+    ingredients.add(ingredientThree);
+
+    Money expectedPrice = new Money(80.0);
+    Money summedPrice = this.recipeManagement.getSummedPrice(ingredients);
   }
 
 }
