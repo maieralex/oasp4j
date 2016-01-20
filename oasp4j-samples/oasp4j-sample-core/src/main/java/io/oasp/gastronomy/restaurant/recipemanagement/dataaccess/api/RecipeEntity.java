@@ -4,17 +4,9 @@ import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.dataaccess.api.ApplicationPersistenceEntity;
 import io.oasp.gastronomy.restaurant.recipemanagement.common.api.Recipe;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * The {@link ApplicationPersistenceEntity persistent entity} for a recipe.
@@ -54,8 +46,6 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   private String cookingInstructions;
 
   private Integer rating;
-
-  private Long categoryId;
 
   private CategoryEntity categoryEntity;
 
@@ -218,7 +208,7 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   public void setRecipeIngredients(Set<RecipeIngredientEntity> recipeIngredients) {
 
     if (recipeIngredients == null) {
-      recipeIngredients = new HashSet<>();
+      this.recipeIngredients = new HashSet<>();
     }
     this.recipeIngredients = recipeIngredients;
   }
@@ -367,11 +357,12 @@ public class RecipeEntity extends ApplicationPersistenceEntity implements Recipe
   public void setCategoryId(Long categoryId) {
 
     if (categoryId == null) {
-      this.categoryId = null;
+      this.categoryEntity = null;
+    } else if(this.categoryEntity == null) {
+      this.categoryEntity = new CategoryEntity();
+      this.categoryEntity.setId(categoryId);
     } else {
-      CategoryEntity categoryEntity = new CategoryEntity();
-      categoryEntity.setId(categoryId);
-      this.categoryId = categoryId;
+      this.categoryEntity.setId(categoryId);
     }
   }
 

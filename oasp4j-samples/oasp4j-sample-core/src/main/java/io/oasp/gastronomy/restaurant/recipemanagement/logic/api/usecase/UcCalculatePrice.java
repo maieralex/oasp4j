@@ -16,5 +16,5 @@ public interface UcCalculatePrice {
    * @param ingredients ingredients for the price calculation
    * @return summed up price for the given ingredients
    */
-  Money getSummedPrice (Set<RecipeIngredientEto> ingredients);
+  Money getSummedPrice(Set<RecipeIngredientEto> ingredients);
 }
