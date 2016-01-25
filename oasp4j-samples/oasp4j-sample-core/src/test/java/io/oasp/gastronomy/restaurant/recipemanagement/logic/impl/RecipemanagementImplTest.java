@@ -4,24 +4,18 @@ import io.oasp.gastronomy.restaurant.general.common.AbstractSpringIntegrationTes
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.Recipemanagement;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.CategoryEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.IngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeIngredientEto;
-import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.RecipeSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.recipemanagement.logic.api.to.*;
 import io.oasp.module.configuration.common.api.ApplicationConfigurationConstants;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
+import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
 
+import javax.inject.Inject;
+import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.inject.Inject;
-import javax.sql.rowset.serial.SerialBlob;
-
-import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Created by pascaldung on 21.10.15.
@@ -49,6 +43,10 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testFindCategory() throws Exception {
 
+    final int expectedRecipeListSize = 149;
+    final int expectedCategoryListSize = 14;
+    final Money expectedRecipePrice = new Money(7.99);
+
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     Long[] categories = new Long[1];
     categories[0] = (long) 2;
@@ -57,15 +55,15 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     PaginatedListTo<RecipeEto> list = this.recipeManagement.findRecipeEtos(criteria);
     // von 2 auf 149 wegen Test Data !
-    assertEquals(149, list.getResult().size());
+    assertEquals(expectedRecipeListSize, list.getResult().size());
     assertEquals("Vorspeisen", this.recipeManagement.findCategory(0L).getName());
     assertEquals("de", this.recipeManagement.findCategory(0L).getLanguage());
     assertEquals(new Long(2), this.recipeManagement.findRecipe(0L).getCategoryId());
-    assertEquals(14, this.recipeManagement.findAllCategories().size());
+    assertEquals(expectedCategoryListSize, this.recipeManagement.findAllCategories().size());
     assertEquals("Vom Grill", this.recipeManagement.findCategory(2L).getName());
     assertEquals(new Long(2), this.recipeManagement.findRecipe(0L).getCategoryId());
     assertEquals(new Integer(1), this.recipeManagement.findRecipe(0L).getRating());
-    assertEquals(new Money(7.99), this.recipeManagement.findRecipe(0L).getPrice());
+    assertEquals(expectedRecipePrice, this.recipeManagement.findRecipe(0L).getPrice());
   }
 
   /**
@@ -153,11 +151,13 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testDeleteRecipe() throws Exception {
 
+    final Money price = new Money(0.99);
+
     // Create new Recipe to save and delete.
     RecipeEto newRecipe = new RecipeEto();
     newRecipe.setName("RecipeToBeDeleted");
     newRecipe.setDescription("A recipe, that is to be deleted.");
-    newRecipe.setPrice(new Money(0.99));
+    newRecipe.setPrice(price);
 
     RecipeEto insertedRecipe = this.recipeManagement.saveRecipe(newRecipe);
 
@@ -174,10 +174,12 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testSaveRecipe() throws Exception {
 
+    final Money price = new Money(0.99);
+
     RecipeEto newRecipe = new RecipeEto();
     newRecipe.setName("NewRecipe");
     newRecipe.setDescription("A new recipe");
-    newRecipe.setPrice(new Money(0.99));
+    newRecipe.setPrice(price);
 
     RecipeEto insertedRecipe = this.recipeManagement.saveRecipe(newRecipe);
 
@@ -193,10 +195,12 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testUpdateRecipe() throws Exception {
 
+    final Money price = new Money(5.99);
+
     RecipeEto newRecipe = new RecipeEto();
     newRecipe.setDescription("this should be updated.");
     newRecipe.setImageId(10L);
-    newRecipe.setPrice(new Money(5.99));
+    newRecipe.setPrice(price);
     newRecipe.setName("RecipeToBeUpdated");
 
     RecipeEto savedRecipe = this.recipeManagement.saveRecipe(newRecipe);
@@ -218,11 +222,14 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testGetBinaryObjectBlob() throws Exception {
 
+    final int position = 12;
+    final int length = 4;
+
     RecipeEto recipe = this.recipeManagement.findRecipe(6L);
     assertEquals(new Long(0), recipe.getImageId());
 
-    byte[] expected = { 13, 73, 72, 68 };
-    byte[] actual = this.recipeManagement.getBinaryObjectBlob(recipe.getImageId()).getBytes(12, 4);
+    final byte[] expected = { 13, 73, 72, 68 };
+    byte[] actual = this.recipeManagement.getBinaryObjectBlob(recipe.getImageId()).getBytes(position, length);
     assertArrayEquals(expected, actual);
   }
 
@@ -233,14 +240,16 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testNewUpdateRecipePicture() throws Exception {
 
+    final Money price = new Money(0.99);
+
     RecipeEto newRecipe = new RecipeEto();
     newRecipe.setId(null);
     newRecipe.setName("NewRecipe 123");
     newRecipe.setDescription("A new recipe 123");
-    newRecipe.setPrice(new Money(0.99));
+    newRecipe.setPrice(price);
     RecipeEto insertedRecipe = this.recipeManagement.saveRecipe(newRecipe);
 
-    byte[] bytes = { 11, 22, 33, 44 };
+    final byte[] bytes = { 11, 22, 33, 44 };
     Blob blob = new SerialBlob(bytes);
 
     BinaryObjectEto binaryObjectEto = new BinaryObjectEto();
@@ -263,7 +272,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testUpdateRecipePicture() throws Exception {
 
-    byte[] bytes = { 11, 22, 33, 44 };
+    final byte[] bytes = { 11, 22, 33, 44 };
     Blob blob = new SerialBlob(bytes);
 
     BinaryObjectEto binaryObjectEto = new BinaryObjectEto();
@@ -277,16 +286,27 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertArrayEquals(bytes, actual);
   }
 
+  /**
+   * Test for the findAllIngredients Method.
+   *
+   * @throws Exception When mapping the ingredients fails
+     */
   @Test
   public void testFindAllIngredients() throws Exception {
 
     List<IngredientEto> ingredients = this.recipeManagement.findAllIngredients();
     assertEquals(2, ingredients.size());
-    // TODO check content of the returned list
   }
 
+  /**
+   * Tests saving a recipe together with recipeIngredients.
+   *
+   * @throws Exception When mapping of RecipeIngredients fails
+     */
   @Test
   public void testSaveRecipeWithIngredients() throws Exception {
+
+    final double amount = 55.0;
 
     RecipeEto recipe = this.recipeManagement.findRecipe(0L);
     assertEquals(2, recipe.getRecipeIngredients().size());
@@ -294,7 +314,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     List<IngredientEto> allIngredients = this.recipeManagement.findAllIngredients();
 
     RecipeIngredientEto recipeIngredientEto = new RecipeIngredientEto();
-    recipeIngredientEto.setAmount(55.0);
+    recipeIngredientEto.setAmount(amount);
     recipeIngredientEto.setMeasuringUnit("Löffel");
     recipeIngredientEto.setPosition(4);
     recipeIngredientEto.setRecipeId(recipe.getId());
@@ -322,8 +342,15 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     }
   }
 
+  /**
+   * Tests the saving of recipes with newly added recipeIngredients.
+   *
+   * @throws Exception When mapping of RecipeIngredients fails.
+     */
   @Test
   public void testSaveRecipeWithNewIngredient() throws Exception {
+
+    final double amount = 55.0;
 
     List<IngredientEto> allIngredients = this.recipeManagement.findAllIngredients();
 
@@ -334,7 +361,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     newIngredientEto.setName("new one");
 
     RecipeIngredientEto recipeIngredientEto = new RecipeIngredientEto();
-    recipeIngredientEto.setAmount(55.0);
+    recipeIngredientEto.setAmount(amount);
     recipeIngredientEto.setMeasuringUnit("Löffel");
     recipeIngredientEto.setPosition(4);
     recipeIngredientEto.setRecipeId(recipe.getId());
@@ -350,6 +377,11 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(allIngredients.size() + 1, updatedIngredientsSize);
   }
 
+  /**
+   * Tests the findRecipe Method with RecipeIngredients.
+   *
+   * @throws Exception WHen the mapping of recipes fails
+     */
   @Test
   public void testRecipeWithIngredients() throws Exception {
 
@@ -366,14 +398,23 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
   @Test
   public void testFindAllCategories() throws Exception {
 
+    final int expectedCategorySize = 14;
+
     List<CategoryEto> categories = this.recipeManagement.findAllCategories();
-    assertEquals(14, categories.size());
+    assertEquals(expectedCategorySize, categories.size());
     assertEquals("Vorspeisen", categories.get(0).getName());
     assertEquals("de", categories.get(0).getLanguage());
   }
 
+  /**
+   * Tests the Filter for recipes.
+   *
+   */
   @Test
   public void testRecipeFilter() {
+
+    final int priceToTwentyFour = 24;
+    final int expectedResultSize = 125;
 
     RecipeSearchCriteriaTo criteria = new RecipeSearchCriteriaTo();
     Long[] categories = new Long[1];
@@ -382,7 +423,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     criteria.setCategories(categories);
     criteria.setPriceFrom(7);
-    criteria.setPriceTo(24);
+    criteria.setPriceTo(priceToTwentyFour);
     criteria.setRatingFrom(1);
     criteria.setRatingTo(1);
     // wegen Testdaten von 1 auf 7 geändert.
@@ -391,12 +432,12 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
 
     criteria.setCategories(null);
     criteria.setPriceFrom(7);
-    criteria.setPriceTo(24);
+    criteria.setPriceTo(priceToTwentyFour);
     criteria.setRatingFrom(1);
     criteria.setRatingTo(5);
     // wegen Testdaten von 2 auf 125 geändert.
     list = this.recipeManagement.findRecipeEtos(criteria);
-    assertEquals(125, list.getResult().size());
+    assertEquals(expectedResultSize, list.getResult().size());
 
     categories[0] = (long) 0;
     criteria.setCategories(categories);
@@ -458,36 +499,50 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals("en", categories.get(0).getLanguage());
   }
 
+  /**
+   * Tests the summed price returned by the price engine.
+   */
   @Test
   public void testGetSummedPrice() {
+
+    final Long firstIngredientId = 98765L;
+    final Long secondIngredientId = 98766L;
+    final Long thirdIngredientId = 98767L;
+
+    final double firstAmount = 5.0;
+    final double secondAmount = 50.0;
+    final double thirdAmount = 75.0;
 
     Set<RecipeIngredientEto> ingredients = new HashSet<>(3);
 
     RecipeIngredientEto ingredientOne = new RecipeIngredientEto();
-    ingredientOne.setId(98765L);
-    ingredientOne.setAmount(5.0);
+    ingredientOne.setId(firstIngredientId);
+    ingredientOne.setAmount(firstAmount);
     ingredientOne.setMeasuringUnit("g");
 
     RecipeIngredientEto ingredientTwo = new RecipeIngredientEto();
-    ingredientTwo.setId(98766L);
-    ingredientTwo.setAmount(50.0);
+    ingredientTwo.setId(secondIngredientId);
+    ingredientTwo.setAmount(secondAmount);
     ingredientTwo.setMeasuringUnit("l");
 
     RecipeIngredientEto ingredientThree = new RecipeIngredientEto();
-    ingredientThree.setId(98767L);
-    ingredientThree.setAmount(75.0);
+    ingredientThree.setId(thirdIngredientId);
+    ingredientThree.setAmount(thirdAmount);
     ingredientThree.setMeasuringUnit("kg");
 
     ingredients.add(ingredientOne);
     ingredients.add(ingredientTwo);
     ingredients.add(ingredientThree);
 
-    Money expectedPrice = new Money(130.0);
+    final Money expectedPrice = new Money(130.0);
     Money summedPrice = this.recipeManagement.getSummedPrice(ingredients);
 
     assertEquals(expectedPrice, summedPrice);
   }
 
+  /**
+   * Tests the returned price for a recipe without ingredients.
+   */
   @Test
   public void testGetSummedPriceEmpty() {
 
@@ -500,6 +555,9 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     assertEquals(expectedPrice, summedPrice);
   }
 
+  /**
+   * Tests the returned price for a recipe that equals null.
+   */
   @Test
   public void testGetSummedPriceNull() {
 
@@ -508,6 +566,40 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     Money summedPrice = this.recipeManagement.getSummedPrice(null);
 
     assertEquals(expectedPrice, summedPrice);
+  }
+
+  /**
+   * Tests the returned price for a recipe containing an empty ingredient in it's Set of ingredients.
+   */
+  @Test
+  public void testGetSummedPriceWithOneEmptySlot() {
+
+    final Long firstIngredientId = 98765L;
+    final Long thirdIngredientId = 98767L;
+
+    final double firstAmount = 5.0;
+    final double thirdAmount = 75.0;
+
+    Set<RecipeIngredientEto> ingredients = new HashSet<>();
+
+    RecipeIngredientEto ingredientOne = new RecipeIngredientEto();
+    ingredientOne.setId(firstIngredientId);
+    ingredientOne.setAmount(firstAmount);
+    ingredientOne.setMeasuringUnit("g");
+
+    RecipeIngredientEto ingredientTwo = null;
+
+    RecipeIngredientEto ingredientThree = new RecipeIngredientEto();
+    ingredientThree.setId(thirdIngredientId);
+    ingredientThree.setAmount(thirdAmount);
+    ingredientThree.setMeasuringUnit("kg");
+
+    ingredients.add(ingredientOne);
+    ingredients.add(ingredientTwo);
+    ingredients.add(ingredientThree);
+
+    final Money expectedPrice = new Money(80.0);
+    Money summedPrice = this.recipeManagement.getSummedPrice(ingredients);
   }
 
 }

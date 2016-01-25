@@ -163,7 +163,8 @@ public class RecipemanagementRestServiceImpl {
   @POST
   @Path("/recipe/{id}/picture")
   public void updateRecipePicture(@PathParam("id") Long recipeId,
-                                  @Multipart(value = "binaryObjectEto", type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
+                                  @Multipart(value = "binaryObjectEto",
+                                    type = MediaType.APPLICATION_JSON) BinaryObjectEto binaryObjectEto,
                                   @Multipart(value = "blob") InputStream picture)
     throws SQLException, IOException {
 
@@ -226,7 +227,7 @@ public class RecipemanagementRestServiceImpl {
   }
 
   /**
-   * Returns a {@link List} of all stored {@link IngredientEto}
+   * Returns a {@link List} of all stored {@link IngredientEto}.
    *
    * @return a list of all IngredientEto
    */
@@ -237,4 +238,16 @@ public class RecipemanagementRestServiceImpl {
     return recipemanagement.findAllIngredients();
   }
 
+  /**
+  * Returns the summed up price for the given ingredients.
+  *
+  * @param ingredients ingredients for the price calculation
+  * @return summed up price
+  */
+  @POST
+  @Path("/price/sum")
+  public Money getSummedPrice(Set<RecipeIngredientEto> ingredients) {
+
+    return this.recipemanagement.getSummedPrice(ingredients);
+  }
 }
