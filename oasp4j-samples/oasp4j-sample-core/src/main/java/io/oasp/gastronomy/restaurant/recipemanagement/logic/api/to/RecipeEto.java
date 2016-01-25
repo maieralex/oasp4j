@@ -25,8 +25,6 @@ public class RecipeEto extends AbstractEto implements Recipe {
 
   private String author;
 
-  private String category;
-
   private Integer portions;
 
   private Set<RecipeIngredientEto> recipeIngredients;
@@ -204,24 +202,6 @@ public class RecipeEto extends AbstractEto implements Recipe {
   public void setPortions(Integer portions) {
 
     this.portions = portions;
-  }
-
-  /**
-   *
-   * {@inheritDoc}
-   */
-  public String getCategory() {
-
-    return this.category;
-  }
-
-  /**
-   *
-   * {@inheritDoc}
-   */
-  public void setCategory(String category) {
-
-    this.category = category;
   }
 
   /**
