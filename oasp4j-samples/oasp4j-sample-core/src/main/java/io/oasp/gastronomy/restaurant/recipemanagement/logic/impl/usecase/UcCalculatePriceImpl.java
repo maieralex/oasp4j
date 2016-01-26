@@ -22,7 +22,7 @@ public class UcCalculatePriceImpl extends AbstractRecipeUc implements UcCalculat
   public Money getSummedPrice(Set<RecipeIngredientEto> ingredients) {
 
     Double sum = 0.0;
-    Double fixprice = 1.0;
+    Double fixprice = 3.0;
 
     if (ingredients == null) {
       return new Money(sum);
