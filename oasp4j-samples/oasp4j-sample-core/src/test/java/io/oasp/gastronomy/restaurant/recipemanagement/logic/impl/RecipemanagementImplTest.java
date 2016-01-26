@@ -534,7 +534,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     ingredients.add(ingredientTwo);
     ingredients.add(ingredientThree);
 
-    final Money expectedPrice = new Money(130.0);
+    final Money expectedPrice = new Money(390.0);
     Money summedPrice = this.recipeManagement.getSummedPrice(ingredients);
 
     assertEquals(expectedPrice, summedPrice);
@@ -598,7 +598,7 @@ public class RecipemanagementImplTest extends AbstractSpringIntegrationTest {
     ingredients.add(ingredientTwo);
     ingredients.add(ingredientThree);
 
-    final Money expectedPrice = new Money(80.0);
+    final Money expectedPrice = new Money(240.0);
     Money summedPrice = this.recipeManagement.getSummedPrice(ingredients);
   }
 
